@@ -1,0 +1,58 @@
+{
+  "name": "ms-rest",
+  "author": {
+    "name": "Microsoft Corporation",
+    "email": "azsdkteam@microsoft.com",
+    "url": "https://github.com/Azure/azure-sdk-for-node"
+  },
+  "version": "3.0.0",
+  "description": "Client Runtime for Node.js client libraries generated using AutoRest",
+  "tags": [
+    "node",
+    "microsoft",
+    "autorest",
+    "clientruntime"
+  ],
+  "keywords": [
+    "node",
+    "microsoft",
+    "autorest",
+    "clientruntime"
+  ],
+  "main": "./lib/msRest.js",
+  "types": "./index.d.ts",
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^7.0.10",
+    "@types/uuid": "^2.0.29",
+    "@types/node-fetch": "^1.6.7",
+    "@types/form-data": "^0.0.33",
+    "buffer": "^5.0.6",
+    "is-stream": "^1.1.0",
+    "moment": "^2.14.1",
+    "node-fetch": "^1.6.3",
+    "uuid": "^3.0.1",
+    "form-data": "^2.1.4",
+    "fetch-cookie": "^0.6.0"
+  },
+  "devDependencies": {
+    "jshint": "2.9.4",
+    "mocha": "^3.2.0",
+    "should": "5.2.0",
+    "@types/mocha": "^2.2.40",
+    "@types/should": "^8.1.30"
+  },
+  "homepage": "https://github.com/Azure/azure-sdk-for-node/runtime/ms-rest",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Azure/azure-sdk-for-node.git"
+  },
+  "bugs": {
+    "url": "http://github.com/Azure/azure-sdk-for-node/issues"
+  },
+  "scripts": {
+    "test": "npm install && npm -s run-script jshint && npm -s run-script unit",
+    "unit": "node test/unit.js testlist.txt",
+    "jshint": "jshint lib --reporter=jslint"
+  }
+}

@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "module": "es2015",
+        "noImplicitAny": true,
+        "preserveConstEnums": true,
+        "sourceMap": false,
+        "newLine": "LF",
+        "target": "esnext",
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "outDir": "dist",
+        "declaration": false,
+        "allowJs": false,
+        "lib": [
+            "es6"
+        ]
+    },
+    "compileOnSave": true,
+    "exclude": [
+        "node_modules"
+    ],
+    "include": [
+        "lib/**/*"
+    ]
+}
