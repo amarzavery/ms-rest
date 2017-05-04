@@ -6,15 +6,35 @@
 import RequestPipeline from './requestPipeline';
 import ServiceClientCredentials from './credentials/serviceClientCredentials';
 import BaseFilter from './filters/baseFilter';
+import ExponentialRetryPolicyFilter from './filters/exponentialRetryPolicyFilter';
+import SystemErrorRetryPolicyFilter from './filters/systemErrorRetryPolicyFilter';
+import SigningFilter from './filters/signingFilter';
+import UserAgentFilter from './filters/msRestUserAgentFilter';
 import * as nodeFetch from 'node-fetch';
 import * as fs from 'fs';
 import * as path from 'path';
 
+/**
+ * Options to be provided while creating the client.
+ * @property {object} [requestOptions] The request options. Detailed info can be found here https://github.com/bitinn/node-fetch#fetch-options
+ * @property {Array<BaseFilter>} [filters] An array of filters/interceptors that will be processed in the request pipeline (before and after) sending the request on the wire.
+ * @property {bool} [options.noRetryPolicy] - If set to true, turn off default retry policy
+ */
 export interface ServiceClientOptions {
   requestOptions?: nodeFetch.RequestInit;
   filters?: BaseFilter[];
+  noRetryPolicy?: boolean;
 }
 
+/**
+ * @class
+ * Initializes a new instance of the ServiceClient.
+ * @constructor
+ * @param {ServiceClientCredentials} [credentials]    - BasicAuthenticationCredentials or
+ * TokenCredentials object used for authentication.
+ *
+ * @param {ServiceClientOptions} [options] The service client options that govern the behavior of the client.
+ */
 export class ServiceClient {
   userAgentInfo: { value: Array<string> };
   pipeline: Function;
@@ -33,9 +53,11 @@ export class ServiceClient {
     }
 
     this.userAgentInfo = { value: [] };
+
     if (credentials && !credentials.signRequest) {
       throw new Error('credentials argument needs to implement signRequest method');
     }
+
     try {
       const packageJson = JSON.parse(fs.readFileSync('../package.json', { encoding: 'utf8' }));
       const moduleName = packageJson.name;
@@ -43,6 +65,18 @@ export class ServiceClient {
       this.addUserAgentInfo(`${moduleName}/${moduleVersion}`);
     } catch (err) {
       //do nothing
+    }
+
+    if (credentials) {
+      options.filters.push(new SigningFilter(credentials));
+    }
+
+    options.filters.push(new UserAgentFilter(this.userAgentInfo.value));
+
+
+    if (!options.noRetryPolicy) {
+      options.filters.push(new ExponentialRetryPolicyFilter());
+      options.filters.push(new SystemErrorRetryPolicyFilter());
     }
 
     this.pipeline = new RequestPipeline(options.filters, options.requestOptions).create();

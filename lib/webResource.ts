@@ -19,7 +19,7 @@ export default class WebResource {
   rawResponse?: boolean = false;
   formData?: any;
 
-  constructor(url?: string, method?: string, body?: any, headers?: { [key: string]: any; }, rawResponse: boolean = false) {
+  constructor(url?: string, method?: string, body?: any, headers: { [key: string]: any; } = {}, rawResponse: boolean = false) {
     this.rawResponse = rawResponse;
     this.url = url;
     this.method = method;

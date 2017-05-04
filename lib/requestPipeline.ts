@@ -46,17 +46,20 @@ export default class RequestPipeline {
         }
       }//end-of-for-loop
       //add the request sink
-      beforeFilters.push(self.requestSink);
+      beforeFilters.push(self.requestSink.bind(self));
       pipeline = beforeFilters.concat(afterFilters);
     } else {
-      pipeline.push(self.requestSink);
+      pipeline.push(self.requestSink.bind(self));
     }
     return (request: WebResource): Promise<HttpOperationResponse> => {
+      if (!request.headers) request.headers = {};
       return utils.executePromisesSequentially(pipeline, request);
     };
   }
 
   async requestSink(options: WebResource): Promise<HttpOperationResponse> {
+    if (this.requestOptions.method) delete this.requestOptions.method;
+    utils.mergeObjects(this.requestOptions, options);
     if (options.formData) {
       let formData: any = options.formData;
       let requestForm = new FormData();
@@ -84,10 +87,8 @@ export default class RequestPipeline {
       options.formData = null;
     }
     let res: nodeFetch.Response;
-    let resBodyAsText: string;
     try {
       res = await fetch(options.url, options);
-      resBodyAsText = await res.text();
     } catch (err) {
       throw err;
     }
@@ -95,13 +96,7 @@ export default class RequestPipeline {
     if (options.rawResponse) {
       operationResponse.body = res.body;
     } else {
-      let resBody = null;
-      try {
-        resBody = JSON.parse(resBodyAsText);
-      } catch (err) {
-        operationResponse.body = resBodyAsText;
-      }
-      operationResponse.body = resBody;
+      operationResponse.body = await res.text();
     }
     return operationResponse;
   }

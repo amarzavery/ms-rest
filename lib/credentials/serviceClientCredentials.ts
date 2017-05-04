@@ -9,10 +9,10 @@ interface ServiceClientCredentials {
   /**
    * Signs a request with the Authentication header.
    *
-   * @param {WebResource} The WebResource to be signed.
-   * @param {function(error)}  callback  The callback function.
+   * @param {WebResource} webResource The WebResource/request to be signed.
+   * @returns {Promise<WebResource>} The signed request object;
    */
-  signRequest(webResource: WebResource, callback: { (err: Error): void }): void;
+  signRequest(webResource: WebResource): Promise<WebResource>;
 }
 
 export default ServiceClientCredentials;

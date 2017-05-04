@@ -146,3 +146,29 @@ export function executePromisesSequentially(promiseFactories: Array<any>, kickst
   });
   return result;
 };
+
+/*
+ * Merges source object into the target object
+ * @param {object} source The object that needs to be merged
+ * 
+ * @param {object} target The object to be merged into
+ * 
+ * @returns {object} target - Returns the merged target object.
+ */
+export function mergeObjects(source: { [key: string]: any; }, target: { [key: string]: any; }) {
+  Object.keys(source).forEach((key) => {
+    target[key] = source[key];
+  });
+  return target;
+}
+
+/**
+ * A wrapper for setTimeout that resolves a promise after t milliseconds.
+ * @param {number} t - The number of milliseconds to be delayed.
+ * @returns {Promise<object>} - Resolved promise
+ */
+export function delay(t: number): Promise<object> {
+  return new Promise((resolve) => {
+    setTimeout(resolve, t)
+  });
+}

@@ -3,6 +3,7 @@
 
 'use strict';
 
+import * as stream from 'stream';
 import * as nodeFetch from 'node-fetch';
 import WebResource from './webResource';
 
@@ -14,9 +15,18 @@ import WebResource from './webResource';
  * @constructor
  */
 export default class HttpOperationResponse {
+  /**
+   * The raw request
+   */
   request: WebResource;
+  /**
+   * The raw response
+   */
   response: nodeFetch.Response;
-  body: any;
+  /**
+   * The response body as text (string format) or a stream
+   */
+  body: string | stream;
   constructor(request: WebResource, response: nodeFetch.Response) {
     /**
      * Reference to the original request object.

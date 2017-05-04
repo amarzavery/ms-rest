@@ -10,6 +10,10 @@ import Constants from './util/constants';
 import RequestPipeline from './requestPipeline';
 import LogFilter from './filters/logFilter';
 import BaseFilter from './filters/baseFilter';
+import ExponentialRetryPolicyFilter from './filters/exponentialRetryPolicyFilter';
+import SystemErrorRetryPolicyFilter from './filters/systemErrorRetryPolicyFilter';
+import SigningFilter from './filters/signingFilter';
+import UserAgentFilter from './filters/msRestUserAgentFilter'
 
 //Credentials
 import TokenCredentials from './credentials/tokenCredentials';
@@ -17,5 +21,6 @@ import BasicAuthenticationCredentials from './credentials/basicAuthenticationCre
 
 export {
   WebResource, HttpOperationResponse, ServiceClient, Constants, RequestPipeline, TokenCredentials,
-  BasicAuthenticationCredentials, BaseFilter, LogFilter, ServiceClientOptions
+  BasicAuthenticationCredentials, BaseFilter, LogFilter, ServiceClientOptions, ExponentialRetryPolicyFilter,
+  SystemErrorRetryPolicyFilter, SigningFilter, UserAgentFilter
 };

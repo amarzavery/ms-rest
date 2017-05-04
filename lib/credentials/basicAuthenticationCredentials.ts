@@ -33,12 +33,12 @@ export default class BasicAuthenticationCredentials implements SereviceClientCre
    * Signs a request with the Authentication header.
    *
    * @param {WebResource} The WebResource to be signed.
-   * @return {undefined}
+   * @returns {Promise<WebResource>} - The signed request object.
    */
   signRequest(webResource: WebResource) {
     let credentials = `${this.userName}:${this.password}`;
     let encodedCredentials = `${this.authorizationScheme} ${new Buffer(credentials).toString('base64')}`;
     webResource.headers[HeaderConstants.AUTHORIZATION] = encodedCredentials;
-    return Promise.resolve();
+    return Promise.resolve(webResource);
   }
 }

@@ -4,8 +4,8 @@
 'use strict';
 
 import BaseFilter from './baseFilter';
-import WebResource from '../webResource';
 import HttpOperationResponse from '../httpOperationResponse';
+const isStream = require('is-stream');
 
 class LogFilter extends BaseFilter {
 
@@ -16,16 +16,15 @@ class LogFilter extends BaseFilter {
     this.logger = logger;
   }
 
-  before(request: WebResource): Promise<WebResource> {
-    let self = this;
-    self.logger(`>> Request: ${JSON.stringify(request, null, 2)}`);
-    return Promise.resolve(request);
-  }
-
   after(operationResponse: HttpOperationResponse): Promise<HttpOperationResponse> {
     let self = this;
+    self.logger(`>> Request: ${JSON.stringify(operationResponse.request, null, 2)}`);
     self.logger(`>> Response status code: ${operationResponse.response.status}`);
-    self.logger(`>> Body: ${JSON.stringify(operationResponse.body)}`);
+    let responseBody = operationResponse.body;
+    if (isStream(operationResponse.body)) {
+      responseBody = 'The response body is a stream. Hence omitting it from logging.'
+    }
+    self.logger(`>> Body: ${responseBody}`);
     return Promise.resolve(operationResponse);
   }
 }

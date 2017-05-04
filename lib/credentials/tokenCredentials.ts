@@ -30,10 +30,10 @@ export default class TokenCredentials implements SereviceClientCredentials {
    * Signs a request with the Authentication header.
    *
    * @param {WebResource} The WebResource to be signed.
-   * @return {Promise<null>}
+   * @return {Promise<WebResource>} The signed request object.
    */
   signRequest(webResource: WebResource) {
     webResource.headers[HeaderConstants.AUTHORIZATION] = `${this.authorizationScheme} ${this.token}`;
-    return Promise.resolve();
+    return Promise.resolve(webResource);
   }
 }
