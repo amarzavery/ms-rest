@@ -3,7 +3,7 @@
 
 'use strict';
 
-import WebResource from '../webResource';
+import { WebResource } from '../webResource';
 import HttpOperationResponse from '../httpOperationResponse';
 
 class BaseFilter {

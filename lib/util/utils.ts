@@ -3,7 +3,7 @@
 
 'use strict';
 
-import WebResource from '../webResource';
+import { WebResource } from '../webResource';
 import Constants from './constants';
 import * as uuid from 'uuid';
 
@@ -165,10 +165,18 @@ export function mergeObjects(source: { [key: string]: any; }, target: { [key: st
 /**
  * A wrapper for setTimeout that resolves a promise after t milliseconds.
  * @param {number} t - The number of milliseconds to be delayed.
- * @returns {Promise<object>} - Resolved promise
+ * @returns {Promise<T>} - Resolved promise
  */
-export function delay(t: number): Promise<object> {
-  return new Promise((resolve) => {
-    setTimeout(resolve, t)
-  });
+export function delay<T>(t: number, value?: T): Promise<T> {
+  return new Promise((resolve) => setTimeout(() => resolve(value), t));
+}
+
+/**
+ * Utility function to create a K:V from a list of strings
+ */
+export function strEnum<T extends string>(o: Array<T>): {[K in T]: K} {
+  return o.reduce((res, key) => {
+    res[key] = key;
+    return res;
+  }, Object.create(null));
 }

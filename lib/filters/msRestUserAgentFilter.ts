@@ -4,7 +4,7 @@
 'use strict';
 
 import BaseFilter from './baseFilter';
-import WebResource from '../webResource';
+import { WebResource } from '../webResource';
 import Constants from '../util/constants';
 import * as os from 'os';
 const HeaderConstants = Constants.HeaderConstants;

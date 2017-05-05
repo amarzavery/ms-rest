@@ -10,6 +10,8 @@ import ExponentialRetryPolicyFilter from './filters/exponentialRetryPolicyFilter
 import SystemErrorRetryPolicyFilter from './filters/systemErrorRetryPolicyFilter';
 import SigningFilter from './filters/signingFilter';
 import UserAgentFilter from './filters/msRestUserAgentFilter';
+import { WebResource, RequestPrepareOptions } from './webResource';
+import HttpOperationResponse from './httpOperationResponse';
 import * as nodeFetch from 'node-fetch';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -140,5 +142,32 @@ export class ServiceClient {
     }
 
     return packageJsonInfo;
+  }
+
+  async sendRequest(options: RequestPrepareOptions | WebResource): Promise<HttpOperationResponse> {
+    if (options === null || options === undefined || typeof options !== 'object') {
+      throw new Error('options cannot be null or undefined and it must be of type object.');
+    }
+
+    let httpRequest: WebResource = null;
+    try {
+      if (options instanceof WebResource) {
+        options.validateRequestProperties();
+        httpRequest = options;
+      } else {
+        httpRequest = new WebResource();
+        httpRequest = httpRequest.prepare(options);
+      }
+    } catch (error) {
+      return Promise.reject(error);
+    }
+    //send request
+    let operationResponse: HttpOperationResponse;
+    try {
+      operationResponse = await this.pipeline(httpRequest);
+    } catch (err) {
+      return Promise.reject(err);
+    }
+    return Promise.resolve(operationResponse);
   }
 }

@@ -3,7 +3,7 @@
 
 'use strict';
 
-import WebResource from './webResource';
+import { WebResource, RequestPrepareOptions, HttpMethods, ParameterValue } from './webResource';
 import HttpOperationResponse from './httpOperationResponse';
 import { ServiceClient, ServiceClientOptions } from './serviceClient';
 import Constants from './util/constants';
@@ -20,7 +20,7 @@ import TokenCredentials from './credentials/tokenCredentials';
 import BasicAuthenticationCredentials from './credentials/basicAuthenticationCredentials';
 
 export {
-  WebResource, HttpOperationResponse, ServiceClient, Constants, RequestPipeline, TokenCredentials,
+  WebResource, RequestPrepareOptions, HttpMethods, ParameterValue, HttpOperationResponse, ServiceClient, Constants, RequestPipeline, TokenCredentials,
   BasicAuthenticationCredentials, BaseFilter, LogFilter, ServiceClientOptions, ExponentialRetryPolicyFilter,
   SystemErrorRetryPolicyFilter, SigningFilter, UserAgentFilter
 };

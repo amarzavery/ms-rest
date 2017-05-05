@@ -5,7 +5,7 @@
 
 import * as stream from 'stream';
 import * as nodeFetch from 'node-fetch';
-import WebResource from './webResource';
+import { WebResource } from './webResource';
 
 /**
  * Wrapper object for http request and response. Deserialized object is stored in 

@@ -4,7 +4,7 @@
 'use strict';
 
 import BaseFilter from './baseFilter';
-import WebResource from '../webResource';
+import { WebResource } from '../webResource';
 import ServiceClientCredentials from '../credentials/serviceClientCredentials';
 
 class SigningFilter extends BaseFilter {

@@ -4,7 +4,7 @@
 'use strict';
 
 import Constants from '../util/constants';
-import WebResource from '../webResource';
+import { WebResource } from '../webResource';
 import SereviceClientCredentials from './serviceClientCredentials';
 
 const HeaderConstants = Constants.HeaderConstants;
