@@ -84,4 +84,3 @@ SdkCodeGen
 output/*
 
 # Typescript output
-dist/*
