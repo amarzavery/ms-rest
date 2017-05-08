@@ -8,7 +8,7 @@ import { WebResource } from '../webResource';
 import SereviceClientCredentials from './serviceClientCredentials';
 
 const HeaderConstants = Constants.HeaderConstants;
-const DEFAULT_AUTHORIZATION_SCHEME = 'Basic';
+const DEFAULT_AUTHORIZATION_SCHEME = 'Bearer';
 
 /**
  * Creates a new TokenCredentials object.
@@ -22,6 +22,9 @@ export default class TokenCredentials implements SereviceClientCredentials {
   authorizationScheme: string = DEFAULT_AUTHORIZATION_SCHEME;
 
   constructor(token: string, authorizationScheme: string = DEFAULT_AUTHORIZATION_SCHEME) {
+    if (!token) {
+      throw new Error('token cannot be null or undefined.');
+    }
     this.token = token;
     this.authorizationScheme = authorizationScheme;
   }

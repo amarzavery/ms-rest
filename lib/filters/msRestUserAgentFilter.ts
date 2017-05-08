@@ -45,7 +45,11 @@ class MsRestUserAgentFilter extends BaseFilter {
 
   before(request: WebResource): Promise<WebResource> {
     let self = this;
-    return self.tagRequest(request);
+    if (!request.headers[HeaderConstants.USER_AGENT]) {
+      return self.tagRequest(request);
+    } else {
+      return Promise.resolve(request);
+    }
   }
 }
 

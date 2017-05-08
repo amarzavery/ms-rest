@@ -10,6 +10,6 @@ let req: msRest.RequestPrepareOptions = {
   method: msRest.HttpMethods.GET
 };
 
-client.pipeline(req).then(function (res: msRest.HttpOperationResponse) {
+client.sendRequest(req).then(function (res: msRest.HttpOperationResponse) {
   console.dir(res.body);
 });

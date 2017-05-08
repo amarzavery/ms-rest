@@ -7,7 +7,7 @@ import Constants from '../util/constants';
 import { WebResource } from '../webResource';
 import SereviceClientCredentials from './serviceClientCredentials';
 
-var Buffer = require('buffer/');
+const Buffer = require('buffer/').Buffer;
 const HeaderConstants = Constants.HeaderConstants;
 const DEFAULT_AUTHORIZATION_SCHEME = 'Basic';
 
@@ -24,6 +24,12 @@ export default class BasicAuthenticationCredentials implements SereviceClientCre
   password: string;
   authorizationScheme: string = DEFAULT_AUTHORIZATION_SCHEME;
   constructor(userName: string, password: string, authorizationScheme: string = DEFAULT_AUTHORIZATION_SCHEME) {
+    if (userName === null || userName === undefined || typeof userName.valueOf() !== 'string') {
+      throw new Error('userName cannot be null or undefined and must be of type string.');
+    }
+    if (password === null || password === undefined || typeof password.valueOf() !== 'string') {
+      throw new Error('password cannot be null or undefined and must be of type string.');
+    }
     this.userName = userName;
     this.password = password;
     this.authorizationScheme = authorizationScheme;
@@ -37,7 +43,7 @@ export default class BasicAuthenticationCredentials implements SereviceClientCre
    */
   signRequest(webResource: WebResource) {
     let credentials = `${this.userName}:${this.password}`;
-    let encodedCredentials = `${this.authorizationScheme} ${new Buffer(credentials).toString('base64')}`;
+    let encodedCredentials = `${this.authorizationScheme} ${Buffer.from(credentials).toString('base64')}`;
     webResource.headers[HeaderConstants.AUTHORIZATION] = encodedCredentials;
     return Promise.resolve(webResource);
   }
