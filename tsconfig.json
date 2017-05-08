@@ -22,6 +22,7 @@
         "node_modules"
     ],
     "include": [
-        "lib/**/*"
+        "lib/**/*.ts",
+        "test/**/*.ts"
     ]
 }

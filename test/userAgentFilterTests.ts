@@ -55,7 +55,7 @@ describe('ms-rest user agent filter', () => {
       should.ok(resource);
       var deconstructedUserAgent = resource.headers[userAgentHeader].split(' ');
       should.ok(deconstructedUserAgent);
-      var indexOfAzureRuntime = deconstructedUserAgent.findIndex((e) => e.startsWith(azureRuntime));
+      var indexOfAzureRuntime = deconstructedUserAgent.findIndex((e: string) => e.startsWith(azureRuntime));
       assert.notEqual(indexOfAzureRuntime, -1, `did not find ${azureRuntime} in user agent`);
       var indexOfAzureSDK = deconstructedUserAgent.indexOf(azureSDK);
       assert.notEqual(indexOfAzureSDK, -1, `did not find ${azureSDK} in user agent`);

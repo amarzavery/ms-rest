@@ -10,8 +10,8 @@ import LogFilter from '../lib/filters/logFilter';
 
 describe('Log filter', () => {
 
-  it.only('should log messages when a logger object is provided', (done) => {
-    var expected = `>> Request: {
+  it('should log messages when a logger object is provided', (done) => {
+    let expected = `>> Request: {
   "headers": {},
   "rawResponse": false,
   "url": "https://foo.com",
@@ -24,13 +24,13 @@ describe('Log filter', () => {
 >> Response status code: 200
 >> Body: null
 `;
-    var output: string = '';
-    var logger: Function = (message): void => { output += message + '\n'; };
-    var lf = new LogFilter(logger);
+    let output: string = '';
+    let logger: Function = (message: string): void => { output += message + '\n'; };
+    let lf = new LogFilter(logger);
     let req = new WebResource('https://foo.com', 'PUT', { "a": 1 });
     let res = new nodeFetch.Response();
-    var opRes = new HttpOperationResponse(req, res);
-    lf.after(opRes).then((opRes) => {
+    let opRes = new HttpOperationResponse(req, res);
+    lf.after(opRes).then(() => {
       assert.deepEqual(output, expected);
       done();
     });

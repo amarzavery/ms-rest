@@ -19,7 +19,6 @@ describe('Token credentials', () => {
       request.headers = {};
 
       creds.signRequest(request).then((signedRequest: msRest.WebResource) => {
-        console.dir(signedRequest);
         should.exist(signedRequest.headers['authorization']);
 
         signedRequest.headers['authorization'].should.match(new RegExp('^Bearer\\s+' + dummyToken + '$'));
