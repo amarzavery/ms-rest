@@ -6,10 +6,11 @@ const clientOptions: msRest.ServiceClientOptions = {
 };
 const client = new msRest.ServiceClient(null, clientOptions);
 let req: msRest.RequestPrepareOptions = {
-  url: 'http://petstore.swagger.io/v2/pet/1',
-  method: msRest.HttpMethods.GET
+  url: 'http://petstore.swagger.io/v2/pet/2',
+  method: msRest.HttpMethods.GET,
+  disableClientRequestId: true
 };
 
 client.sendRequest(req).then(function (res: msRest.HttpOperationResponse) {
-  console.dir(res.body);
+  document.write(res.body as string);
 });

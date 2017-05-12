@@ -3,18 +3,21 @@
         "module": "es2015",
         "noImplicitAny": true,
         "preserveConstEnums": true,
-        "sourceMap": false,
+        "sourceMap": true,
         "newLine": "LF",
-        "target": "esnext",
+        "target": "es2016",
+        "moduleResolution": "node",
         "noImplicitReturns": true,
         "noImplicitThis": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "outDir": "dist",
         "declaration": false,
-        "allowJs": false,
+        "allowJs": true,
         "lib": [
-            "es6"
+            "dom",
+            "es2015",
+            "es2016"
         ]
     },
     "compileOnSave": true,
