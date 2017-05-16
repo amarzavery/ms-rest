@@ -1,11 +1,11 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-'use strict';
+"use strict";
 
-import BaseFilter from './baseFilter';
-import * as utils from '../util/utils';
-import HttpOperationResponse from '../httpOperationResponse';
+import BaseFilter from "./baseFilter";
+import * as utils from "../util/utils";
+import HttpOperationResponse from "../httpOperationResponse";
 
 export interface RetryData {
   retryCount: number;
@@ -35,10 +35,10 @@ class ExponentialRetryPolicyFilter extends BaseFilter {
   retryInterval: number;
   minRetryInterval: number;
   maxRetryInterval: number;
-  DEFAULT_CLIENT_RETRY_INTERVAL: number = 1000 * 30;
-  DEFAULT_CLIENT_RETRY_COUNT: number = 3;
-  DEFAULT_CLIENT_MAX_RETRY_INTERVAL: number = 1000 * 90;
-  DEFAULT_CLIENT_MIN_RETRY_INTERVAL: number = 1000 * 3;
+  DEFAULT_CLIENT_RETRY_INTERVAL = 1000 * 30;
+  DEFAULT_CLIENT_RETRY_COUNT = 3;
+  DEFAULT_CLIENT_MAX_RETRY_INTERVAL = 1000 * 90;
+  DEFAULT_CLIENT_MIN_RETRY_INTERVAL = 1000 * 3;
 
   constructor(retryCount?: number, retryInterval?: number, minRetryInterval?: number, maxRetryInterval?: number) {
     super();
@@ -62,7 +62,7 @@ class ExponentialRetryPolicyFilter extends BaseFilter {
 
     let currentCount: number;
     if (!retryData) {
-      throw new Error('retryData for the ExponentialRetryPolicyFilter cannot be null.');
+      throw new Error("retryData for the ExponentialRetryPolicyFilter cannot be null.");
     } else {
       currentCount = (retryData && retryData.retryCount);
     }
@@ -96,8 +96,8 @@ class ExponentialRetryPolicyFilter extends BaseFilter {
     retryData.retryCount++;
 
     // Adjust retry interval
-    var incrementDelta = Math.pow(2, retryData.retryCount) - 1;
-    var boundedRandDelta = this.retryInterval * 0.8 +
+    let incrementDelta = Math.pow(2, retryData.retryCount) - 1;
+    const boundedRandDelta = this.retryInterval * 0.8 +
       Math.floor(Math.random() * (this.retryInterval * 1.2 - this.retryInterval * 0.8));
     incrementDelta *= boundedRandDelta;
 
@@ -107,8 +107,8 @@ class ExponentialRetryPolicyFilter extends BaseFilter {
   }
 
   retry(operationResponse: HttpOperationResponse, retryData?: RetryData, err?: RetryError): Promise<HttpOperationResponse> {
-    let self = this;
-    let response = operationResponse.response;
+    const self = this;
+    const response = operationResponse.response;
     retryData = self.updateRetryData(retryData, err);
     if (!utils.objectIsNull(response) && self.shouldRetry(response.status, retryData)) {
       // If previous operation ended with an error and the policy allows a retry, do that

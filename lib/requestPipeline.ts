@@ -1,15 +1,15 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information. 
+// Licensed under the MIT License. See License.txt in the project root for license information.
 
-'use strict';
+"use strict";
 
-import { WebResource } from './webResource';
-import HttpOperationResponse from './httpOperationResponse';
-import BaseFilter from './filters/baseFilter';
-import * as utils from './util/utils';
-import * as nodeFetch from 'node-fetch';
-const fetchCookie = require('fetch-cookie');
-import * as FormData from 'form-data';
+import { WebResource } from "./webResource";
+import HttpOperationResponse from "./httpOperationResponse";
+import BaseFilter from "./filters/baseFilter";
+import * as utils from "./util/utils";
+import * as nodeFetch from "node-fetch";
+const fetchCookie = require("fetch-cookie");
+import * as FormData from "form-data";
 const fetch = fetchCookie(nodeFetch);
 
 Object.assign(nodeFetch.Response.prototype, {
@@ -31,21 +31,21 @@ export default class RequestPipeline {
   }
 
   create(): Function {
-    let self = this;
+    const self = this;
     let pipeline: Array<Function> = [];
     if (self.filters && self.filters.length) {
-      let beforeFilters: Array<Function> = [];
-      let afterFilters: Array<Function> = [];
+      const beforeFilters: Array<Function> = [];
+      const afterFilters: Array<Function> = [];
       for (let i = 0; i < self.filters.length; i++) {
-        let filter = self.filters[i];
-        if (filter.before && typeof filter.before === 'function') {
+        const filter = self.filters[i];
+        if (filter.before && typeof filter.before === "function") {
           beforeFilters.push(filter.before.bind(filter));
         }
-        if (filter.after && typeof filter.after === 'function') {
+        if (filter.after && typeof filter.after === "function") {
           afterFilters.push(filter.after.bind(filter));
         }
-      }//end-of-for-loop
-      //add the request sink
+      }// end-of-for-loop
+      // add the request sink
       beforeFilters.push(self.requestSink.bind(self));
       pipeline = beforeFilters.concat(afterFilters);
     } else {
@@ -61,18 +61,18 @@ export default class RequestPipeline {
     if (this.requestOptions.method) delete this.requestOptions.method;
     utils.mergeObjects(this.requestOptions, options);
     if (options.formData) {
-      let formData: any = options.formData;
-      let requestForm = new FormData();
-      let appendFormValue = (key: string, value: any) => {
-        if (value && value.hasOwnProperty('value') && value.hasOwnProperty('options')) {
+      const formData: any = options.formData;
+      const requestForm = new FormData();
+      const appendFormValue = (key: string, value: any) => {
+        if (value && value.hasOwnProperty("value") && value.hasOwnProperty("options")) {
           requestForm.append(key, value.value, value.options);
         } else {
           requestForm.append(key, value);
         }
-      }
-      for (let formKey in formData) {
+      };
+      for (const formKey in formData) {
         if (formData.hasOwnProperty(formKey)) {
-          let formValue = formData[formKey];
+          const formValue = formData[formKey];
           if (formValue instanceof Array) {
             for (let j = 0; j < formValue.length; j++) {
               appendFormValue(formKey, formValue[j]);
@@ -84,7 +84,7 @@ export default class RequestPipeline {
       }
 
       options.body = requestForm;
-      options.formData = null;
+      options.formData = undefined;
     }
     let res: nodeFetch.Response;
     try {
@@ -92,7 +92,7 @@ export default class RequestPipeline {
     } catch (err) {
       throw err;
     }
-    let operationResponse = new HttpOperationResponse(options, res);
+    const operationResponse = new HttpOperationResponse(options, res);
     if (options.rawResponse) {
       operationResponse.body = res.body;
     } else {
