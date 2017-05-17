@@ -1,14 +1,14 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information. 
+// Licensed under the MIT License. See License.txt in the project root for license information.
 
-'use strict';
+"use strict";
 
-import Constants from '../util/constants';
-import { WebResource } from '../webResource';
-import SereviceClientCredentials from './serviceClientCredentials';
+import Constants from "../util/constants";
+import { WebResource } from "../webResource";
+import SereviceClientCredentials from "./serviceClientCredentials";
 
 const HeaderConstants = Constants.HeaderConstants;
-const DEFAULT_AUTHORIZATION_SCHEME = 'Bearer';
+const DEFAULT_AUTHORIZATION_SCHEME = "Bearer";
 
 /**
  * Creates a new TokenCredentials object.
@@ -23,7 +23,7 @@ export default class TokenCredentials implements SereviceClientCredentials {
 
   constructor(token: string, authorizationScheme: string = DEFAULT_AUTHORIZATION_SCHEME) {
     if (!token) {
-      throw new Error('token cannot be null or undefined.');
+      throw new Error("token cannot be null or undefined.");
     }
     this.token = token;
     this.authorizationScheme = authorizationScheme;

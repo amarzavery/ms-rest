@@ -1,20 +1,20 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-'use strict';
+"use strict";
 
-import RequestPipeline from './requestPipeline';
-import ServiceClientCredentials from './credentials/serviceClientCredentials';
-import BaseFilter from './filters/baseFilter';
-import ExponentialRetryPolicyFilter from './filters/exponentialRetryPolicyFilter';
-import SystemErrorRetryPolicyFilter from './filters/systemErrorRetryPolicyFilter';
-import SigningFilter from './filters/signingFilter';
-import UserAgentFilter from './filters/msRestUserAgentFilter';
-import { WebResource, RequestPrepareOptions } from './webResource';
-import HttpOperationResponse from './httpOperationResponse';
-import * as nodeFetch from 'node-fetch';
-import * as fs from 'fs';
-import * as path from 'path';
+import RequestPipeline from "./requestPipeline";
+import ServiceClientCredentials from "./credentials/serviceClientCredentials";
+import BaseFilter from "./filters/baseFilter";
+import ExponentialRetryPolicyFilter from "./filters/exponentialRetryPolicyFilter";
+import SystemErrorRetryPolicyFilter from "./filters/systemErrorRetryPolicyFilter";
+import SigningFilter from "./filters/signingFilter";
+import UserAgentFilter from "./filters/msRestUserAgentFilter";
+import { WebResource, RequestPrepareOptions } from "./webResource";
+import HttpOperationResponse from "./httpOperationResponse";
+import * as nodeFetch from "node-fetch";
+import * as fs from "fs";
+import * as path from "path";
 
 /**
  * Options to be provided while creating the client.
@@ -57,16 +57,16 @@ export class ServiceClient {
     this.userAgentInfo = { value: [] };
 
     if (credentials && !credentials.signRequest) {
-      throw new Error('credentials argument needs to implement signRequest method');
+      throw new Error("credentials argument needs to implement signRequest method");
     }
 
     try {
-      const packageJson = JSON.parse(fs.readFileSync('../package.json', { encoding: 'utf8' }));
+      const packageJson = JSON.parse(fs.readFileSync("../package.json", { encoding: "utf8" }));
       const moduleName = packageJson.name;
       const moduleVersion = packageJson.version;
       this.addUserAgentInfo(`${moduleName}/${moduleVersion}`);
     } catch (err) {
-      //do nothing
+      // do nothing
     }
 
     if (credentials) {
@@ -111,31 +111,31 @@ export class ServiceClient {
     // In some packages (azure-arm-resource), management client lives at one level deeper in the lib directory
     // so, we have to traverse at least two levels higher to locate package.json.
     // The algorithm for locating package.json would then be, start at the current directory where management client lives
-    // and keep searching up until the file is located. We also limit the search depth to 2, since we know the structure of 
+    // and keep searching up until the file is located. We also limit the search depth to 2, since we know the structure of
     // the clients we generate.
 
-    let packageJsonInfo = {
-      name: 'NO_NAME',
-      version: '0.0.0'
+    const packageJsonInfo = {
+      name: "NO_NAME",
+      version: "0.0.0"
     };
 
     // private helper
     function _getLibPath(currentDir: string, searchDepth: number): string {
       if (searchDepth < 1) {
-        return '';
+        return "";
       }
 
       // if current directory is lib, return current dir, otherwise search one level up.
-      return (currentDir.endsWith('lib') || currentDir.endsWith('lib' + path.sep)) ?
+      return (currentDir.endsWith("lib") || currentDir.endsWith("lib" + path.sep)) ?
         currentDir :
-        _getLibPath(path.join(currentDir, '..'), searchDepth - 1);
+        _getLibPath(path.join(currentDir, ".."), searchDepth - 1);
     }
 
-    let libPath = _getLibPath(managementClientDir, 2);
+    const libPath = _getLibPath(managementClientDir, 2);
     if (libPath) {
-      let packageJsonPath = path.join(libPath, '..', 'package.json');
+      const packageJsonPath = path.join(libPath, "..", "package.json");
       if (fs.existsSync(packageJsonPath)) {
-        let data = require(packageJsonPath);
+        const data = require(packageJsonPath);
         packageJsonInfo.name = data.name;
         packageJsonInfo.version = data.version;
       }
@@ -145,11 +145,11 @@ export class ServiceClient {
   }
 
   async sendRequest(options: RequestPrepareOptions | WebResource): Promise<HttpOperationResponse> {
-    if (options === null || options === undefined || typeof options !== 'object') {
-      throw new Error('options cannot be null or undefined and it must be of type object.');
+    if (options === null || options === undefined || typeof options !== "object") {
+      throw new Error("options cannot be null or undefined and it must be of type object.");
     }
 
-    let httpRequest: WebResource = null;
+    let httpRequest: WebResource = undefined;
     try {
       if (options instanceof WebResource) {
         options.validateRequestProperties();
@@ -161,7 +161,7 @@ export class ServiceClient {
     } catch (error) {
       return Promise.reject(error);
     }
-    //send request
+    // send request
     let operationResponse: HttpOperationResponse;
     try {
       operationResponse = await this.pipeline(httpRequest);

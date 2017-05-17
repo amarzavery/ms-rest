@@ -1,11 +1,11 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information. 
+// Licensed under the MIT License. See License.txt in the project root for license information.
 
-'use strict';
+"use strict";
 
-import BaseFilter from './baseFilter';
-import { WebResource } from '../webResource';
-import ServiceClientCredentials from '../credentials/serviceClientCredentials';
+import BaseFilter from "./baseFilter";
+import { WebResource } from "../webResource";
+import ServiceClientCredentials from "../credentials/serviceClientCredentials";
 
 class SigningFilter extends BaseFilter {
 
@@ -17,7 +17,7 @@ class SigningFilter extends BaseFilter {
   }
 
   before(request: WebResource): Promise<WebResource> {
-    let self = this;
+    const self = this;
     return self.authenticationProvider.signRequest(request);
   }
 }
