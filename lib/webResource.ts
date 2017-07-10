@@ -1,9 +1,9 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-"use strict";
+'use strict';
 
-import * as utils from "./util/utils";
+import * as utils from './util/utils';
 
 /**
  * Creates a new WebResource object.
@@ -39,9 +39,9 @@ export class WebResource {
    * mentioned properties are not defined.
    */
   validateRequestProperties(): void {
-    if (!this.method || !this.url || !this.headers["Content-Type"] || !this.headers["accept-language"]) {
-      throw new Error("method, url, headers[\'Content-Type\'], headers[\'accept-language\'] are " +
-        "required properties before making a request. Either provide them or use WebResource.prepare() method.");
+    if (!this.method || !this.url || !this.headers['Content-Type'] || !this.headers['accept-language']) {
+      throw new Error('method, url, headers[\'Content-Type\'], headers[\'accept-language\'] are ' +
+        'required properties before making a request. Either provide them or use WebResource.prepare() method.');
     }
     return;
   }
@@ -105,71 +105,71 @@ export class WebResource {
    * @returns {object} WebResource Returns the prepared WebResource (HTTP Request) object that needs to be given to the request pipeline.
    */
   prepare(options: RequestPrepareOptions) {
-    if (options === null || options === undefined || typeof options !== "object") {
-      throw new Error("options cannot be null or undefined and must be of type object");
+    if (options === null || options === undefined || typeof options !== 'object') {
+      throw new Error('options cannot be null or undefined and must be of type object');
     }
 
-    if (options.method === null || options.method === undefined || typeof options.method.valueOf() !== "string") {
-      throw new Error("options.method cannot be null or undefined and it must be of type string.");
+    if (options.method === null || options.method === undefined || typeof options.method.valueOf() !== 'string') {
+      throw new Error('options.method cannot be null or undefined and it must be of type string.');
     }
 
     if (options.url && options.pathTemplate) {
-      throw new Error("options.url and options.pathTemplate are mutually exclusive. Please provide either of them.");
+      throw new Error('options.url and options.pathTemplate are mutually exclusive. Please provide either of them.');
     }
 
 
-    if ((options.pathTemplate === null || options.pathTemplate === undefined || typeof options.pathTemplate.valueOf() !== "string") && (options.url === null || options.url === undefined || typeof options.url.valueOf() !== "string")) {
-      throw new Error("Please provide either options.pathTemplate or options.url. Currently none of them were provided.");
+    if ((options.pathTemplate === null || options.pathTemplate === undefined || typeof options.pathTemplate.valueOf() !== 'string') && (options.url === null || options.url === undefined || typeof options.url.valueOf() !== 'string')) {
+      throw new Error('Please provide either options.pathTemplate or options.url. Currently none of them were provided.');
     }
 
     // set the url if it is provided.
     if (options.url) {
-      if (typeof options.url !== "string") {
-        throw new Error("options.url must be of type \'string\'.");
+      if (typeof options.url !== 'string') {
+        throw new Error('options.url must be of type \'string\'.');
       }
       this.url = options.url;
     }
 
     // set the method
     if (options.method) {
-      const validMethods = ["GET", "PUT", "HEAD", "DELETE", "OPTIONS", "POST", "PATCH", "TRACE"];
+      const validMethods = ['GET', 'PUT', 'HEAD', 'DELETE', 'OPTIONS', 'POST', 'PATCH', 'TRACE'];
       if (validMethods.indexOf(options.method.toUpperCase()) === -1) {
-        throw new Error("The provided method \'" + options.method + "\' is invalid. Supported HTTP methods are: " + JSON.stringify(validMethods));
+        throw new Error('The provided method \'' + options.method + '\' is invalid. Supported HTTP methods are: ' + JSON.stringify(validMethods));
       }
     }
     this.method = options.method.toUpperCase();
 
     // construct the url if path template is provided
     if (options.pathTemplate) {
-      if (typeof options.pathTemplate !== "string") {
-        throw new Error("options.pathTemplate must be of type \'string\'.");
+      if (typeof options.pathTemplate !== 'string') {
+        throw new Error('options.pathTemplate must be of type \'string\'.');
       }
       if (!options.baseUrl) {
-        options.baseUrl = "https://management.azure.com";
+        options.baseUrl = 'https://management.azure.com';
       }
       const baseUrl = options.baseUrl;
-      let url = baseUrl + (baseUrl.endsWith("/") ? "" : "/") + (options.pathTemplate.startsWith("/") ? options.pathTemplate.slice(1) : options.pathTemplate);
+      let url = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + (options.pathTemplate.startsWith('/') ? options.pathTemplate.slice(1) : options.pathTemplate);
       const segments = url.match(/({\w*\s*\w*})/ig);
       if (segments && segments.length) {
-        if (options.pathParameters === null || options.pathParameters === undefined || typeof options.pathParameters !== "object") {
+        if (options.pathParameters === null || options.pathParameters === undefined || typeof options.pathParameters !== 'object') {
           throw new Error(`pathTemplate: ${options.pathTemplate} has been provided. Hence, options.pathParameters ` +
             `cannot be null or undefined and must be of type "object".`);
         }
         segments.forEach(function (item) {
           const pathParamName = item.slice(1, -1);
           const pathParam = options.pathParameters[pathParamName];
-          if (pathParam === null || pathParam === undefined || !(typeof pathParam === "string" || typeof pathParam === "object")) {
+          if (pathParam === null || pathParam === undefined || !(typeof pathParam === 'string' || typeof pathParam === 'object')) {
             throw new Error(`pathTemplate: ${options.pathTemplate} contains the path parameter ${pathParamName}` +
               ` however, it is not present in ${options.pathParameters} - ${JSON.stringify(options.pathParameters, null, 2)}.` +
               `The value of the path parameter can either be a "string" of the form { ${pathParamName}: "some sample value" } or ` +
               `it can be an "object" of the form { "${pathParamName}": { value: "some sample value", skipUrlEncoding: true } }.`);
           }
 
-          if (typeof pathParam.valueOf() === "string") {
+          if (typeof pathParam.valueOf() === 'string') {
             url = url.replace(item, encodeURIComponent(pathParam));
           }
 
-          if (typeof pathParam.valueOf() === "object") {
+          if (typeof pathParam.valueOf() === 'object') {
             if (!pathParam.value) {
               throw new Error(`options.pathParameters[${pathParamName}] is of type "object" but it does not contain a "value" property.`);
             }
@@ -186,14 +186,14 @@ export class WebResource {
 
     // append query parameters to the url if they are provided. They can be provided with pathTemplate or url option.
     if (options.queryParameters) {
-      if (typeof options.queryParameters !== "object") {
+      if (typeof options.queryParameters !== 'object') {
         throw new Error(`options.queryParameters must be of type object. It should be a JSON object ` +
           `of "query-parameter-name" as the key and the "query-parameter-value" as the value. ` +
           `The "query-parameter-value" may be fo type "string" or an "object" of the form { value: "query-parameter-value", skipUrlEncoding: true }.`);
       }
       // append question mark if it is not present in the url
-      if (this.url && this.url.indexOf("?") === -1) {
-        this.url += "?";
+      if (this.url && this.url.indexOf('?') === -1) {
+        this.url += '?';
       }
       // construct queryString
       const queryParams = [];
@@ -203,26 +203,26 @@ export class WebResource {
       for (const queryParamName in queryParameters) {
         const queryParam: any = queryParameters[queryParamName];
         if (queryParam) {
-          if (typeof queryParam === "string") {
-            queryParams.push(queryParamName + "=" + encodeURIComponent(queryParam));
+          if (typeof queryParam === 'string') {
+            queryParams.push(queryParamName + '=' + encodeURIComponent(queryParam));
             this.query[queryParamName] = encodeURIComponent(queryParam);
           }
-          else if (typeof queryParam === "object") {
+          else if (typeof queryParam === 'object') {
             if (!queryParam.value) {
               throw new Error(`options.queryParameters[${queryParamName}] is of type "object" but it does not contain a "value" property.`);
             }
             if (queryParam.skipUrlEncoding) {
-              queryParams.push(queryParamName + "=" + queryParam.value);
+              queryParams.push(queryParamName + '=' + queryParam.value);
               this.query[queryParamName] = queryParam.value;
             } else {
-              queryParams.push(queryParamName + "=" + encodeURIComponent(queryParam.value));
+              queryParams.push(queryParamName + '=' + encodeURIComponent(queryParam.value));
               this.query[queryParamName] = encodeURIComponent(queryParam.value);
             }
           }
         }
       }// end-of-for
       // append the queryString
-      this.url += queryParams.join("&");
+      this.url += queryParams.join('&');
     }
 
     // add headers to the request if they are provided
@@ -235,17 +235,17 @@ export class WebResource {
       }
     }
     // ensure accept-language is set correctly
-    if (!this.headers["accept-language"]) {
-      this.headers["accept-language"] = "en-US";
+    if (!this.headers['accept-language']) {
+      this.headers['accept-language'] = 'en-US';
     }
     // ensure the request-id is set correctly
-    if (!this.headers["x-ms-client-request-id"] && !options.disableClientRequestId) {
-      this.headers["x-ms-client-request-id"] = utils.generateUuid();
+    if (!this.headers['x-ms-client-request-id'] && !options.disableClientRequestId) {
+      this.headers['x-ms-client-request-id'] = utils.generateUuid();
     }
 
     // default
-    if (!this.headers["Content-Type"]) {
-      this.headers["Content-Type"] = "application/json; charset=utf-8";
+    if (!this.headers['Content-Type']) {
+      this.headers['Content-Type'] = 'application/json; charset=utf-8';
     }
 
     // set the request body. request.js automatically sets the Content-Length request header, so we need not set it explicilty
@@ -254,11 +254,11 @@ export class WebResource {
       // body as a stream special case. set the body as-is and check for some special request headers specific to sending a stream.
       if (options.bodyIsStream) {
         this.body = options.body;
-        if (!this.headers["Transfer-Encoding"]) {
-          this.headers["Transfer-Encoding"] = "chunked";
+        if (!this.headers['Transfer-Encoding']) {
+          this.headers['Transfer-Encoding'] = 'chunked';
         }
-        if (this.headers["Content-Type"] !== "application/octet-stream") {
-          this.headers["Content-Type"] = "application/octet-stream";
+        if (this.headers['Content-Type'] !== 'application/octet-stream') {
+          this.headers['Content-Type'] = 'application/octet-stream';
         }
       } else {
         // TODO: BUG. we assign this to null and start using it without ever assigning a real value to it.
@@ -361,15 +361,23 @@ export interface ParameterValue {
   [key: string]: any;
 }
 
+/**
+ * Describes the base structure of the options object that will be used in every operation.
+ */
+export interface RequestOptions {
+  customHeaders?: { [key: string]: string };
+  [key: string]: any;
+}
+
 export const HttpMethods = utils.strEnum([
-  "GET",
-  "PUT",
-  "POST",
-  "DELETE",
-  "PATCH",
-  "HEAD",
-  "OPTIONS",
-  "TRACE"]);
+  'GET',
+  'PUT',
+  'POST',
+  'DELETE',
+  'PATCH',
+  'HEAD',
+  'OPTIONS',
+  'TRACE']);
 
 /**
  * HTTP method names.

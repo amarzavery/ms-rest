@@ -1,11 +1,11 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-"use strict";
+'use strict';
 
-import BaseFilter from "./baseFilter";
-import * as utils from "../util/utils";
-import HttpOperationResponse from "../httpOperationResponse";
+import BaseFilter from './baseFilter';
+import * as utils from '../util/utils';
+import HttpOperationResponse from '../httpOperationResponse';
 
 export interface RetryData {
   retryCount: number;
@@ -62,7 +62,7 @@ class ExponentialRetryPolicyFilter extends BaseFilter {
 
     let currentCount: number;
     if (!retryData) {
-      throw new Error("retryData for the ExponentialRetryPolicyFilter cannot be null.");
+      throw new Error('retryData for the ExponentialRetryPolicyFilter cannot be null.');
     } else {
       currentCount = (retryData && retryData.retryCount);
     }

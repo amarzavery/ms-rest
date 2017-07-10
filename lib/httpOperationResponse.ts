@@ -1,11 +1,11 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-"use strict";
+'use strict';
 
-import * as stream from "stream";
-import * as nodeFetch from "node-fetch";
-import { WebResource } from "./webResource";
+import * as stream from 'stream';
+import * as nodeFetch from 'node-fetch';
+import { WebResource } from './webResource';
 
 /**
  * Wrapper object for http request and response. Deserialized object is stored in

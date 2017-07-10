@@ -1,11 +1,11 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-"use strict";
+'use strict';
 
-import BaseFilter from "./baseFilter";
-import * as utils from "../util/utils";
-import HttpOperationResponse from "../httpOperationResponse";
+import BaseFilter from './baseFilter';
+import * as utils from '../util/utils';
+import HttpOperationResponse from '../httpOperationResponse';
 
 export interface RetryData {
   retryCount: number;
@@ -58,7 +58,7 @@ class SystemErrorRetryPolicyFilter extends BaseFilter {
   shouldRetry(retryData: RetryData): boolean {
     let currentCount;
     if (!retryData) {
-      throw new Error("retryData for the SystemErrorRetryPolicyFilter cannot be null.");
+      throw new Error('retryData for the SystemErrorRetryPolicyFilter cannot be null.');
     } else {
       currentCount = (retryData && retryData.retryCount);
     }
@@ -105,8 +105,8 @@ class SystemErrorRetryPolicyFilter extends BaseFilter {
     const self = this;
     retryData = self.updateRetryData(retryData, err);
     if (!utils.objectIsNull(err) && self.shouldRetry(retryData) &&
-      (err.code === "ETIMEDOUT" || err.code === "ESOCKETTIMEDOUT" || err.code === "ECONNREFUSED" ||
-        err.code === "ECONNRESET" || err.code === "ENOENT")) {
+      (err.code === 'ETIMEDOUT' || err.code === 'ESOCKETTIMEDOUT' || err.code === 'ECONNREFUSED' ||
+        err.code === 'ECONNRESET' || err.code === 'ENOENT')) {
       // If previous operation ended with an error and the policy allows a retry, do that
       return utils.delay(retryData.retryInterval).then(() => {
         return self.retry(operationResponse, retryData, err);

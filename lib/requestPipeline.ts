@@ -1,15 +1,15 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-"use strict";
+'use strict';
 
-import { WebResource } from "./webResource";
-import HttpOperationResponse from "./httpOperationResponse";
-import BaseFilter from "./filters/baseFilter";
-import * as utils from "./util/utils";
-import * as nodeFetch from "node-fetch";
-const fetchCookie = require("fetch-cookie");
-import * as FormData from "form-data";
+import { WebResource } from './webResource';
+import HttpOperationResponse from './httpOperationResponse';
+import BaseFilter from './filters/baseFilter';
+import * as utils from './util/utils';
+import * as nodeFetch from 'node-fetch';
+const fetchCookie = require('fetch-cookie');
+import * as FormData from 'form-data';
 const fetch = fetchCookie(nodeFetch);
 
 Object.assign(nodeFetch.Response.prototype, {
@@ -38,10 +38,10 @@ export default class RequestPipeline {
       const afterFilters: Array<Function> = [];
       for (let i = 0; i < self.filters.length; i++) {
         const filter = self.filters[i];
-        if (filter.before && typeof filter.before === "function") {
+        if (filter.before && typeof filter.before === 'function') {
           beforeFilters.push(filter.before.bind(filter));
         }
-        if (filter.after && typeof filter.after === "function") {
+        if (filter.after && typeof filter.after === 'function') {
           afterFilters.push(filter.after.bind(filter));
         }
       }// end-of-for-loop
@@ -64,7 +64,7 @@ export default class RequestPipeline {
       const formData: any = options.formData;
       const requestForm = new FormData();
       const appendFormValue = (key: string, value: any) => {
-        if (value && value.hasOwnProperty("value") && value.hasOwnProperty("options")) {
+        if (value && value.hasOwnProperty('value') && value.hasOwnProperty('options')) {
           requestForm.append(key, value.value, value.options);
         } else {
           requestForm.append(key, value);

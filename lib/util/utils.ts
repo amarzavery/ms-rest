@@ -1,11 +1,12 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-"use strict";
+'use strict';
 
-import { WebResource } from "../webResource";
-import Constants from "./constants";
-import * as uuid from "uuid";
+import { WebResource } from '../webResource';
+import Constants from './constants';
+import * as uuid from 'uuid';
+import * as nodeFetch from 'node-fetch';
 
 /**
  * Checks if a parsed URL is HTTPS
@@ -38,26 +39,26 @@ export function objectIsNull(value: any): boolean {
  */
 export function encodeUri(uri: string) {
   return encodeURIComponent(uri)
-    .replace(/!/g, "%21")
-    .replace(/'/g, "%27")
-    .replace(/\(/g, "%28")
-    .replace(/\)/g, "%29")
-    .replace(/\*/g, "%2A");
+    .replace(/!/g, '%21')
+    .replace(/'/g, '%27')
+    .replace(/\(/g, '%28')
+    .replace(/\)/g, '%29')
+    .replace(/\*/g, '%2A');
 };
 
 /**
  * Returns a stripped version of the Http Response which only contains body,
- * headers and the statusCode.
+ * headers and the status.
  *
- * @param {stream} response - The Http Response
+ * @param {nodeFetch.Response} response - The Http Response
  *
  * @return {object} strippedResponse - The stripped version of Http Response.
  */
-export function stripResponse(response: any) {
+export function stripResponse(response: nodeFetch.Response) {
   const strippedResponse: any = {};
   strippedResponse.body = response.body;
   strippedResponse.headers = response.headers;
-  strippedResponse.statusCode = response.statusCode;
+  strippedResponse.status = response.status;
   return strippedResponse;
 }
 
@@ -69,7 +70,7 @@ export function stripResponse(response: any) {
  *
  * @return {object} strippedRequest - The stripped version of Http Request.
  */
-export function stripRequest(request: WebResource) {
+export function stripRequest(request: WebResource): WebResource {
   let strippedRequest: WebResource = new WebResource();
   try {
     strippedRequest = JSON.parse(JSON.stringify(request));
@@ -80,7 +81,7 @@ export function stripRequest(request: WebResource) {
     }
   } catch (err) {
     const errMsg = err.message;
-    err.message = `Error - "${errMsg}" occured while creating a stripped version of the request object - "${request}".`;
+    err.message = `Error - '${errMsg}' occured while creating a stripped version of the request object - '${request}'.`;
     return err;
   }
 
@@ -95,7 +96,7 @@ export function stripRequest(request: WebResource) {
  * @return {boolean} result - True if the uuid is valid; false otherwise.
  */
 export function isValidUuid(uuid: string): boolean {
-  const validUuidRegex = new RegExp("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$", "ig");
+  const validUuidRegex = new RegExp('^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$', 'ig');
   return validUuidRegex.test(uuid);
 }
 
@@ -168,6 +169,7 @@ export function mergeObjects(source: { [key: string]: any; }, target: { [key: st
 /**
  * A wrapper for setTimeout that resolves a promise after t milliseconds.
  * @param {number} t - The number of milliseconds to be delayed.
+ * @param {T} value - The value to be resolved with after a timeout of t milliseconds.
  * @returns {Promise<T>} - Resolved promise
  */
 export function delay<T>(t: number, value?: T): Promise<T> {
@@ -178,7 +180,7 @@ export function delay<T>(t: number, value?: T): Promise<T> {
  * Utility function to create a K:V from a list of strings
  */
 export function strEnum<T extends string>(o: Array<T>): {[K in T]: K} {
-  return o.reduce((res, key) => {
+  return o.reduce((res, key: string) => {
     res[key] = key;
     return res;
   }, Object.create(null)); // TODO: Audit usage of null.

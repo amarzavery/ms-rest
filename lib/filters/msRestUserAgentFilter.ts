@@ -1,12 +1,12 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-"use strict";
+'use strict';
 
-import BaseFilter from "./baseFilter";
-import { WebResource } from "../webResource";
-import Constants from "../util/constants";
-import * as os from "os";
+import BaseFilter from './baseFilter';
+import { WebResource } from '../webResource';
+import Constants from '../util/constants';
+import * as os from 'os';
 const HeaderConstants = Constants.HeaderConstants;
 
 class MsRestUserAgentFilter extends BaseFilter {
@@ -39,7 +39,7 @@ class MsRestUserAgentFilter extends BaseFilter {
       this.userAgentInfo.splice(insertIndex, 0, nodeSDKSignature);
     }
 
-    request.headers[HeaderConstants.USER_AGENT] = this.userAgentInfo.join(" ");
+    request.headers[HeaderConstants.USER_AGENT] = this.userAgentInfo.join(' ');
     return Promise.resolve(request);
   }
 

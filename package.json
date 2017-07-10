@@ -19,12 +19,12 @@
     "autorest",
     "clientruntime"
   ],
-  "main": "./lib/msRest.js",
-  "types": "./index.d.ts",
+  "main": "./dist/lib/msRest.js",
+  "types": "./lib/msRest.ts",
   "license": "MIT",
   "dependencies": {
     "@types/form-data": "^0.0.33",
-    "@types/node": "^7.0.10",
+    "@types/node": "^8.0.8",
     "@types/node-fetch": "^1.6.7",
     "@types/uuid": "^2.0.29",
     "buffer": "^5.0.6",
