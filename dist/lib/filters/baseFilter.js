@@ -1,16 +1,13 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information. 
+// Licensed under the MIT License. See License.txt in the project root for license information.
 'use strict';
-exports.__esModule = true;
-var BaseFilter = (function () {
-    function BaseFilter() {
-    }
-    BaseFilter.prototype.before = function (request) {
+class BaseFilter {
+    constructor() { }
+    before(request) {
         return Promise.resolve(request);
-    };
-    BaseFilter.prototype.after = function (response) {
+    }
+    after(response) {
         return Promise.resolve(response);
-    };
-    return BaseFilter;
-}());
-exports["default"] = BaseFilter;
+    }
+}
+export default BaseFilter;

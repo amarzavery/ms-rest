@@ -1,7 +1,6 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 'use strict';
-exports.__esModule = true;
 /**
  * Wrapper object for http request and response. Deserialized object is stored in
  * the `body` property.
@@ -9,8 +8,8 @@ exports.__esModule = true;
  * Initializes a new instance of the HttpOperationResponse class.
  * @constructor
  */
-var HttpOperationResponse = (function () {
-    function HttpOperationResponse(request, response) {
+export default class HttpOperationResponse {
+    constructor(request, response) {
         /**
          * Reference to the original request object.
          * [WebResource] object.
@@ -27,8 +26,6 @@ var HttpOperationResponse = (function () {
          * The response object.
          * @type {object}
          */
-        this.body = null;
+        this.body = undefined;
     }
-    return HttpOperationResponse;
-}());
-exports["default"] = HttpOperationResponse;
+}

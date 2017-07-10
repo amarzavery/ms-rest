@@ -1,10 +1,9 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information. 
+// Licensed under the MIT License. See License.txt in the project root for license information.
 'use strict';
-exports.__esModule = true;
-var constants_1 = require("../util/constants");
-var HeaderConstants = constants_1["default"].HeaderConstants;
-var DEFAULT_AUTHORIZATION_SCHEME = 'Bearer';
+import Constants from '../util/constants';
+const HeaderConstants = Constants.HeaderConstants;
+const DEFAULT_AUTHORIZATION_SCHEME = 'Bearer';
 /**
  * Creates a new TokenCredentials object.
  *
@@ -12,9 +11,8 @@ var DEFAULT_AUTHORIZATION_SCHEME = 'Bearer';
  * @param {string} token               The token.
  * @param {string} authorizationScheme The authorization scheme.
  */
-var TokenCredentials = (function () {
-    function TokenCredentials(token, authorizationScheme) {
-        if (authorizationScheme === void 0) { authorizationScheme = DEFAULT_AUTHORIZATION_SCHEME; }
+export default class TokenCredentials {
+    constructor(token, authorizationScheme = DEFAULT_AUTHORIZATION_SCHEME) {
         this.authorizationScheme = DEFAULT_AUTHORIZATION_SCHEME;
         if (!token) {
             throw new Error('token cannot be null or undefined.');
@@ -28,10 +26,8 @@ var TokenCredentials = (function () {
      * @param {WebResource} The WebResource to be signed.
      * @return {Promise<WebResource>} The signed request object.
      */
-    TokenCredentials.prototype.signRequest = function (webResource) {
-        webResource.headers[HeaderConstants.AUTHORIZATION] = this.authorizationScheme + " " + this.token;
+    signRequest(webResource) {
+        webResource.headers[HeaderConstants.AUTHORIZATION] = `${this.authorizationScheme} ${this.token}`;
         return Promise.resolve(webResource);
-    };
-    return TokenCredentials;
-}());
-exports["default"] = TokenCredentials;
+    }
+}

@@ -64,7 +64,7 @@ var className =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 136);
+/******/ 	return __webpack_require__(__webpack_require__.s = 135);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -82,9 +82,9 @@ var className =
 
 
 
-var base64 = __webpack_require__(66)
-var ieee754 = __webpack_require__(95)
-var isArray = __webpack_require__(34)
+var base64 = __webpack_require__(64)
+var ieee754 = __webpack_require__(93)
+var isArray = __webpack_require__(33)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -1895,6 +1895,120 @@ if (typeof Object.create === 'function') {
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(Buffer) {// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+// NOTE: These type checking functions intentionally don't use `instanceof`
+// because it is fragile and can be easily faked with `Object.create()`.
+
+function isArray(arg) {
+  if (Array.isArray) {
+    return Array.isArray(arg);
+  }
+  return objectToString(arg) === '[object Array]';
+}
+exports.isArray = isArray;
+
+function isBoolean(arg) {
+  return typeof arg === 'boolean';
+}
+exports.isBoolean = isBoolean;
+
+function isNull(arg) {
+  return arg === null;
+}
+exports.isNull = isNull;
+
+function isNullOrUndefined(arg) {
+  return arg == null;
+}
+exports.isNullOrUndefined = isNullOrUndefined;
+
+function isNumber(arg) {
+  return typeof arg === 'number';
+}
+exports.isNumber = isNumber;
+
+function isString(arg) {
+  return typeof arg === 'string';
+}
+exports.isString = isString;
+
+function isSymbol(arg) {
+  return typeof arg === 'symbol';
+}
+exports.isSymbol = isSymbol;
+
+function isUndefined(arg) {
+  return arg === void 0;
+}
+exports.isUndefined = isUndefined;
+
+function isRegExp(re) {
+  return objectToString(re) === '[object RegExp]';
+}
+exports.isRegExp = isRegExp;
+
+function isObject(arg) {
+  return typeof arg === 'object' && arg !== null;
+}
+exports.isObject = isObject;
+
+function isDate(d) {
+  return objectToString(d) === '[object Date]';
+}
+exports.isDate = isDate;
+
+function isError(e) {
+  return (objectToString(e) === '[object Error]' || e instanceof Error);
+}
+exports.isError = isError;
+
+function isFunction(arg) {
+  return typeof arg === 'function';
+}
+exports.isFunction = isFunction;
+
+function isPrimitive(arg) {
+  return arg === null ||
+         typeof arg === 'boolean' ||
+         typeof arg === 'number' ||
+         typeof arg === 'string' ||
+         typeof arg === 'symbol' ||  // ES6 symbol
+         typeof arg === 'undefined';
+}
+exports.isPrimitive = isPrimitive;
+
+exports.isBuffer = Buffer.isBuffer;
+
+function objectToString(o) {
+  return Object.prototype.toString.call(o);
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -2084,120 +2198,6 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(Buffer) {// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-// NOTE: These type checking functions intentionally don't use `instanceof`
-// because it is fragile and can be easily faked with `Object.create()`.
-
-function isArray(arg) {
-  if (Array.isArray) {
-    return Array.isArray(arg);
-  }
-  return objectToString(arg) === '[object Array]';
-}
-exports.isArray = isArray;
-
-function isBoolean(arg) {
-  return typeof arg === 'boolean';
-}
-exports.isBoolean = isBoolean;
-
-function isNull(arg) {
-  return arg === null;
-}
-exports.isNull = isNull;
-
-function isNullOrUndefined(arg) {
-  return arg == null;
-}
-exports.isNullOrUndefined = isNullOrUndefined;
-
-function isNumber(arg) {
-  return typeof arg === 'number';
-}
-exports.isNumber = isNumber;
-
-function isString(arg) {
-  return typeof arg === 'string';
-}
-exports.isString = isString;
-
-function isSymbol(arg) {
-  return typeof arg === 'symbol';
-}
-exports.isSymbol = isSymbol;
-
-function isUndefined(arg) {
-  return arg === void 0;
-}
-exports.isUndefined = isUndefined;
-
-function isRegExp(re) {
-  return objectToString(re) === '[object RegExp]';
-}
-exports.isRegExp = isRegExp;
-
-function isObject(arg) {
-  return typeof arg === 'object' && arg !== null;
-}
-exports.isObject = isObject;
-
-function isDate(d) {
-  return objectToString(d) === '[object Date]';
-}
-exports.isDate = isDate;
-
-function isError(e) {
-  return (objectToString(e) === '[object Error]' || e instanceof Error);
-}
-exports.isError = isError;
-
-function isFunction(arg) {
-  return typeof arg === 'function';
-}
-exports.isFunction = isFunction;
-
-function isPrimitive(arg) {
-  return arg === null ||
-         typeof arg === 'boolean' ||
-         typeof arg === 'number' ||
-         typeof arg === 'string' ||
-         typeof arg === 'symbol' ||  // ES6 symbol
-         typeof arg === 'undefined';
-}
-exports.isPrimitive = isPrimitive;
-
-exports.isBuffer = Buffer.isBuffer;
-
-function objectToString(o) {
-  return Object.prototype.toString.call(o);
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
-
-/***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
@@ -2226,122 +2226,6 @@ module.exports = g;
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(global) {
-
-var buffer = __webpack_require__(0);
-var Buffer = buffer.Buffer;
-var SlowBuffer = buffer.SlowBuffer;
-var MAX_LEN = buffer.kMaxLength || 2147483647;
-exports.alloc = function alloc(size, fill, encoding) {
-  if (typeof Buffer.alloc === 'function') {
-    return Buffer.alloc(size, fill, encoding);
-  }
-  if (typeof encoding === 'number') {
-    throw new TypeError('encoding must not be number');
-  }
-  if (typeof size !== 'number') {
-    throw new TypeError('size must be a number');
-  }
-  if (size > MAX_LEN) {
-    throw new RangeError('size is too large');
-  }
-  var enc = encoding;
-  var _fill = fill;
-  if (_fill === undefined) {
-    enc = undefined;
-    _fill = 0;
-  }
-  var buf = new Buffer(size);
-  if (typeof _fill === 'string') {
-    var fillBuf = new Buffer(_fill, enc);
-    var flen = fillBuf.length;
-    var i = -1;
-    while (++i < size) {
-      buf[i] = fillBuf[i % flen];
-    }
-  } else {
-    buf.fill(_fill);
-  }
-  return buf;
-}
-exports.allocUnsafe = function allocUnsafe(size) {
-  if (typeof Buffer.allocUnsafe === 'function') {
-    return Buffer.allocUnsafe(size);
-  }
-  if (typeof size !== 'number') {
-    throw new TypeError('size must be a number');
-  }
-  if (size > MAX_LEN) {
-    throw new RangeError('size is too large');
-  }
-  return new Buffer(size);
-}
-exports.from = function from(value, encodingOrOffset, length) {
-  if (typeof Buffer.from === 'function' && (!global.Uint8Array || Uint8Array.from !== Buffer.from)) {
-    return Buffer.from(value, encodingOrOffset, length);
-  }
-  if (typeof value === 'number') {
-    throw new TypeError('"value" argument must not be a number');
-  }
-  if (typeof value === 'string') {
-    return new Buffer(value, encodingOrOffset);
-  }
-  if (typeof ArrayBuffer !== 'undefined' && value instanceof ArrayBuffer) {
-    var offset = encodingOrOffset;
-    if (arguments.length === 1) {
-      return new Buffer(value);
-    }
-    if (typeof offset === 'undefined') {
-      offset = 0;
-    }
-    var len = length;
-    if (typeof len === 'undefined') {
-      len = value.byteLength - offset;
-    }
-    if (offset >= value.byteLength) {
-      throw new RangeError('\'offset\' is out of bounds');
-    }
-    if (len > value.byteLength - offset) {
-      throw new RangeError('\'length\' is out of bounds');
-    }
-    return new Buffer(value.slice(offset, offset + len));
-  }
-  if (Buffer.isBuffer(value)) {
-    var out = new Buffer(value.length);
-    value.copy(out, 0, 0, value.length);
-    return out;
-  }
-  if (value) {
-    if (Array.isArray(value) || (typeof ArrayBuffer !== 'undefined' && value.buffer instanceof ArrayBuffer) || 'length' in value) {
-      return new Buffer(value);
-    }
-    if (value.type === 'Buffer' && Array.isArray(value.data)) {
-      return new Buffer(value.data);
-    }
-  }
-
-  throw new TypeError('First argument must be a string, Buffer, ' + 'ArrayBuffer, Array, or array-like object.');
-}
-exports.allocUnsafeSlow = function allocUnsafeSlow(size) {
-  if (typeof Buffer.allocUnsafeSlow === 'function') {
-    return Buffer.allocUnsafeSlow(size);
-  }
-  if (typeof size !== 'number') {
-    throw new TypeError('size must be a number');
-  }
-  if (size >= MAX_LEN) {
-    throw new RangeError('size is too large');
-  }
-  return new SlowBuffer(size);
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
-
-/***/ }),
-/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2389,7 +2273,14 @@ function nextTick(fn, arg1, arg2, arg3) {
   }
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(0)
+
 
 /***/ }),
 /* 7 */
@@ -2724,15 +2615,15 @@ var objectKeys = Object.keys || function (obj) {
 module.exports = Duplex;
 
 /*<replacement>*/
-var processNextTick = __webpack_require__(6);
+var processNextTick = __webpack_require__(5);
 /*</replacement>*/
 
 /*<replacement>*/
-var util = __webpack_require__(3);
+var util = __webpack_require__(2);
 util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
-var Readable = __webpack_require__(42);
+var Readable = __webpack_require__(41);
 var Writable = __webpack_require__(23);
 
 util.inherits(Duplex, Readable);
@@ -3032,16 +2923,16 @@ var objectKeys = Object.keys || function (obj) {
 module.exports = Duplex;
 
 /*<replacement>*/
-var processNextTick = __webpack_require__(6);
+var processNextTick = __webpack_require__(5);
 /*</replacement>*/
 
 /*<replacement>*/
-var util = __webpack_require__(3);
+var util = __webpack_require__(2);
 util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
-var Readable = __webpack_require__(35);
-var Writable = __webpack_require__(37);
+var Readable = __webpack_require__(34);
+var Writable = __webpack_require__(36);
 
 util.inherits(Duplex, Readable);
 
@@ -3113,16 +3004,16 @@ var objectKeys = Object.keys || function (obj) {
 module.exports = Duplex;
 
 /*<replacement>*/
-var processNextTick = __webpack_require__(6);
+var processNextTick = __webpack_require__(5);
 /*</replacement>*/
 
 /*<replacement>*/
-var util = __webpack_require__(3);
+var util = __webpack_require__(2);
 util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
-var Readable = __webpack_require__(46);
-var Writable = __webpack_require__(48);
+var Readable = __webpack_require__(45);
+var Writable = __webpack_require__(47);
 
 util.inherits(Duplex, Readable);
 
@@ -3175,7 +3066,7 @@ function forEach(xs, f) {
 
 "use strict";
 // Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information. 
+// Licensed under the MIT License. See License.txt in the project root for license information.
 
 class BaseFilter {
     constructor() { }
@@ -3191,6 +3082,90 @@ class BaseFilter {
 
 /***/ }),
 /* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
+const Constants = {
+    /**
+     * The ms-rest version
+     * @const
+     * @type {string}
+     */
+    msRestVersion: '3.0.0',
+    /**
+     * Specifies HTTP.
+     *
+     * @const
+     * @type {string}
+     */
+    HTTP: 'http:',
+    /**
+     * Specifies HTTPS.
+     *
+     * @const
+     * @type {string}
+     */
+    HTTPS: 'https:',
+    /**
+     * Specifies HTTP Proxy.
+     *
+     * @const
+     * @type {string}
+     */
+    HTTP_PROXY: 'HTTP_PROXY',
+    /**
+     * Specifies HTTPS Proxy.
+     *
+     * @const
+     * @type {string}
+     */
+    HTTPS_PROXY: 'HTTPS_PROXY',
+    HttpConstants: {
+        /**
+         * Http Verbs
+         *
+         * @const
+         * @enum {string}
+         */
+        HttpVerbs: {
+            PUT: 'PUT',
+            GET: 'GET',
+            DELETE: 'DELETE',
+            POST: 'POST',
+            MERGE: 'MERGE',
+            HEAD: 'HEAD',
+            PATCH: 'PATCH'
+        },
+    },
+    /**
+     * Defines constants for use with HTTP headers.
+     */
+    HeaderConstants: {
+        /**
+         * The Authorization header.
+         *
+         * @const
+         * @type {string}
+         */
+        AUTHORIZATION: 'authorization',
+        AUTHORIZATION_SCHEME: 'Bearer',
+        /**
+         * The UserAgent header.
+         *
+         * @const
+         * @type {string}
+         */
+        USER_AGENT: 'user-agent'
+    }
+};
+/* harmony default export */ __webpack_exports__["a"] = (Constants);
+
+
+/***/ }),
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -3221,10 +3196,10 @@ var inherits = __webpack_require__(1);
 
 inherits(Stream, EE);
 Stream.Readable = __webpack_require__(24);
-Stream.Writable = __webpack_require__(122);
-Stream.Duplex = __webpack_require__(117);
-Stream.Transform = __webpack_require__(121);
-Stream.PassThrough = __webpack_require__(120);
+Stream.Writable = __webpack_require__(120);
+Stream.Duplex = __webpack_require__(115);
+Stream.Transform = __webpack_require__(119);
+Stream.PassThrough = __webpack_require__(118);
 
 // Backwards-compat with node 0.4.x
 Stream.Stream = Stream;
@@ -3323,85 +3298,208 @@ Stream.prototype.pipe = function(dest, options) {
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* unused harmony export urlIsHTTPS */
+/* harmony export (immutable) */ __webpack_exports__["e"] = objectIsNull;
+/* unused harmony export encodeUri */
+/* unused harmony export stripResponse */
+/* unused harmony export stripRequest */
+/* unused harmony export isValidUuid */
+/* unused harmony export objectValues */
+/* harmony export (immutable) */ __webpack_exports__["a"] = generateUuid;
+/* harmony export (immutable) */ __webpack_exports__["c"] = executePromisesSequentially;
+/* harmony export (immutable) */ __webpack_exports__["d"] = mergeObjects;
+/* harmony export (immutable) */ __webpack_exports__["f"] = delay;
+/* harmony export (immutable) */ __webpack_exports__["b"] = strEnum;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__webResource__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constants__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_uuid__ = __webpack_require__(139);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_uuid___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_uuid__);
 // Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information. 
+// Licensed under the MIT License. See License.txt in the project root for license information.
 
-const Constants = {
-    /**
-    * Specifies HTTP.
-    *
-    * @const
-    * @type {string}
-    */
-    HTTP: 'http:',
-    /**
-    * Specifies HTTPS.
-    *
-    * @const
-    * @type {string}
-    */
-    HTTPS: 'https:',
-    /**
-    * Specifies HTTP Proxy.
-    *
-    * @const
-    * @type {string}
-    */
-    HTTP_PROXY: 'HTTP_PROXY',
-    /**
-    * Specifies HTTPS Proxy.
-    *
-    * @const
-    * @type {string}
-    */
-    HTTPS_PROXY: 'HTTPS_PROXY',
-    HttpConstants: {
-        /**
-        * Http Verbs
-        *
-        * @const
-        * @enum {string}
-        */
-        HttpVerbs: {
-            PUT: 'PUT',
-            GET: 'GET',
-            DELETE: 'DELETE',
-            POST: 'POST',
-            MERGE: 'MERGE',
-            HEAD: 'HEAD',
-            PATCH: 'PATCH'
-        },
-    },
-    /**
-    * Defines constants for use with HTTP headers.
-    */
-    HeaderConstants: {
-        /**
-        * The Authorization header.
-        *
-        * @const
-        * @type {string}
-        */
-        AUTHORIZATION: 'authorization',
-        AUTHORIZATION_SCHEME: 'Bearer',
-        /**
-        * The UserAgent header.
-        *
-        * @const
-        * @type {string}
-        */
-        USER_AGENT: 'user-agent',
+
+
+
+/**
+ * Checks if a parsed URL is HTTPS
+ *
+ * @param {object} urlToCheck The url to check
+ * @return {boolean} True if the URL is HTTPS; false otherwise.
+ */
+function urlIsHTTPS(urlToCheck) {
+    return urlToCheck.protocol.toLowerCase() === __WEBPACK_IMPORTED_MODULE_1__constants__["a" /* default */].HTTPS;
+}
+;
+/**
+ * Checks if a value is null or undefined.
+ *
+ * @param {object} value The value to check for null or undefined.
+ * @return {boolean} True if the value is null or undefined, false otherwise.
+ */
+// TODO: Audit the usages of this and remove them.
+// Read: https://medium.com/@basarat/null-vs-undefined-in-typescript-land-dc0c7a5f240a
+// https://github.com/Microsoft/TypeScript/issues/7426
+function objectIsNull(value) {
+    return value === null || value === undefined;
+}
+;
+/**
+ * Encodes an URI.
+ *
+ * @param {string} uri The URI to be encoded.
+ * @return {string} The encoded URI.
+ */
+function encodeUri(uri) {
+    return encodeURIComponent(uri)
+        .replace(/!/g, '%21')
+        .replace(/'/g, '%27')
+        .replace(/\(/g, '%28')
+        .replace(/\)/g, '%29')
+        .replace(/\*/g, '%2A');
+}
+;
+/**
+ * Returns a stripped version of the Http Response which only contains body,
+ * headers and the status.
+ *
+ * @param {nodeFetch.Response} response - The Http Response
+ *
+ * @return {object} strippedResponse - The stripped version of Http Response.
+ */
+function stripResponse(response) {
+    const strippedResponse = {};
+    strippedResponse.body = response.body;
+    strippedResponse.headers = response.headers;
+    strippedResponse.status = response.status;
+    return strippedResponse;
+}
+/**
+ * Returns a stripped version of the Http Request that does not contain the
+ * Authorization header.
+ *
+ * @param {object} request - The Http Request object
+ *
+ * @return {object} strippedRequest - The stripped version of Http Request.
+ */
+function stripRequest(request) {
+    let strippedRequest = new __WEBPACK_IMPORTED_MODULE_0__webResource__["b" /* WebResource */]();
+    try {
+        strippedRequest = JSON.parse(JSON.stringify(request));
+        if (strippedRequest.headers && strippedRequest.headers.Authorization) {
+            delete strippedRequest.headers.Authorization;
+        }
+        else if (strippedRequest.headers && strippedRequest.headers.authorization) {
+            delete strippedRequest.headers.authorization;
+        }
     }
-};
-/* harmony default export */ __webpack_exports__["a"] = (Constants);
+    catch (err) {
+        const errMsg = err.message;
+        err.message = `Error - '${errMsg}' occured while creating a stripped version of the request object - '${request}'.`;
+        return err;
+    }
+    return strippedRequest;
+}
+/**
+ * Validates the given uuid as a string
+ *
+ * @param {string} uuid - The uuid as a string that needs to be validated
+ *
+ * @return {boolean} result - True if the uuid is valid; false otherwise.
+ */
+function isValidUuid(uuid) {
+    const validUuidRegex = new RegExp('^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$', 'ig');
+    return validUuidRegex.test(uuid);
+}
+/**
+ * Provides an array of values of an object. For example
+ * for a given object { 'a': 'foo', 'b': 'bar' }, the method returns ['foo', 'bar'].
+ *
+ * @param {object} obj - An object whose properties need to be enumerated so that it's values can be provided as an array
+ *
+ * @return {array} result - An array of values of the given object.
+ */
+function objectValues(obj) {
+    const result = [];
+    if (obj && obj instanceof Object) {
+        for (const key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                result.push(obj[key]);
+            }
+        }
+    }
+    else {
+        throw new Error(`The provided object ${JSON.stringify(obj, null, 2)} is not a valid object that can be ` +
+            `enumerated to provide its values as an array.`);
+    }
+    return result;
+}
+/**
+ * Generated UUID
+ *
+ * @return {string} RFC4122 v4 UUID.
+ */
+function generateUuid() {
+    return __WEBPACK_IMPORTED_MODULE_2_uuid__["v4"]();
+}
+/*
+ * Executes an array of promises sequentially. Inspiration of this method is here:
+ * https://pouchdb.com/2015/05/18/we-have-a-problem-with-promises.html. An awesome blog on promises!
+ *
+ * @param {Array} promiseFactories An array of promise factories(A function that return a promise)
+ *
+ * @param {any} [kickstart] Input to the first promise that is used to kickstart the promise chain.
+ * If not provided then the promise chain starts with undefined.
+ *
+ * @return A chain of resolved or rejected promises
+ */
+function executePromisesSequentially(promiseFactories, kickstart) {
+    let result = Promise.resolve(kickstart);
+    promiseFactories.forEach((promiseFactory) => {
+        result = result.then(promiseFactory);
+    });
+    return result;
+}
+;
+/*
+ * Merges source object into the target object
+ * @param {object} source The object that needs to be merged
+ *
+ * @param {object} target The object to be merged into
+ *
+ * @returns {object} target - Returns the merged target object.
+ */
+function mergeObjects(source, target) {
+    Object.keys(source).forEach((key) => {
+        target[key] = source[key];
+    });
+    return target;
+}
+/**
+ * A wrapper for setTimeout that resolves a promise after t milliseconds.
+ * @param {number} t - The number of milliseconds to be delayed.
+ * @param {T} value - The value to be resolved with after a timeout of t milliseconds.
+ * @returns {Promise<T>} - Resolved promise
+ */
+function delay(t, value) {
+    return new Promise((resolve) => setTimeout(() => resolve(value), t));
+}
+/**
+ * Utility function to create a K:V from a list of strings
+ */
+function strEnum(o) {
+    return o.reduce((res, key) => {
+        res[key] = key;
+        return res;
+    }, Object.create(null)); // TODO: Audit usage of null.
+}
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3429,7 +3527,7 @@ const Constants = {
 
 
 var punycode = __webpack_require__(22);
-var util = __webpack_require__(137);
+var util = __webpack_require__(136);
 
 exports.parse = urlParse;
 exports.resolve = urlResolve;
@@ -3504,7 +3602,7 @@ var protocolPattern = /^([a-z0-9.+-]+:)/i,
       'gopher:': true,
       'file:': true
     },
-    querystring = __webpack_require__(114);
+    querystring = __webpack_require__(112);
 
 function urlParse(url, parseQueryString, slashesDenoteHost) {
   if (url && util.isObject(url) && url instanceof Url) return url;
@@ -4140,7 +4238,7 @@ Url.prototype.parseHost = function() {
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4246,203 +4344,6 @@ exports.setTyped = function (on) {
 };
 
 exports.setTyped(TYPED_OK);
-
-
-/***/ }),
-/* 17 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export urlIsHTTPS */
-/* harmony export (immutable) */ __webpack_exports__["e"] = objectIsNull;
-/* unused harmony export encodeUri */
-/* unused harmony export stripResponse */
-/* unused harmony export stripRequest */
-/* unused harmony export isValidUuid */
-/* unused harmony export objectValues */
-/* harmony export (immutable) */ __webpack_exports__["a"] = generateUuid;
-/* harmony export (immutable) */ __webpack_exports__["c"] = executePromisesSequentially;
-/* harmony export (immutable) */ __webpack_exports__["d"] = mergeObjects;
-/* harmony export (immutable) */ __webpack_exports__["f"] = delay;
-/* harmony export (immutable) */ __webpack_exports__["b"] = strEnum;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__webResource__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constants__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_uuid__ = __webpack_require__(140);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_uuid___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_uuid__);
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information. 
-
-
-
-
-/**
-* Checks if a parsed URL is HTTPS
-*
-* @param {object} urlToCheck The url to check
-* @return {boolean} True if the URL is HTTPS; false otherwise.
-*/
-function urlIsHTTPS(urlToCheck) {
-    return urlToCheck.protocol.toLowerCase() === __WEBPACK_IMPORTED_MODULE_1__constants__["a" /* default */].HTTPS;
-}
-;
-/**
-* Checks if a value is null or undefined.
-*
-* @param {object} value The value to check for null or undefined.
-* @return {boolean} True if the value is null or undefined, false otherwise.
-*/
-function objectIsNull(value) {
-    return value === null || value === undefined;
-}
-;
-/**
-* Encodes an URI.
-*
-* @param {string} uri The URI to be encoded.
-* @return {string} The encoded URI.
-*/
-function encodeUri(uri) {
-    return encodeURIComponent(uri)
-        .replace(/!/g, '%21')
-        .replace(/'/g, '%27')
-        .replace(/\(/g, '%28')
-        .replace(/\)/g, '%29')
-        .replace(/\*/g, '%2A');
-}
-;
-/**
- * Returns a stripped version of the Http Response which only contains body,
- * headers and the statusCode.
- *
- * @param {stream} response - The Http Response
- *
- * @return {object} strippedResponse - The stripped version of Http Response.
- */
-function stripResponse(response) {
-    let strippedResponse = {};
-    strippedResponse.body = response.body;
-    strippedResponse.headers = response.headers;
-    strippedResponse.statusCode = response.statusCode;
-    return strippedResponse;
-}
-/**
- * Returns a stripped version of the Http Request that does not contain the
- * Authorization header.
- *
- * @param {object} request - The Http Request object
- *
- * @return {object} strippedRequest - The stripped version of Http Request.
- */
-function stripRequest(request) {
-    let strippedRequest = new __WEBPACK_IMPORTED_MODULE_0__webResource__["b" /* WebResource */]();
-    try {
-        strippedRequest = JSON.parse(JSON.stringify(request));
-        if (strippedRequest.headers && strippedRequest.headers.Authorization) {
-            delete strippedRequest.headers.Authorization;
-        }
-        else if (strippedRequest.headers && strippedRequest.headers.authorization) {
-            delete strippedRequest.headers.authorization;
-        }
-    }
-    catch (err) {
-        let errMsg = err.message;
-        err.message = `Error - "${errMsg}" occured while creating a stripped version of the request object - "${request}".`;
-        return err;
-    }
-    return strippedRequest;
-}
-/**
- * Validates the given uuid as a string
- *
- * @param {string} uuid - The uuid as a string that needs to be validated
- *
- * @return {boolean} result - True if the uuid is valid; false otherwise.
- */
-function isValidUuid(uuid) {
-    let validUuidRegex = new RegExp('^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$', 'ig');
-    return validUuidRegex.test(uuid);
-}
-/**
- * Provides an array of values of an object. For example
- * for a given object { 'a': 'foo', 'b': 'bar' }, the method returns ['foo', 'bar'].
- *
- * @param {object} obj - An object whose properties need to be enumerated so that it's values can be provided as an array
- *
- * @return {array} result - An array of values of the given object.
- */
-function objectValues(obj) {
-    let result = [];
-    if (obj && obj instanceof Object) {
-        for (let key in obj) {
-            if (obj.hasOwnProperty(key)) {
-                result.push(obj[key]);
-            }
-        }
-    }
-    else {
-        throw new Error(`The provided object ${JSON.stringify(obj, null, 2)} is not a valid object that can be ` +
-            `enumerated to provide its values as an array.`);
-    }
-    return result;
-}
-/**
-* Generated UUID
-*
-* @return {string} RFC4122 v4 UUID.
-*/
-function generateUuid() {
-    return __WEBPACK_IMPORTED_MODULE_2_uuid__["v4"]();
-}
-/*
- * Executes an array of promises sequentially. Inspiration of this method is here:
- * https://pouchdb.com/2015/05/18/we-have-a-problem-with-promises.html. An awesome blog on promises!
- *
- * @param {Array} promiseFactories An array of promise factories(A function that return a promise)
- *
- * @param {any} [kickstart] Input to the first promise that is used to kickstart the promise chain.
- * If not provided then the promise chain starts with undefined.
- *
- * @return A chain of resolved or rejected promises
- */
-function executePromisesSequentially(promiseFactories, kickstart) {
-    let result = Promise.resolve(kickstart);
-    promiseFactories.forEach((promiseFactory) => {
-        result = result.then(promiseFactory);
-    });
-    return result;
-}
-;
-/*
- * Merges source object into the target object
- * @param {object} source The object that needs to be merged
- *
- * @param {object} target The object to be merged into
- *
- * @returns {object} target - Returns the merged target object.
- */
-function mergeObjects(source, target) {
-    Object.keys(source).forEach((key) => {
-        target[key] = source[key];
-    });
-    return target;
-}
-/**
- * A wrapper for setTimeout that resolves a promise after t milliseconds.
- * @param {number} t - The number of milliseconds to be delayed.
- * @returns {Promise<T>} - Resolved promise
- */
-function delay(t, value) {
-    return new Promise((resolve) => setTimeout(() => resolve(value), t));
-}
-/**
- * Utility function to create a K:V from a list of strings
- */
-function strEnum(o) {
-    return o.reduce((res, key) => {
-        res[key] = key;
-        return res;
-    }, Object.create(null));
-}
 
 
 /***/ }),
@@ -4974,7 +4875,7 @@ function isPrimitive(arg) {
 }
 exports.isPrimitive = isPrimitive;
 
-exports.isBuffer = __webpack_require__(139);
+exports.isBuffer = __webpack_require__(138);
 
 function objectToString(o) {
   return Object.prototype.toString.call(o);
@@ -5018,7 +4919,7 @@ exports.log = function() {
  *     prototype.
  * @param {function} superCtor Constructor function to inherit prototype from.
  */
-exports.inherits = __webpack_require__(138);
+exports.inherits = __webpack_require__(137);
 
 exports._extend = function(origin, add) {
   // Don't do anything if add isn't an object
@@ -5036,7 +4937,7 @@ function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(3)))
 
 /***/ }),
 /* 19 */
@@ -7673,9 +7574,9 @@ module.exports = [
  * Body interface provides common methods for Request and Response
  */
 
-var convert = __webpack_require__(71).convert;
+var convert = __webpack_require__(69).convert;
 var bodyStream = __webpack_require__(31);
-var PassThrough = __webpack_require__(13).PassThrough;
+var PassThrough = __webpack_require__(14).PassThrough;
 var FetchError = __webpack_require__(32);
 
 module.exports = Body;
@@ -7707,13 +7608,14 @@ function Body(body, opts) {
  */
 Body.prototype.json = function() {
 
-	// for 204 No Content response, buffer will be empty, parsing it will throw error
-	if (this.status === 204) {
-		return Body.Promise.resolve({});
-	}
+	var self = this;
 
 	return this._decode().then(function(buffer) {
-		return JSON.parse(buffer.toString());
+		try {
+			return JSON.parse(buffer.toString());
+		} catch (err) {
+			return Body.Promise.reject(new FetchError('invalid json response body at ' + self.url + ' reason: ' + err.message, 'invalid-json'));
+		}
 	});
 
 };
@@ -8613,7 +8515,7 @@ Headers.prototype.raw = function() {
 
 }(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(143)(module), __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(142)(module), __webpack_require__(4)))
 
 /***/ }),
 /* 23 */
@@ -8629,7 +8531,7 @@ Headers.prototype.raw = function() {
 module.exports = Writable;
 
 /*<replacement>*/
-var processNextTick = __webpack_require__(6);
+var processNextTick = __webpack_require__(5);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -8643,7 +8545,7 @@ var Duplex;
 Writable.WritableState = WritableState;
 
 /*<replacement>*/
-var util = __webpack_require__(3);
+var util = __webpack_require__(2);
 util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
@@ -8654,12 +8556,11 @@ var internalUtil = {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__(44);
+var Stream = __webpack_require__(43);
 /*</replacement>*/
 
-var Buffer = __webpack_require__(0).Buffer;
 /*<replacement>*/
-var bufferShim = __webpack_require__(5);
+var Buffer = __webpack_require__(6).Buffer;
 /*</replacement>*/
 
 util.inherits(Writable, Stream);
@@ -8915,7 +8816,7 @@ Writable.prototype.setDefaultEncoding = function setDefaultEncoding(encoding) {
 
 function decodeChunk(state, chunk, encoding) {
   if (!state.objectMode && state.decodeStrings !== false && typeof chunk === 'string') {
-    chunk = bufferShim.from(chunk, encoding);
+    chunk = Buffer.from(chunk, encoding);
   }
   return chunk;
 }
@@ -9164,29 +9065,29 @@ function CorkedRequest(state) {
     }
   };
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(26).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(26).setImmediate))
 
 /***/ }),
 /* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(42);
+exports = module.exports = __webpack_require__(41);
 exports.Stream = exports;
 exports.Readable = exports;
 exports.Writable = __webpack_require__(23);
 exports.Duplex = __webpack_require__(8);
-exports.Transform = __webpack_require__(43);
-exports.PassThrough = __webpack_require__(118);
+exports.Transform = __webpack_require__(42);
+exports.PassThrough = __webpack_require__(116);
 
 
 /***/ }),
 /* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {var ClientRequest = __webpack_require__(123)
-var extend = __webpack_require__(144)
-var statusCodes = __webpack_require__(69)
-var url = __webpack_require__(15)
+/* WEBPACK VAR INJECTION */(function(global) {var ClientRequest = __webpack_require__(121)
+var extend = __webpack_require__(143)
+var statusCodes = __webpack_require__(67)
+var url = __webpack_require__(16)
 
 var http = exports
 
@@ -9318,7 +9219,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(115);
+__webpack_require__(113);
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 
@@ -9328,9 +9229,9 @@ exports.clearImmediate = clearImmediate;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_utils__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_utils__ = __webpack_require__(15);
 // Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information. 
+// Licensed under the MIT License. See License.txt in the project root for license information.
 
 
 /**
@@ -9344,14 +9245,13 @@ exports.clearImmediate = clearImmediate;
 class WebResource {
     constructor(url, method, body, query, headers = {}, rawResponse = false) {
         this.headers = {};
-        this.rawResponse = false;
         this.rawResponse = rawResponse;
         this.url = url;
         this.method = method;
         this.headers = headers;
         this.body = body;
         this.query = query;
-        this.formData = null;
+        this.formData = undefined;
     }
     /**
      * Validates that the required properties such as method, url, headers['Content-Type'],
@@ -9436,22 +9336,22 @@ class WebResource {
         if ((options.pathTemplate === null || options.pathTemplate === undefined || typeof options.pathTemplate.valueOf() !== 'string') && (options.url === null || options.url === undefined || typeof options.url.valueOf() !== 'string')) {
             throw new Error('Please provide either options.pathTemplate or options.url. Currently none of them were provided.');
         }
-        //set the url if it is provided.
+        // set the url if it is provided.
         if (options.url) {
             if (typeof options.url !== 'string') {
                 throw new Error('options.url must be of type \'string\'.');
             }
             this.url = options.url;
         }
-        //set the method
+        // set the method
         if (options.method) {
-            let validMethods = ['GET', 'PUT', 'HEAD', 'DELETE', 'OPTIONS', 'POST', 'PATCH', 'TRACE'];
+            const validMethods = ['GET', 'PUT', 'HEAD', 'DELETE', 'OPTIONS', 'POST', 'PATCH', 'TRACE'];
             if (validMethods.indexOf(options.method.toUpperCase()) === -1) {
                 throw new Error('The provided method \'' + options.method + '\' is invalid. Supported HTTP methods are: ' + JSON.stringify(validMethods));
             }
         }
         this.method = options.method.toUpperCase();
-        //construct the url if path template is provided
+        // construct the url if path template is provided
         if (options.pathTemplate) {
             if (typeof options.pathTemplate !== 'string') {
                 throw new Error('options.pathTemplate must be of type \'string\'.');
@@ -9459,17 +9359,17 @@ class WebResource {
             if (!options.baseUrl) {
                 options.baseUrl = 'https://management.azure.com';
             }
-            let baseUrl = options.baseUrl;
+            const baseUrl = options.baseUrl;
             let url = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + (options.pathTemplate.startsWith('/') ? options.pathTemplate.slice(1) : options.pathTemplate);
-            let segments = url.match(/({\w*\s*\w*})/ig);
+            const segments = url.match(/({\w*\s*\w*})/ig);
             if (segments && segments.length) {
                 if (options.pathParameters === null || options.pathParameters === undefined || typeof options.pathParameters !== 'object') {
                     throw new Error(`pathTemplate: ${options.pathTemplate} has been provided. Hence, options.pathParameters ` +
                         `cannot be null or undefined and must be of type "object".`);
                 }
                 segments.forEach(function (item) {
-                    let pathParamName = item.slice(1, -1);
-                    let pathParam = options.pathParameters[pathParamName];
+                    const pathParamName = item.slice(1, -1);
+                    const pathParam = options.pathParameters[pathParamName];
                     if (pathParam === null || pathParam === undefined || !(typeof pathParam === 'string' || typeof pathParam === 'object')) {
                         throw new Error(`pathTemplate: ${options.pathTemplate} contains the path parameter ${pathParamName}` +
                             ` however, it is not present in ${options.pathParameters} - ${JSON.stringify(options.pathParameters, null, 2)}.` +
@@ -9494,24 +9394,24 @@ class WebResource {
             }
             this.url = url;
         }
-        //append query parameters to the url if they are provided. They can be provided with pathTemplate or url option.
+        // append query parameters to the url if they are provided. They can be provided with pathTemplate or url option.
         if (options.queryParameters) {
             if (typeof options.queryParameters !== 'object') {
                 throw new Error(`options.queryParameters must be of type object. It should be a JSON object ` +
                     `of "query-parameter-name" as the key and the "query-parameter-value" as the value. ` +
                     `The "query-parameter-value" may be fo type "string" or an "object" of the form { value: "query-parameter-value", skipUrlEncoding: true }.`);
             }
-            //append question mark if it is not present in the url
+            // append question mark if it is not present in the url
             if (this.url && this.url.indexOf('?') === -1) {
                 this.url += '?';
             }
-            //construct queryString
-            let queryParams = [];
-            let queryParameters = options.queryParameters;
-            //We need to populate this.query as a dictionary if the request is being used for Sway's validateRequest(). 
+            // construct queryString
+            const queryParams = [];
+            const queryParameters = options.queryParameters;
+            // We need to populate this.query as a dictionary if the request is being used for Sway's validateRequest().
             this.query = {};
-            for (let queryParamName in queryParameters) {
-                let queryParam = queryParameters[queryParamName];
+            for (const queryParamName in queryParameters) {
+                const queryParam = queryParameters[queryParamName];
                 if (queryParam) {
                     if (typeof queryParam === 'string') {
                         queryParams.push(queryParamName + '=' + encodeURIComponent(queryParam));
@@ -9531,35 +9431,35 @@ class WebResource {
                         }
                     }
                 }
-            } //end-of-for
-            //append the queryString
+            } // end-of-for
+            // append the queryString
             this.url += queryParams.join('&');
         }
-        //add headers to the request if they are provided
+        // add headers to the request if they are provided
         if (options.headers) {
-            let headers = options.headers;
-            for (let headerName in headers) {
+            const headers = options.headers;
+            for (const headerName in headers) {
                 if (headers.hasOwnProperty(headerName)) {
                     this.headers[headerName] = headers[headerName];
                 }
             }
         }
-        //ensure accept-language is set correctly
+        // ensure accept-language is set correctly
         if (!this.headers['accept-language']) {
             this.headers['accept-language'] = 'en-US';
         }
-        //ensure the request-id is set correctly
+        // ensure the request-id is set correctly
         if (!this.headers['x-ms-client-request-id'] && !options.disableClientRequestId) {
             this.headers['x-ms-client-request-id'] = __WEBPACK_IMPORTED_MODULE_0__util_utils__["a" /* generateUuid */]();
         }
-        //default
+        // default
         if (!this.headers['Content-Type']) {
             this.headers['Content-Type'] = 'application/json; charset=utf-8';
         }
-        //set the request body. request.js automatically sets the Content-Length request header, so we need not set it explicilty
+        // set the request body. request.js automatically sets the Content-Length request header, so we need not set it explicilty
         this.body = null;
         if (options.body !== null && options.body !== undefined) {
-            //body as a stream special case. set the body as-is and check for some special request headers specific to sending a stream. 
+            // body as a stream special case. set the body as-is and check for some special request headers specific to sending a stream.
             if (options.bodyIsStream) {
                 this.body = options.body;
                 if (!this.headers['Transfer-Encoding']) {
@@ -9570,6 +9470,7 @@ class WebResource {
                 }
             }
             else {
+                // TODO: BUG. we assign this to null and start using it without ever assigning a real value to it.
                 let serializedBody = null;
                 // if (options.serializationMapper) {
                 //   serializedBody = serializer.serialize(options.serializationMapper, options.body, 'requestBody');
@@ -10742,12 +10643,6 @@ __webpack_require__(18).inherits(FetchError, Error);
 /* 33 */
 /***/ (function(module, exports) {
 
-
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports) {
-
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
@@ -10756,7 +10651,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 35 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10765,11 +10660,11 @@ module.exports = Array.isArray || function (arr) {
 module.exports = Readable;
 
 /*<replacement>*/
-var processNextTick = __webpack_require__(6);
+var processNextTick = __webpack_require__(5);
 /*</replacement>*/
 
 /*<replacement>*/
-var isArray = __webpack_require__(34);
+var isArray = __webpack_require__(33);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -10787,21 +10682,20 @@ var EElistenerCount = function (emitter, type) {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__(38);
-/*</replacement>*/
-
-var Buffer = __webpack_require__(0).Buffer;
-/*<replacement>*/
-var bufferShim = __webpack_require__(5);
+var Stream = __webpack_require__(37);
 /*</replacement>*/
 
 /*<replacement>*/
-var util = __webpack_require__(3);
+var Buffer = __webpack_require__(6).Buffer;
+/*</replacement>*/
+
+/*<replacement>*/
+var util = __webpack_require__(2);
 util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
 /*<replacement>*/
-var debugUtil = __webpack_require__(145);
+var debugUtil = __webpack_require__(144);
 var debug = void 0;
 if (debugUtil && debugUtil.debuglog) {
   debug = debugUtil.debuglog('stream');
@@ -10810,7 +10704,7 @@ if (debugUtil && debugUtil.debuglog) {
 }
 /*</replacement>*/
 
-var BufferList = __webpack_require__(100);
+var BufferList = __webpack_require__(99);
 var StringDecoder;
 
 util.inherits(Readable, Stream);
@@ -10925,7 +10819,7 @@ Readable.prototype.push = function (chunk, encoding) {
   if (!state.objectMode && typeof chunk === 'string') {
     encoding = encoding || state.defaultEncoding;
     if (encoding !== state.encoding) {
-      chunk = bufferShim.from(chunk, encoding);
+      chunk = Buffer.from(chunk, encoding);
       encoding = '';
     }
   }
@@ -11245,7 +11139,7 @@ Readable.prototype.pipe = function (dest, pipeOpts) {
 
   var doEnd = (!pipeOpts || pipeOpts.end !== false) && dest !== process.stdout && dest !== process.stderr;
 
-  var endFn = doEnd ? onend : cleanup;
+  var endFn = doEnd ? onend : unpipe;
   if (state.endEmitted) processNextTick(endFn);else src.once('end', endFn);
 
   dest.on('unpipe', onunpipe);
@@ -11278,7 +11172,7 @@ Readable.prototype.pipe = function (dest, pipeOpts) {
     dest.removeListener('error', onerror);
     dest.removeListener('unpipe', onunpipe);
     src.removeListener('end', onend);
-    src.removeListener('end', cleanup);
+    src.removeListener('end', unpipe);
     src.removeListener('data', ondata);
 
     cleanedUp = true;
@@ -11635,7 +11529,7 @@ function copyFromBufferString(n, list) {
 // This function is designed to be inlinable, so please take care when making
 // changes to the function body.
 function copyFromBuffer(n, list) {
-  var ret = bufferShim.allocUnsafe(n);
+  var ret = Buffer.allocUnsafe(n);
   var p = list.head;
   var c = 1;
   p.data.copy(ret);
@@ -11695,10 +11589,10 @@ function indexOf(xs, x) {
   }
   return -1;
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 36 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11751,7 +11645,7 @@ module.exports = Transform;
 var Duplex = __webpack_require__(10);
 
 /*<replacement>*/
-var util = __webpack_require__(3);
+var util = __webpack_require__(2);
 util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
@@ -11886,7 +11780,7 @@ function done(stream, er, data) {
 }
 
 /***/ }),
-/* 37 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11899,7 +11793,7 @@ function done(stream, er, data) {
 module.exports = Writable;
 
 /*<replacement>*/
-var processNextTick = __webpack_require__(6);
+var processNextTick = __webpack_require__(5);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -11913,7 +11807,7 @@ var Duplex;
 Writable.WritableState = WritableState;
 
 /*<replacement>*/
-var util = __webpack_require__(3);
+var util = __webpack_require__(2);
 util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
@@ -11924,12 +11818,11 @@ var internalUtil = {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__(38);
+var Stream = __webpack_require__(37);
 /*</replacement>*/
 
-var Buffer = __webpack_require__(0).Buffer;
 /*<replacement>*/
-var bufferShim = __webpack_require__(5);
+var Buffer = __webpack_require__(6).Buffer;
 /*</replacement>*/
 
 util.inherits(Writable, Stream);
@@ -12185,7 +12078,7 @@ Writable.prototype.setDefaultEncoding = function setDefaultEncoding(encoding) {
 
 function decodeChunk(state, chunk, encoding) {
   if (!state.objectMode && state.decodeStrings !== false && typeof chunk === 'string') {
-    chunk = bufferShim.from(chunk, encoding);
+    chunk = Buffer.from(chunk, encoding);
   }
   return chunk;
 }
@@ -12434,17 +12327,17 @@ function CorkedRequest(state) {
     }
   };
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(26).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(26).setImmediate))
 
 /***/ }),
-/* 38 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(7).EventEmitter;
 
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12483,7 +12376,7 @@ module.exports = adler32;
 
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12531,7 +12424,7 @@ module.exports = crc32;
 
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12551,7 +12444,7 @@ module.exports = {
 
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12560,11 +12453,11 @@ module.exports = {
 module.exports = Readable;
 
 /*<replacement>*/
-var processNextTick = __webpack_require__(6);
+var processNextTick = __webpack_require__(5);
 /*</replacement>*/
 
 /*<replacement>*/
-var isArray = __webpack_require__(116);
+var isArray = __webpack_require__(114);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -12582,21 +12475,20 @@ var EElistenerCount = function (emitter, type) {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__(44);
-/*</replacement>*/
-
-var Buffer = __webpack_require__(0).Buffer;
-/*<replacement>*/
-var bufferShim = __webpack_require__(5);
+var Stream = __webpack_require__(43);
 /*</replacement>*/
 
 /*<replacement>*/
-var util = __webpack_require__(3);
+var Buffer = __webpack_require__(6).Buffer;
+/*</replacement>*/
+
+/*<replacement>*/
+var util = __webpack_require__(2);
 util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
 /*<replacement>*/
-var debugUtil = __webpack_require__(146);
+var debugUtil = __webpack_require__(145);
 var debug = void 0;
 if (debugUtil && debugUtil.debuglog) {
   debug = debugUtil.debuglog('stream');
@@ -12605,7 +12497,7 @@ if (debugUtil && debugUtil.debuglog) {
 }
 /*</replacement>*/
 
-var BufferList = __webpack_require__(119);
+var BufferList = __webpack_require__(117);
 var StringDecoder;
 
 util.inherits(Readable, Stream);
@@ -12720,7 +12612,7 @@ Readable.prototype.push = function (chunk, encoding) {
   if (!state.objectMode && typeof chunk === 'string') {
     encoding = encoding || state.defaultEncoding;
     if (encoding !== state.encoding) {
-      chunk = bufferShim.from(chunk, encoding);
+      chunk = Buffer.from(chunk, encoding);
       encoding = '';
     }
   }
@@ -13040,7 +12932,7 @@ Readable.prototype.pipe = function (dest, pipeOpts) {
 
   var doEnd = (!pipeOpts || pipeOpts.end !== false) && dest !== process.stdout && dest !== process.stderr;
 
-  var endFn = doEnd ? onend : cleanup;
+  var endFn = doEnd ? onend : unpipe;
   if (state.endEmitted) processNextTick(endFn);else src.once('end', endFn);
 
   dest.on('unpipe', onunpipe);
@@ -13073,7 +12965,7 @@ Readable.prototype.pipe = function (dest, pipeOpts) {
     dest.removeListener('error', onerror);
     dest.removeListener('unpipe', onunpipe);
     src.removeListener('end', onend);
-    src.removeListener('end', cleanup);
+    src.removeListener('end', unpipe);
     src.removeListener('data', ondata);
 
     cleanedUp = true;
@@ -13430,7 +13322,7 @@ function copyFromBufferString(n, list) {
 // This function is designed to be inlinable, so please take care when making
 // changes to the function body.
 function copyFromBuffer(n, list) {
-  var ret = bufferShim.allocUnsafe(n);
+  var ret = Buffer.allocUnsafe(n);
   var p = list.head;
   var c = 1;
   p.data.copy(ret);
@@ -13490,10 +13382,10 @@ function indexOf(xs, x) {
   }
   return -1;
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13546,7 +13438,7 @@ module.exports = Transform;
 var Duplex = __webpack_require__(8);
 
 /*<replacement>*/
-var util = __webpack_require__(3);
+var util = __webpack_require__(2);
 util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
@@ -13681,14 +13573,14 @@ function done(stream, er, data) {
 }
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(7).EventEmitter;
 
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {exports.fetch = isFunction(global.fetch) && isFunction(global.ReadableStream)
@@ -13764,7 +13656,7 @@ xhr = null // Help gc
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13773,11 +13665,11 @@ xhr = null // Help gc
 module.exports = Readable;
 
 /*<replacement>*/
-var processNextTick = __webpack_require__(6);
+var processNextTick = __webpack_require__(5);
 /*</replacement>*/
 
 /*<replacement>*/
-var isArray = __webpack_require__(125);
+var isArray = __webpack_require__(123);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -13795,21 +13687,20 @@ var EElistenerCount = function (emitter, type) {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__(49);
-/*</replacement>*/
-
-var Buffer = __webpack_require__(0).Buffer;
-/*<replacement>*/
-var bufferShim = __webpack_require__(5);
+var Stream = __webpack_require__(48);
 /*</replacement>*/
 
 /*<replacement>*/
-var util = __webpack_require__(3);
+var Buffer = __webpack_require__(6).Buffer;
+/*</replacement>*/
+
+/*<replacement>*/
+var util = __webpack_require__(2);
 util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
 /*<replacement>*/
-var debugUtil = __webpack_require__(147);
+var debugUtil = __webpack_require__(146);
 var debug = void 0;
 if (debugUtil && debugUtil.debuglog) {
   debug = debugUtil.debuglog('stream');
@@ -13818,7 +13709,7 @@ if (debugUtil && debugUtil.debuglog) {
 }
 /*</replacement>*/
 
-var BufferList = __webpack_require__(127);
+var BufferList = __webpack_require__(125);
 var StringDecoder;
 
 util.inherits(Readable, Stream);
@@ -13933,7 +13824,7 @@ Readable.prototype.push = function (chunk, encoding) {
   if (!state.objectMode && typeof chunk === 'string') {
     encoding = encoding || state.defaultEncoding;
     if (encoding !== state.encoding) {
-      chunk = bufferShim.from(chunk, encoding);
+      chunk = Buffer.from(chunk, encoding);
       encoding = '';
     }
   }
@@ -14253,7 +14144,7 @@ Readable.prototype.pipe = function (dest, pipeOpts) {
 
   var doEnd = (!pipeOpts || pipeOpts.end !== false) && dest !== process.stdout && dest !== process.stderr;
 
-  var endFn = doEnd ? onend : cleanup;
+  var endFn = doEnd ? onend : unpipe;
   if (state.endEmitted) processNextTick(endFn);else src.once('end', endFn);
 
   dest.on('unpipe', onunpipe);
@@ -14286,7 +14177,7 @@ Readable.prototype.pipe = function (dest, pipeOpts) {
     dest.removeListener('error', onerror);
     dest.removeListener('unpipe', onunpipe);
     src.removeListener('end', onend);
-    src.removeListener('end', cleanup);
+    src.removeListener('end', unpipe);
     src.removeListener('data', ondata);
 
     cleanedUp = true;
@@ -14643,7 +14534,7 @@ function copyFromBufferString(n, list) {
 // This function is designed to be inlinable, so please take care when making
 // changes to the function body.
 function copyFromBuffer(n, list) {
-  var ret = bufferShim.allocUnsafe(n);
+  var ret = Buffer.allocUnsafe(n);
   var p = list.head;
   var c = 1;
   p.data.copy(ret);
@@ -14703,10 +14594,10 @@ function indexOf(xs, x) {
   }
   return -1;
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14759,7 +14650,7 @@ module.exports = Transform;
 var Duplex = __webpack_require__(11);
 
 /*<replacement>*/
-var util = __webpack_require__(3);
+var util = __webpack_require__(2);
 util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
@@ -14894,7 +14785,7 @@ function done(stream, er, data) {
 }
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14907,7 +14798,7 @@ function done(stream, er, data) {
 module.exports = Writable;
 
 /*<replacement>*/
-var processNextTick = __webpack_require__(6);
+var processNextTick = __webpack_require__(5);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -14921,7 +14812,7 @@ var Duplex;
 Writable.WritableState = WritableState;
 
 /*<replacement>*/
-var util = __webpack_require__(3);
+var util = __webpack_require__(2);
 util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
@@ -14932,12 +14823,11 @@ var internalUtil = {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__(49);
+var Stream = __webpack_require__(48);
 /*</replacement>*/
 
-var Buffer = __webpack_require__(0).Buffer;
 /*<replacement>*/
-var bufferShim = __webpack_require__(5);
+var Buffer = __webpack_require__(6).Buffer;
 /*</replacement>*/
 
 util.inherits(Writable, Stream);
@@ -15193,7 +15083,7 @@ Writable.prototype.setDefaultEncoding = function setDefaultEncoding(encoding) {
 
 function decodeChunk(state, chunk, encoding) {
   if (!state.objectMode && state.decodeStrings !== false && typeof chunk === 'string') {
-    chunk = bufferShim.from(chunk, encoding);
+    chunk = Buffer.from(chunk, encoding);
   }
   return chunk;
 }
@@ -15442,30 +15332,30 @@ function CorkedRequest(state) {
     }
   };
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(26).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(26).setImmediate))
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(7).EventEmitter;
 
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(46);
+exports = module.exports = __webpack_require__(45);
 exports.Stream = exports;
 exports.Readable = exports;
-exports.Writable = __webpack_require__(48);
+exports.Writable = __webpack_require__(47);
 exports.Duplex = __webpack_require__(11);
-exports.Transform = __webpack_require__(47);
-exports.PassThrough = __webpack_require__(126);
+exports.Transform = __webpack_require__(46);
+exports.PassThrough = __webpack_require__(124);
 
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15533,7 +15423,7 @@ exports.pathMatch = pathMatch;
 
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15568,7 +15458,7 @@ exports.pathMatch = pathMatch;
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-var pubsuffix = __webpack_require__(53);
+var pubsuffix = __webpack_require__(52);
 
 // Gives the permutation of all possible domainMatch()es of a given domain. The
 // array is in shortest-to-longest order.  Handy for indexing.
@@ -15596,7 +15486,7 @@ exports.permuteDomain = permuteDomain;
 
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15701,7 +15591,7 @@ var index = module.exports.index = Object.freeze(
 
 
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15779,12 +15669,12 @@ Store.prototype.getAllCookies = function(cb) {
 
 
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseFilter__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_utils__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_utils__ = __webpack_require__(15);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
@@ -15854,16 +15744,16 @@ class ExponentialRetryPolicyFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilt
         // Adjust retry count
         retryData.retryCount++;
         // Adjust retry interval
-        var incrementDelta = Math.pow(2, retryData.retryCount) - 1;
-        var boundedRandDelta = this.retryInterval * 0.8 +
+        let incrementDelta = Math.pow(2, retryData.retryCount) - 1;
+        const boundedRandDelta = this.retryInterval * 0.8 +
             Math.floor(Math.random() * (this.retryInterval * 1.2 - this.retryInterval * 0.8));
         incrementDelta *= boundedRandDelta;
         retryData.retryInterval = Math.min(this.minRetryInterval + incrementDelta, this.maxRetryInterval);
         return retryData;
     }
     retry(operationResponse, retryData, err) {
-        let self = this;
-        let response = operationResponse.response;
+        const self = this;
+        const response = operationResponse.response;
         retryData = self.updateRetryData(retryData, err);
         if (!__WEBPACK_IMPORTED_MODULE_1__util_utils__["e" /* objectIsNull */](response) && self.shouldRetry(response.status, retryData)) {
             // If previous operation ended with an error and the policy allows a retry, do that
@@ -15888,16 +15778,16 @@ class ExponentialRetryPolicyFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilt
 
 
 /***/ }),
-/* 56 */
+/* 55 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseFilter__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_constants__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_os__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_constants__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_os__ = __webpack_require__(102);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_os___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_os__);
 // Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information. 
+// Licensed under the MIT License. See License.txt in the project root for license information.
 
 
 
@@ -15909,19 +15799,19 @@ class MsRestUserAgentFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilter__["a
         this.userAgentInfo = userAgentInfo;
     }
     tagRequest(request) {
-        var osInfo = `(${__WEBPACK_IMPORTED_MODULE_2_os__["arch"]()}-${__WEBPACK_IMPORTED_MODULE_2_os__["type"]()}-${__WEBPACK_IMPORTED_MODULE_2_os__["release"]()})`;
+        const osInfo = `(${__WEBPACK_IMPORTED_MODULE_2_os__["arch"]()}-${__WEBPACK_IMPORTED_MODULE_2_os__["type"]()}-${__WEBPACK_IMPORTED_MODULE_2_os__["release"]()})`;
         if (this.userAgentInfo.indexOf(osInfo) === -1) {
             this.userAgentInfo.unshift(osInfo);
         }
-        var runtimeInfo = `Node/${process.version}`;
+        const runtimeInfo = `Node/${process.version}`;
         if (this.userAgentInfo.indexOf(runtimeInfo) === -1) {
             this.userAgentInfo.unshift(runtimeInfo);
         }
-        var nodeSDKSignature = `Azure-SDK-For-Node`;
+        const nodeSDKSignature = `Azure-SDK-For-Node`;
         if (this.userAgentInfo.indexOf(nodeSDKSignature) === -1) {
-            var azureRuntime = `ms-rest-azure`;
-            var insertIndex = this.userAgentInfo.indexOf(azureRuntime);
-            // insert after azureRuntime, otherwise, insert last. 
+            const azureRuntime = `ms-rest-azure`;
+            let insertIndex = this.userAgentInfo.indexOf(azureRuntime);
+            // insert after azureRuntime, otherwise, insert last.
             insertIndex = insertIndex < 0 ? this.userAgentInfo.length : insertIndex + 1;
             this.userAgentInfo.splice(insertIndex, 0, nodeSDKSignature);
         }
@@ -15929,7 +15819,7 @@ class MsRestUserAgentFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilter__["a
         return Promise.resolve(request);
     }
     before(request) {
-        let self = this;
+        const self = this;
         if (!request.headers[HeaderConstants.USER_AGENT]) {
             return self.tagRequest(request);
         }
@@ -15940,16 +15830,16 @@ class MsRestUserAgentFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilter__["a
 }
 /* harmony default export */ __webpack_exports__["a"] = (MsRestUserAgentFilter);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
-/* 57 */
+/* 56 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseFilter__ = __webpack_require__(12);
 // Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information. 
+// Licensed under the MIT License. See License.txt in the project root for license information.
 
 
 class SigningFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilter__["a" /* default */] {
@@ -15958,7 +15848,7 @@ class SigningFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilter__["a" /* def
         this.authenticationProvider = authenticationProvider;
     }
     before(request) {
-        let self = this;
+        const self = this;
         return self.authenticationProvider.signRequest(request);
     }
 }
@@ -15966,12 +15856,12 @@ class SigningFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilter__["a" /* def
 
 
 /***/ }),
-/* 58 */
+/* 57 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseFilter__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_utils__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_utils__ = __webpack_require__(15);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
@@ -16007,7 +15897,7 @@ class SystemErrorRetryPolicyFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilt
      * @return {boolean} True if the operation qualifies for a retry; false otherwise.
      */
     shouldRetry(retryData) {
-        var currentCount;
+        let currentCount;
         if (!retryData) {
             throw new Error('retryData for the SystemErrorRetryPolicyFilter cannot be null.');
         }
@@ -16026,7 +15916,7 @@ class SystemErrorRetryPolicyFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilt
         if (!retryData) {
             retryData = {
                 retryCount: 0,
-                error: null
+                error: undefined
             };
         }
         if (err) {
@@ -16038,15 +15928,15 @@ class SystemErrorRetryPolicyFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilt
         // Adjust retry count
         retryData.retryCount++;
         // Adjust retry interval
-        var incrementDelta = Math.pow(2, retryData.retryCount) - 1;
-        var boundedRandDelta = this.retryInterval * 0.8 +
+        let incrementDelta = Math.pow(2, retryData.retryCount) - 1;
+        const boundedRandDelta = this.retryInterval * 0.8 +
             Math.floor(Math.random() * (this.retryInterval * 1.2 - this.retryInterval * 0.8));
         incrementDelta *= boundedRandDelta;
         retryData.retryInterval = Math.min(this.minRetryInterval + incrementDelta, this.maxRetryInterval);
         return retryData;
     }
     retry(operationResponse, retryData, err) {
-        let self = this;
+        const self = this;
         retryData = self.updateRetryData(retryData, err);
         if (!__WEBPACK_IMPORTED_MODULE_1__util_utils__["e" /* objectIsNull */](err) && self.shouldRetry(retryData) &&
             (err.code === 'ETIMEDOUT' || err.code === 'ESOCKETTIMEDOUT' || err.code === 'ECONNREFUSED' ||
@@ -16066,14 +15956,14 @@ class SystemErrorRetryPolicyFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilt
         }
     }
     after(operationResponse) {
-        return this.retry(operationResponse, null, null);
+        return this.retry(operationResponse, null, null); // TODO Audit usages of null. See: https://github.com/Microsoft/TypeScript/issues/7426
     }
 }
 /* harmony default export */ __webpack_exports__["a"] = (SystemErrorRetryPolicyFilter);
 
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -16105,7 +15995,7 @@ class HttpOperationResponse {
          * The response object.
          * @type {object}
          */
-        this.body = null;
+        this.body = undefined;
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = HttpOperationResponse;
@@ -16113,18 +16003,18 @@ class HttpOperationResponse {
 
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__httpOperationResponse__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_utils__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_fetch__ = __webpack_require__(96);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__httpOperationResponse__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_utils__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_fetch__ = __webpack_require__(94);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_node_fetch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_form_data__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_form_data__ = __webpack_require__(73);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_form_data___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_form_data__);
 // Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information. 
+// Licensed under the MIT License. See License.txt in the project root for license information.
 
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -16137,7 +16027,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 
 
 
-const fetchCookie = __webpack_require__(74);
+const fetchCookie = __webpack_require__(72);
 
 const fetch = fetchCookie(__WEBPACK_IMPORTED_MODULE_2_node_fetch__);
 Object.assign(__WEBPACK_IMPORTED_MODULE_2_node_fetch__["Response"].prototype, {
@@ -16153,21 +16043,21 @@ class RequestPipeline {
         return;
     }
     create() {
-        let self = this;
+        const self = this;
         let pipeline = [];
         if (self.filters && self.filters.length) {
-            let beforeFilters = [];
-            let afterFilters = [];
+            const beforeFilters = [];
+            const afterFilters = [];
             for (let i = 0; i < self.filters.length; i++) {
-                let filter = self.filters[i];
+                const filter = self.filters[i];
                 if (filter.before && typeof filter.before === 'function') {
                     beforeFilters.push(filter.before.bind(filter));
                 }
                 if (filter.after && typeof filter.after === 'function') {
                     afterFilters.push(filter.after.bind(filter));
                 }
-            } //end-of-for-loop
-            //add the request sink
+            } // end-of-for-loop
+            // add the request sink
             beforeFilters.push(self.requestSink.bind(self));
             pipeline = beforeFilters.concat(afterFilters);
         }
@@ -16186,9 +16076,9 @@ class RequestPipeline {
                 delete this.requestOptions.method;
             __WEBPACK_IMPORTED_MODULE_1__util_utils__["d" /* mergeObjects */](this.requestOptions, options);
             if (options.formData) {
-                let formData = options.formData;
-                let requestForm = new __WEBPACK_IMPORTED_MODULE_3_form_data__();
-                let appendFormValue = (key, value) => {
+                const formData = options.formData;
+                const requestForm = new __WEBPACK_IMPORTED_MODULE_3_form_data__();
+                const appendFormValue = (key, value) => {
                     if (value && value.hasOwnProperty('value') && value.hasOwnProperty('options')) {
                         requestForm.append(key, value.value, value.options);
                     }
@@ -16196,9 +16086,9 @@ class RequestPipeline {
                         requestForm.append(key, value);
                     }
                 };
-                for (let formKey in formData) {
+                for (const formKey in formData) {
                     if (formData.hasOwnProperty(formKey)) {
-                        let formValue = formData[formKey];
+                        const formValue = formData[formKey];
                         if (formValue instanceof Array) {
                             for (let j = 0; j < formValue.length; j++) {
                                 appendFormValue(formKey, formValue[j]);
@@ -16210,7 +16100,7 @@ class RequestPipeline {
                     }
                 }
                 options.body = requestForm;
-                options.formData = null;
+                options.formData = undefined;
             }
             let res;
             try {
@@ -16219,7 +16109,7 @@ class RequestPipeline {
             catch (err) {
                 throw err;
             }
-            let operationResponse = new __WEBPACK_IMPORTED_MODULE_0__httpOperationResponse__["a" /* default */](options, res);
+            const operationResponse = new __WEBPACK_IMPORTED_MODULE_0__httpOperationResponse__["a" /* default */](options, res);
             if (options.rawResponse) {
                 operationResponse.body = res.body;
             }
@@ -16235,7 +16125,7 @@ class RequestPipeline {
 
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports) {
 
 /**
@@ -16264,7 +16154,7 @@ module.exports = bytesToUuid;
 
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {// Unique ID creation requires a high quality random # generator.  In the
@@ -16304,37 +16194,46 @@ module.exports = rng;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__webResource__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__httpOperationResponse__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__serviceClient__ = __webpack_require__(135);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__util_constants__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__requestPipeline__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__filters_logFilter__ = __webpack_require__(134);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__filters_baseFilter__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__filters_exponentialRetryPolicyFilter__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__filters_systemErrorRetryPolicyFilter__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__filters_signingFilter__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__filters_msRestUserAgentFilter__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__credentials_tokenCredentials__ = __webpack_require__(133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__credentials_basicAuthenticationCredentials__ = __webpack_require__(132);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__httpOperationResponse__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__restError__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__serviceClient__ = __webpack_require__(134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__util_constants__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__requestPipeline__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__filters_logFilter__ = __webpack_require__(132);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__filters_baseFilter__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__filters_exponentialRetryPolicyFilter__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__filters_systemErrorRetryPolicyFilter__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__filters_signingFilter__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__filters_msRestUserAgentFilter__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__util_utils__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__credentials_tokenCredentials__ = __webpack_require__(131);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__credentials_basicAuthenticationCredentials__ = __webpack_require__(130);
 /* unused harmony reexport WebResource */
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_0__webResource__["a"]; });
 /* unused harmony reexport HttpOperationResponse */
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_2__serviceClient__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_3__serviceClient__["a"]; });
 /* unused harmony reexport Constants */
 /* unused harmony reexport RequestPipeline */
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_11__credentials_tokenCredentials__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_13__credentials_tokenCredentials__["a"]; });
 /* unused harmony reexport BasicAuthenticationCredentials */
 /* unused harmony reexport BaseFilter */
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_5__filters_logFilter__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_6__filters_logFilter__["a"]; });
 /* unused harmony reexport ExponentialRetryPolicyFilter */
 /* unused harmony reexport SystemErrorRetryPolicyFilter */
 /* unused harmony reexport SigningFilter */
 /* unused harmony reexport UserAgentFilter */
+/* unused harmony reexport stripRequest */
+/* unused harmony reexport stripResponse */
+/* unused harmony reexport delay */
+/* unused harmony reexport executePromisesSequentially */
+/* unused harmony reexport generateUuid */
+/* unused harmony reexport encodeUri */
+/* unused harmony reexport RestError */
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
@@ -16349,26 +16248,16 @@ module.exports = rng;
 
 
 
-//Credentials
+
+
+// Credentials
 
 
 
 
 
 /***/ }),
-/* 64 */
-/***/ (function(module, exports) {
-
-function webpackEmptyContext(req) {
-	throw new Error("Cannot find module '" + req + "'.");
-}
-webpackEmptyContext.keys = function() { return []; };
-webpackEmptyContext.resolve = webpackEmptyContext;
-module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 64;
-
-/***/ }),
-/* 65 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16866,7 +16755,7 @@ var objectKeys = Object.keys || function (obj) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 66 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16987,14 +16876,14 @@ function fromByteArray (uint8) {
 
 
 /***/ }),
-/* 67 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(process, Buffer) {var msg = __webpack_require__(41);
-var zstream = __webpack_require__(110);
-var zlib_deflate = __webpack_require__(105);
-var zlib_inflate = __webpack_require__(107);
-var constants = __webpack_require__(104);
+/* WEBPACK VAR INJECTION */(function(process, Buffer) {var msg = __webpack_require__(40);
+var zstream = __webpack_require__(109);
+var zlib_deflate = __webpack_require__(104);
+var zlib_inflate = __webpack_require__(106);
+var constants = __webpack_require__(103);
 
 for (var key in constants) {
   exports[key] = constants[key];
@@ -17227,10 +17116,10 @@ Zlib.prototype._error = function(status) {
 
 exports.Zlib = Zlib;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(0).Buffer))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 68 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer, process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -17254,11 +17143,11 @@ exports.Zlib = Zlib;
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-var Transform = __webpack_require__(102);
+var Transform = __webpack_require__(101);
 
-var binding = __webpack_require__(67);
+var binding = __webpack_require__(65);
 var util = __webpack_require__(18);
-var assert = __webpack_require__(65).ok;
+var assert = __webpack_require__(63).ok;
 
 // zlib doesn't provide these, so kludge them in following the same
 // const naming scheme zlib uses.
@@ -17844,10 +17733,10 @@ util.inherits(DeflateRaw, Zlib);
 util.inherits(InflateRaw, Zlib);
 util.inherits(Unzip, Zlib);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer, __webpack_require__(3)))
 
 /***/ }),
-/* 69 */
+/* 67 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -17917,7 +17806,7 @@ module.exports = {
 
 
 /***/ }),
-/* 70 */
+/* 68 */
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -17926,19 +17815,19 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 70;
+webpackEmptyContext.id = 68;
 
 /***/ }),
-/* 71 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {
 
-var iconvLite = __webpack_require__(93);
+var iconvLite = __webpack_require__(91);
 // Load Iconv from an external file to be able to disable Iconv for webpack
 // Add /\/iconv-loader$/ to webpack.IgnorePlugin to ignore it
-var Iconv = __webpack_require__(72);
+var Iconv = __webpack_require__(70);
 
 // Expose to the world
 module.exports.convert = convert;
@@ -18050,7 +17939,7 @@ function checkEncoding(name) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 72 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18071,7 +17960,7 @@ module.exports = Iconv;
 
 
 /***/ }),
-/* 73 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18103,11 +17992,11 @@ module.exports = exports["default"];
 
 
 /***/ }),
-/* 74 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var denodeify = __webpack_require__(73)(Promise)
-var tough = __webpack_require__(129)
+var denodeify = __webpack_require__(71)(Promise)
+var tough = __webpack_require__(127)
 
 module.exports = function fetchCookieDecorator (fetch, jar) {
   fetch = fetch || window.fetch
@@ -18152,7 +18041,7 @@ module.exports = function fetchCookieDecorator (fetch, jar) {
 
 
 /***/ }),
-/* 75 */
+/* 73 */
 /***/ (function(module, exports) {
 
 /* eslint-env browser */
@@ -18160,7 +18049,7 @@ module.exports = typeof self == 'object' ? self.FormData : window.FormData;
 
 
 /***/ }),
-/* 76 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var http = __webpack_require__(25);
@@ -18180,7 +18069,7 @@ https.request = function (params, cb) {
 
 
 /***/ }),
-/* 77 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18742,7 +18631,7 @@ function findIdx(table, val) {
 
 
 /***/ }),
-/* 78 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18788,7 +18677,7 @@ module.exports = {
 
     'shiftjis': {
         type: '_dbcs',
-        table: function() { return __webpack_require__(88) },
+        table: function() { return __webpack_require__(86) },
         encodeAdd: {'\u00a5': 0x5C, '\u203E': 0x7E},
         encodeSkipVals: [{from: 0xED40, to: 0xF940}],
     },
@@ -18805,7 +18694,7 @@ module.exports = {
 
     'eucjp': {
         type: '_dbcs',
-        table: function() { return __webpack_require__(86) },
+        table: function() { return __webpack_require__(84) },
         encodeAdd: {'\u00a5': 0x5C, '\u203E': 0x7E},
     },
 
@@ -18851,7 +18740,7 @@ module.exports = {
     'gb18030': {
         type: '_dbcs',
         table: function() { return __webpack_require__(19).concat(__webpack_require__(30)) },
-        gb18030: function() { return __webpack_require__(87) },
+        gb18030: function() { return __webpack_require__(85) },
         encodeSkipVals: [0x80],
         encodeAdd: {'€': 0xA2E3},
     },
@@ -18866,7 +18755,7 @@ module.exports = {
     '949': 'cp949',
     'cp949': {
         type: '_dbcs',
-        table: function() { return __webpack_require__(85) },
+        table: function() { return __webpack_require__(83) },
     },
 
     'cseuckr': 'cp949',
@@ -18914,7 +18803,7 @@ module.exports = {
     'big5': 'big5hkscs',
     'big5hkscs': {
         type: '_dbcs',
-        table: function() { return __webpack_require__(29).concat(__webpack_require__(84)) },
+        table: function() { return __webpack_require__(29).concat(__webpack_require__(82)) },
         encodeSkipVals: [0xa2cc],
     },
 
@@ -18925,7 +18814,7 @@ module.exports = {
 
 
 /***/ }),
-/* 79 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18934,14 +18823,14 @@ module.exports = {
 // Update this array if you add/rename/remove files in this directory.
 // We support Browserify by skipping automatic module discovery and requiring modules directly.
 var modules = [
-    __webpack_require__(80),
-    __webpack_require__(89),
-    __webpack_require__(90),
-    __webpack_require__(81),
-    __webpack_require__(83),
-    __webpack_require__(82),
-    __webpack_require__(77),
     __webpack_require__(78),
+    __webpack_require__(87),
+    __webpack_require__(88),
+    __webpack_require__(79),
+    __webpack_require__(81),
+    __webpack_require__(80),
+    __webpack_require__(75),
+    __webpack_require__(76),
 ];
 
 // Put all encoding/alias/codec definitions to single object and export it. 
@@ -18954,7 +18843,7 @@ for (var i = 0; i < modules.length; i++) {
 
 
 /***/ }),
-/* 80 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18995,7 +18884,7 @@ function InternalCodec(codecOptions, iconv) {
         this.encoder = InternalEncoderCesu8;
 
         // Add decoder for versions of Node not supporting CESU-8
-        if (new Buffer("eda080", 'hex').toString().length == 3) {
+        if (new Buffer('eda0bdedb2a9', 'hex').toString() !== '💩') {
             this.decoder = InternalDecoderCesu8;
             this.defaultCharUnicode = iconv.defaultCharUnicode;
         }
@@ -19151,7 +19040,7 @@ InternalDecoderCesu8.prototype.end = function() {
 
 
 /***/ }),
-/* 81 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19231,7 +19120,7 @@ SBCSDecoder.prototype.end = function() {
 
 
 /***/ }),
-/* 82 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19682,7 +19571,7 @@ module.exports = {
 }
 
 /***/ }),
-/* 83 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19860,7 +19749,7 @@ module.exports = {
 
 
 /***/ }),
-/* 84 */
+/* 82 */
 /***/ (function(module, exports) {
 
 module.exports = [
@@ -20369,7 +20258,7 @@ module.exports = [
 ];
 
 /***/ }),
-/* 85 */
+/* 83 */
 /***/ (function(module, exports) {
 
 module.exports = [
@@ -22752,7 +22641,7 @@ module.exports = [
 ];
 
 /***/ }),
-/* 86 */
+/* 84 */
 /***/ (function(module, exports) {
 
 module.exports = [
@@ -23577,7 +23466,7 @@ module.exports = [
 ];
 
 /***/ }),
-/* 87 */
+/* 85 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -24002,7 +23891,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 88 */
+/* 86 */
 /***/ (function(module, exports) {
 
 module.exports = [
@@ -24553,7 +24442,7 @@ module.exports = [
 ];
 
 /***/ }),
-/* 89 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24737,7 +24626,7 @@ function detectEncoding(buf, defaultEncoding) {
 
 
 /***/ }),
-/* 90 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25034,7 +24923,7 @@ Utf7IMAPDecoder.prototype.end = function() {
 
 
 /***/ }),
-/* 91 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25093,7 +24982,7 @@ StripBOMWrapper.prototype.end = function() {
 
 
 /***/ }),
-/* 92 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25269,7 +25158,7 @@ module.exports = function (iconv) {
 
         // -- Readable -------------------------------------------------------------
         if (iconv.supportsStreams) {
-            var Readable = __webpack_require__(13).Readable;
+            var Readable = __webpack_require__(14).Readable;
 
             original.ReadableSetEncoding = Readable.prototype.setEncoding;
             Readable.prototype.setEncoding = function setEncoding(enc, options) {
@@ -25303,7 +25192,7 @@ module.exports = function (iconv) {
         Buffer.prototype.write = original.BufferWrite;
 
         if (iconv.supportsStreams) {
-            var Readable = __webpack_require__(13).Readable;
+            var Readable = __webpack_require__(14).Readable;
 
             Readable.prototype.setEncoding = original.ReadableSetEncoding;
             delete Readable.prototype.collect;
@@ -25315,7 +25204,7 @@ module.exports = function (iconv) {
 
 
 /***/ }),
-/* 93 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25325,7 +25214,7 @@ module.exports = function (iconv) {
 // Solution would be installing npm modules "buffer" and "stream" explicitly.
 var Buffer = __webpack_require__(0).Buffer;
 
-var bomHandling = __webpack_require__(91),
+var bomHandling = __webpack_require__(89),
     iconv = module.exports;
 
 // All codecs and aliases are kept here, keyed by encoding name/alias.
@@ -25383,7 +25272,7 @@ iconv.fromEncoding = iconv.decode;
 iconv._codecDataCache = {};
 iconv.getCodec = function getCodec(encoding) {
     if (!iconv.encodings)
-        iconv.encodings = __webpack_require__(79); // Lazy load all encoding definitions.
+        iconv.encodings = __webpack_require__(77); // Lazy load all encoding definitions.
     
     // Canonicalize encoding name: strip all non-alphanumeric chars and appended year.
     var enc = (''+encoding).toLowerCase().replace(/[^0-9a-z]|:\d{4}$/g, "");
@@ -25457,28 +25346,28 @@ if (nodeVer) {
     // Load streaming support in Node v0.10+
     var nodeVerArr = nodeVer.split(".").map(Number);
     if (nodeVerArr[0] > 0 || nodeVerArr[1] >= 10) {
-        __webpack_require__(94)(iconv);
+        __webpack_require__(92)(iconv);
     }
 
     // Load Node primitive extensions.
-    __webpack_require__(92)(iconv);
+    __webpack_require__(90)(iconv);
 }
 
 if (false) {
     console.error("iconv-lite warning: javascript files are loaded not with utf-8 encoding. See https://github.com/ashtuchkin/iconv-lite/wiki/Javascript-source-file-encodings for more info.");
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 94 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var Buffer = __webpack_require__(0).Buffer,
-    Transform = __webpack_require__(13).Transform;
+    Transform = __webpack_require__(14).Transform;
 
 
 // == Exports ==================================================================
@@ -25599,7 +25488,7 @@ IconvLiteDecoderStream.prototype.collect = function(cb) {
 
 
 /***/ }),
-/* 95 */
+/* 93 */
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -25689,7 +25578,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 
 /***/ }),
-/* 96 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer, global) {
@@ -25699,17 +25588,17 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
  * a request API compatible with window.fetch
  */
 
-var parse_url = __webpack_require__(15).parse;
-var resolve_url = __webpack_require__(15).resolve;
+var parse_url = __webpack_require__(16).parse;
+var resolve_url = __webpack_require__(16).resolve;
 var http = __webpack_require__(25);
-var https = __webpack_require__(76);
-var zlib = __webpack_require__(68);
-var stream = __webpack_require__(13);
+var https = __webpack_require__(74);
+var zlib = __webpack_require__(66);
+var stream = __webpack_require__(14);
 
 var Body = __webpack_require__(20);
-var Response = __webpack_require__(98);
+var Response = __webpack_require__(96);
 var Headers = __webpack_require__(21);
-var Request = __webpack_require__(97);
+var Request = __webpack_require__(95);
 var FetchError = __webpack_require__(32);
 
 // commonjs
@@ -25935,7 +25824,7 @@ function Fetch(url, opts) {
 			req.end();
 		} else if (options.body instanceof Buffer) {
 			req.write(options.body);
-			req.end()
+			req.end();
 		} else if (typeof options.body === 'object' && options.body.pipe) {
 			options.body.pipe(req);
 		} else if (typeof options.body === 'object') {
@@ -25967,7 +25856,7 @@ Fetch.Request = Request;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer, __webpack_require__(4)))
 
 /***/ }),
-/* 97 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -25977,7 +25866,7 @@ Fetch.Request = Request;
  * Request class contains server only options
  */
 
-var parse_url = __webpack_require__(15).parse;
+var parse_url = __webpack_require__(16).parse;
 var Headers = __webpack_require__(21);
 var Body = __webpack_require__(20);
 
@@ -26048,7 +25937,7 @@ Request.prototype.clone = function() {
 
 
 /***/ }),
-/* 98 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -26104,7 +25993,13 @@ Response.prototype.clone = function() {
 
 
 /***/ }),
-/* 99 */
+/* 97 */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26116,10 +26011,10 @@ Response.prototype.clone = function() {
 
 module.exports = PassThrough;
 
-var Transform = __webpack_require__(36);
+var Transform = __webpack_require__(35);
 
 /*<replacement>*/
-var util = __webpack_require__(3);
+var util = __webpack_require__(2);
 util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
@@ -26136,15 +26031,15 @@ PassThrough.prototype._transform = function (chunk, encoding, cb) {
 };
 
 /***/ }),
-/* 100 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Buffer = __webpack_require__(0).Buffer;
 /*<replacement>*/
-var bufferShim = __webpack_require__(5);
+
+var Buffer = __webpack_require__(6).Buffer;
 /*</replacement>*/
 
 module.exports = BufferList;
@@ -26192,9 +26087,9 @@ BufferList.prototype.join = function (s) {
 };
 
 BufferList.prototype.concat = function (n) {
-  if (this.length === 0) return bufferShim.alloc(0);
+  if (this.length === 0) return Buffer.alloc(0);
   if (this.length === 1) return this.head.data;
-  var ret = bufferShim.allocUnsafe(n >>> 0);
+  var ret = Buffer.allocUnsafe(n >>> 0);
   var p = this.head;
   var i = 0;
   while (p) {
@@ -26206,27 +26101,27 @@ BufferList.prototype.concat = function (n) {
 };
 
 /***/ }),
+/* 100 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(34);
+exports.Stream = exports;
+exports.Readable = exports;
+exports.Writable = __webpack_require__(36);
+exports.Duplex = __webpack_require__(10);
+exports.Transform = __webpack_require__(35);
+exports.PassThrough = __webpack_require__(98);
+
+
+/***/ }),
 /* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(35);
-exports.Stream = exports;
-exports.Readable = exports;
-exports.Writable = __webpack_require__(37);
-exports.Duplex = __webpack_require__(10);
-exports.Transform = __webpack_require__(36);
-exports.PassThrough = __webpack_require__(99);
+module.exports = __webpack_require__(100).Transform
 
 
 /***/ }),
 /* 102 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(101).Transform
-
-
-/***/ }),
-/* 103 */
 /***/ (function(module, exports) {
 
 exports.endianness = function () { return 'LE' };
@@ -26277,7 +26172,7 @@ exports.EOL = '\n';
 
 
 /***/ }),
-/* 104 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26334,17 +26229,17 @@ module.exports = {
 
 
 /***/ }),
-/* 105 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils   = __webpack_require__(16);
-var trees   = __webpack_require__(109);
-var adler32 = __webpack_require__(39);
-var crc32   = __webpack_require__(40);
-var msg     = __webpack_require__(41);
+var utils   = __webpack_require__(17);
+var trees   = __webpack_require__(108);
+var adler32 = __webpack_require__(38);
+var crc32   = __webpack_require__(39);
+var msg     = __webpack_require__(40);
 
 /* Public constants ==========================================================*/
 /* ===========================================================================*/
@@ -28196,7 +28091,7 @@ exports.deflateTune = deflateTune;
 
 
 /***/ }),
-/* 106 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28529,18 +28424,18 @@ module.exports = function inflate_fast(strm, start) {
 
 
 /***/ }),
-/* 107 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 
-var utils         = __webpack_require__(16);
-var adler32       = __webpack_require__(39);
-var crc32         = __webpack_require__(40);
-var inflate_fast  = __webpack_require__(106);
-var inflate_table = __webpack_require__(108);
+var utils         = __webpack_require__(17);
+var adler32       = __webpack_require__(38);
+var crc32         = __webpack_require__(39);
+var inflate_fast  = __webpack_require__(105);
+var inflate_table = __webpack_require__(107);
 
 var CODES = 0;
 var LENS = 1;
@@ -30074,14 +29969,14 @@ exports.inflateUndermine = inflateUndermine;
 
 
 /***/ }),
-/* 108 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 
-var utils = __webpack_require__(16);
+var utils = __webpack_require__(17);
 
 var MAXBITS = 15;
 var ENOUGH_LENS = 852;
@@ -30408,14 +30303,14 @@ module.exports = function inflate_table(type, lens, lens_index, codes, table, ta
 
 
 /***/ }),
-/* 109 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 
-var utils = __webpack_require__(16);
+var utils = __webpack_require__(17);
 
 /* Public constants ==========================================================*/
 /* ===========================================================================*/
@@ -31617,7 +31512,7 @@ exports._tr_align = _tr_align;
 
 
 /***/ }),
-/* 110 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31653,238 +31548,7 @@ module.exports = ZStream;
 
 
 /***/ }),
-/* 111 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-// resolves . and .. elements in a path array with directory names there
-// must be no slashes, empty elements, or device names (c:\) in the array
-// (so also no leading and trailing slashes - it does not distinguish
-// relative and absolute paths)
-function normalizeArray(parts, allowAboveRoot) {
-  // if the path tries to go above the root, `up` ends up > 0
-  var up = 0;
-  for (var i = parts.length - 1; i >= 0; i--) {
-    var last = parts[i];
-    if (last === '.') {
-      parts.splice(i, 1);
-    } else if (last === '..') {
-      parts.splice(i, 1);
-      up++;
-    } else if (up) {
-      parts.splice(i, 1);
-      up--;
-    }
-  }
-
-  // if the path is allowed to go above the root, restore leading ..s
-  if (allowAboveRoot) {
-    for (; up--; up) {
-      parts.unshift('..');
-    }
-  }
-
-  return parts;
-}
-
-// Split a filename into [root, dir, basename, ext], unix version
-// 'root' is just a slash, or nothing.
-var splitPathRe =
-    /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/;
-var splitPath = function(filename) {
-  return splitPathRe.exec(filename).slice(1);
-};
-
-// path.resolve([from ...], to)
-// posix version
-exports.resolve = function() {
-  var resolvedPath = '',
-      resolvedAbsolute = false;
-
-  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
-    var path = (i >= 0) ? arguments[i] : process.cwd();
-
-    // Skip empty and invalid entries
-    if (typeof path !== 'string') {
-      throw new TypeError('Arguments to path.resolve must be strings');
-    } else if (!path) {
-      continue;
-    }
-
-    resolvedPath = path + '/' + resolvedPath;
-    resolvedAbsolute = path.charAt(0) === '/';
-  }
-
-  // At this point the path should be resolved to a full absolute path, but
-  // handle relative paths to be safe (might happen when process.cwd() fails)
-
-  // Normalize the path
-  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {
-    return !!p;
-  }), !resolvedAbsolute).join('/');
-
-  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
-};
-
-// path.normalize(path)
-// posix version
-exports.normalize = function(path) {
-  var isAbsolute = exports.isAbsolute(path),
-      trailingSlash = substr(path, -1) === '/';
-
-  // Normalize the path
-  path = normalizeArray(filter(path.split('/'), function(p) {
-    return !!p;
-  }), !isAbsolute).join('/');
-
-  if (!path && !isAbsolute) {
-    path = '.';
-  }
-  if (path && trailingSlash) {
-    path += '/';
-  }
-
-  return (isAbsolute ? '/' : '') + path;
-};
-
-// posix version
-exports.isAbsolute = function(path) {
-  return path.charAt(0) === '/';
-};
-
-// posix version
-exports.join = function() {
-  var paths = Array.prototype.slice.call(arguments, 0);
-  return exports.normalize(filter(paths, function(p, index) {
-    if (typeof p !== 'string') {
-      throw new TypeError('Arguments to path.join must be strings');
-    }
-    return p;
-  }).join('/'));
-};
-
-
-// path.relative(from, to)
-// posix version
-exports.relative = function(from, to) {
-  from = exports.resolve(from).substr(1);
-  to = exports.resolve(to).substr(1);
-
-  function trim(arr) {
-    var start = 0;
-    for (; start < arr.length; start++) {
-      if (arr[start] !== '') break;
-    }
-
-    var end = arr.length - 1;
-    for (; end >= 0; end--) {
-      if (arr[end] !== '') break;
-    }
-
-    if (start > end) return [];
-    return arr.slice(start, end - start + 1);
-  }
-
-  var fromParts = trim(from.split('/'));
-  var toParts = trim(to.split('/'));
-
-  var length = Math.min(fromParts.length, toParts.length);
-  var samePartsLength = length;
-  for (var i = 0; i < length; i++) {
-    if (fromParts[i] !== toParts[i]) {
-      samePartsLength = i;
-      break;
-    }
-  }
-
-  var outputParts = [];
-  for (var i = samePartsLength; i < fromParts.length; i++) {
-    outputParts.push('..');
-  }
-
-  outputParts = outputParts.concat(toParts.slice(samePartsLength));
-
-  return outputParts.join('/');
-};
-
-exports.sep = '/';
-exports.delimiter = ':';
-
-exports.dirname = function(path) {
-  var result = splitPath(path),
-      root = result[0],
-      dir = result[1];
-
-  if (!root && !dir) {
-    // No dirname whatsoever
-    return '.';
-  }
-
-  if (dir) {
-    // It has a dirname, strip trailing slash
-    dir = dir.substr(0, dir.length - 1);
-  }
-
-  return root + dir;
-};
-
-
-exports.basename = function(path, ext) {
-  var f = splitPath(path)[2];
-  // TODO: make this comparison case-insensitive on windows?
-  if (ext && f.substr(-1 * ext.length) === ext) {
-    f = f.substr(0, f.length - ext.length);
-  }
-  return f;
-};
-
-
-exports.extname = function(path) {
-  return splitPath(path)[3];
-};
-
-function filter (xs, f) {
-    if (xs.filter) return xs.filter(f);
-    var res = [];
-    for (var i = 0; i < xs.length; i++) {
-        if (f(xs[i], i, xs)) res.push(xs[i]);
-    }
-    return res;
-}
-
-// String.prototype.substr - negative index don't work in IE8
-var substr = 'ab'.substr(-1) === 'b'
-    ? function (str, start, len) { return str.substr(start, len) }
-    : function (str, start, len) {
-        if (start < 0) start = str.length + start;
-        return str.substr(start, len);
-    }
-;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
-
-/***/ }),
-/* 112 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31975,7 +31639,7 @@ var isArray = Array.isArray || function (xs) {
 
 
 /***/ }),
-/* 113 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32067,18 +31731,18 @@ var objectKeys = Object.keys || function (obj) {
 
 
 /***/ }),
-/* 114 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-exports.decode = exports.parse = __webpack_require__(112);
-exports.encode = exports.stringify = __webpack_require__(113);
+exports.decode = exports.parse = __webpack_require__(110);
+exports.encode = exports.stringify = __webpack_require__(111);
 
 
 /***/ }),
-/* 115 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -32268,10 +31932,10 @@ exports.encode = exports.stringify = __webpack_require__(113);
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(3)))
 
 /***/ }),
-/* 116 */
+/* 114 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -32282,14 +31946,14 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 117 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(8);
 
 
 /***/ }),
-/* 118 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32301,10 +31965,10 @@ module.exports = __webpack_require__(8);
 
 module.exports = PassThrough;
 
-var Transform = __webpack_require__(43);
+var Transform = __webpack_require__(42);
 
 /*<replacement>*/
-var util = __webpack_require__(3);
+var util = __webpack_require__(2);
 util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
@@ -32321,15 +31985,15 @@ PassThrough.prototype._transform = function (chunk, encoding, cb) {
 };
 
 /***/ }),
-/* 119 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Buffer = __webpack_require__(0).Buffer;
 /*<replacement>*/
-var bufferShim = __webpack_require__(5);
+
+var Buffer = __webpack_require__(6).Buffer;
 /*</replacement>*/
 
 module.exports = BufferList;
@@ -32377,9 +32041,9 @@ BufferList.prototype.join = function (s) {
 };
 
 BufferList.prototype.concat = function (n) {
-  if (this.length === 0) return bufferShim.alloc(0);
+  if (this.length === 0) return Buffer.alloc(0);
   if (this.length === 1) return this.head.data;
-  var ret = bufferShim.allocUnsafe(n >>> 0);
+  var ret = Buffer.allocUnsafe(n >>> 0);
   var p = this.head;
   var i = 0;
   while (p) {
@@ -32391,35 +32055,35 @@ BufferList.prototype.concat = function (n) {
 };
 
 /***/ }),
-/* 120 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(24).PassThrough
 
 
 /***/ }),
-/* 121 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(24).Transform
 
 
 /***/ }),
-/* 122 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(23);
 
 
 /***/ }),
-/* 123 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer, global, process) {var capability = __webpack_require__(45)
+/* WEBPACK VAR INJECTION */(function(Buffer, global, process) {var capability = __webpack_require__(44)
 var inherits = __webpack_require__(1)
-var response = __webpack_require__(124)
-var stream = __webpack_require__(50)
-var toArrayBuffer = __webpack_require__(128)
+var response = __webpack_require__(122)
+var stream = __webpack_require__(49)
+var toArrayBuffer = __webpack_require__(126)
 
 var IncomingMessage = response.IncomingMessage
 var rStates = response.readyStates
@@ -32722,15 +32386,15 @@ var unsafeHeaders = [
 	'via'
 ]
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer, __webpack_require__(4), __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer, __webpack_require__(4), __webpack_require__(3)))
 
 /***/ }),
-/* 124 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(process, Buffer, global) {var capability = __webpack_require__(45)
+/* WEBPACK VAR INJECTION */(function(process, Buffer, global) {var capability = __webpack_require__(44)
 var inherits = __webpack_require__(1)
-var stream = __webpack_require__(50)
+var stream = __webpack_require__(49)
 
 var rStates = exports.readyStates = {
 	UNSENT: 0,
@@ -32911,10 +32575,10 @@ IncomingMessage.prototype._onXHRProgress = function () {
 	}
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(0).Buffer, __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(0).Buffer, __webpack_require__(4)))
 
 /***/ }),
-/* 125 */
+/* 123 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -32925,7 +32589,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 126 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32937,10 +32601,10 @@ module.exports = Array.isArray || function (arr) {
 
 module.exports = PassThrough;
 
-var Transform = __webpack_require__(47);
+var Transform = __webpack_require__(46);
 
 /*<replacement>*/
-var util = __webpack_require__(3);
+var util = __webpack_require__(2);
 util.inherits = __webpack_require__(1);
 /*</replacement>*/
 
@@ -32957,15 +32621,15 @@ PassThrough.prototype._transform = function (chunk, encoding, cb) {
 };
 
 /***/ }),
-/* 127 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Buffer = __webpack_require__(0).Buffer;
 /*<replacement>*/
-var bufferShim = __webpack_require__(5);
+
+var Buffer = __webpack_require__(6).Buffer;
 /*</replacement>*/
 
 module.exports = BufferList;
@@ -33013,9 +32677,9 @@ BufferList.prototype.join = function (s) {
 };
 
 BufferList.prototype.concat = function (n) {
-  if (this.length === 0) return bufferShim.alloc(0);
+  if (this.length === 0) return Buffer.alloc(0);
   if (this.length === 1) return this.head.data;
-  var ret = bufferShim.allocUnsafe(n >>> 0);
+  var ret = Buffer.allocUnsafe(n >>> 0);
   var p = this.head;
   var i = 0;
   while (p) {
@@ -33027,7 +32691,7 @@ BufferList.prototype.concat = function (n) {
 };
 
 /***/ }),
-/* 128 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(0).Buffer
@@ -33060,7 +32724,7 @@ module.exports = function (buf) {
 
 
 /***/ }),
-/* 129 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33095,13 +32759,13 @@ module.exports = function (buf) {
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-var net = __webpack_require__(33);
-var urlParse = __webpack_require__(15).parse;
-var pubsuffix = __webpack_require__(53);
-var Store = __webpack_require__(54).Store;
-var MemoryCookieStore = __webpack_require__(130).MemoryCookieStore;
-var pathMatch = __webpack_require__(51).pathMatch;
-var VERSION = __webpack_require__(131).version;
+var net = __webpack_require__(97);
+var urlParse = __webpack_require__(16).parse;
+var pubsuffix = __webpack_require__(52);
+var Store = __webpack_require__(53).Store;
+var MemoryCookieStore = __webpack_require__(128).MemoryCookieStore;
+var pathMatch = __webpack_require__(50).pathMatch;
+var VERSION = __webpack_require__(129).version;
 
 var punycode;
 try {
@@ -34396,14 +34060,14 @@ module.exports = {
   pathMatch: pathMatch,
   getPublicSuffix: pubsuffix.getPublicSuffix,
   cookieCompare: cookieCompare,
-  permuteDomain: __webpack_require__(52).permuteDomain,
+  permuteDomain: __webpack_require__(51).permuteDomain,
   permutePath: permutePath,
   canonicalDomain: canonicalDomain
 };
 
 
 /***/ }),
-/* 130 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34438,9 +34102,9 @@ module.exports = {
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-var Store = __webpack_require__(54).Store;
-var permuteDomain = __webpack_require__(52).permuteDomain;
-var pathMatch = __webpack_require__(51).pathMatch;
+var Store = __webpack_require__(53).Store;
+var permuteDomain = __webpack_require__(51).permuteDomain;
+var pathMatch = __webpack_require__(50).pathMatch;
 var util = __webpack_require__(18);
 
 function MemoryCookieStore() {
@@ -34580,7 +34244,7 @@ MemoryCookieStore.prototype.getAllCookies = function(cb) {
 
 
 /***/ }),
-/* 131 */
+/* 129 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -34595,12 +34259,13 @@ module.exports = {
 				"spec": ">=2.3.1 <3.0.0",
 				"type": "range"
 			},
-			"D:\\sdk\\ms-rest\\node_modules\\fetch-cookie"
+			"D:\\sdk\\tsruntime\\ms-rest\\node_modules\\fetch-cookie"
 		]
 	],
 	"_from": "tough-cookie@>=2.3.1 <3.0.0",
 	"_id": "tough-cookie@2.3.2",
 	"_inCache": true,
+	"_installable": true,
 	"_location": "/tough-cookie",
 	"_nodeVersion": "7.0.0",
 	"_npmOperationalInternal": {
@@ -34629,7 +34294,7 @@ module.exports = {
 	"_shasum": "f081f76e4c85720e6c37a5faced737150d84072a",
 	"_shrinkwrap": null,
 	"_spec": "tough-cookie@^2.3.1",
-	"_where": "D:\\sdk\\ms-rest\\node_modules\\fetch-cookie",
+	"_where": "D:\\sdk\\tsruntime\\ms-rest\\node_modules\\fetch-cookie",
 	"author": {
 		"name": "Jeremy Stashewsky",
 		"email": "jstashewsky@salesforce.com"
@@ -34707,8 +34372,7 @@ module.exports = {
 	],
 	"name": "tough-cookie",
 	"optionalDependencies": {},
-	"readme": "[RFC6265](https://tools.ietf.org/html/rfc6265) Cookies and CookieJar for Node.js\n\n[![npm package](https://nodei.co/npm/tough-cookie.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/tough-cookie/)\n\n[![Build Status](https://travis-ci.org/salesforce/tough-cookie.png?branch=master)](https://travis-ci.org/salesforce/tough-cookie)\n\n# Synopsis\n\n``` javascript\nvar tough = require('tough-cookie');\nvar Cookie = tough.Cookie;\nvar cookie = Cookie.parse(header);\ncookie.value = 'somethingdifferent';\nheader = cookie.toString();\n\nvar cookiejar = new tough.CookieJar();\ncookiejar.setCookie(cookie, 'http://currentdomain.example.com/path', cb);\n// ...\ncookiejar.getCookies('http://example.com/otherpath',function(err,cookies) {\n  res.headers['cookie'] = cookies.join('; ');\n});\n```\n\n# Installation\n\nIt's _so_ easy!\n\n`npm install tough-cookie`\n\nWhy the name?  NPM modules `cookie`, `cookies` and `cookiejar` were already taken.\n\n## Version Support\n\nSupport for versions of node.js will follow that of the [request](https://www.npmjs.com/package/request) module.\n\n# API\n\n## tough\n\nFunctions on the module you get from `require('tough-cookie')`.  All can be used as pure functions and don't need to be \"bound\".\n\n**Note**: prior to 1.0.x, several of these functions took a `strict` parameter. This has since been removed from the API as it was no longer necessary.\n\n### `parseDate(string)`\n\nParse a cookie date string into a `Date`.  Parses according to RFC6265 Section 5.1.1, not `Date.parse()`.\n\n### `formatDate(date)`\n\nFormat a Date into a RFC1123 string (the RFC6265-recommended format).\n\n### `canonicalDomain(str)`\n\nTransforms a domain-name into a canonical domain-name.  The canonical domain-name is a trimmed, lowercased, stripped-of-leading-dot and optionally punycode-encoded domain-name (Section 5.1.2 of RFC6265).  For the most part, this function is idempotent (can be run again on its output without ill effects).\n\n### `domainMatch(str,domStr[,canonicalize=true])`\n\nAnswers \"does this real domain match the domain in a cookie?\".  The `str` is the \"current\" domain-name and the `domStr` is the \"cookie\" domain-name.  Matches according to RFC6265 Section 5.1.3, but it helps to think of it as a \"suffix match\".\n\nThe `canonicalize` parameter will run the other two paramters through `canonicalDomain` or not.\n\n### `defaultPath(path)`\n\nGiven a current request/response path, gives the Path apropriate for storing in a cookie.  This is basically the \"directory\" of a \"file\" in the path, but is specified by Section 5.1.4 of the RFC.\n\nThe `path` parameter MUST be _only_ the pathname part of a URI (i.e. excludes the hostname, query, fragment, etc.).  This is the `.pathname` property of node's `uri.parse()` output.\n\n### `pathMatch(reqPath,cookiePath)`\n\nAnswers \"does the request-path path-match a given cookie-path?\" as per RFC6265 Section 5.1.4.  Returns a boolean.\n\nThis is essentially a prefix-match where `cookiePath` is a prefix of `reqPath`.\n\n### `parse(cookieString[, options])`\n\nalias for `Cookie.parse(cookieString[, options])`\n\n### `fromJSON(string)`\n\nalias for `Cookie.fromJSON(string)`\n\n### `getPublicSuffix(hostname)`\n\nReturns the public suffix of this hostname.  The public suffix is the shortest domain-name upon which a cookie can be set.  Returns `null` if the hostname cannot have cookies set for it.\n\nFor example: `www.example.com` and `www.subdomain.example.com` both have public suffix `example.com`.\n\nFor further information, see http://publicsuffix.org/.  This module derives its list from that site.\n\n### `cookieCompare(a,b)`\n\nFor use with `.sort()`, sorts a list of cookies into the recommended order given in the RFC (Section 5.4 step 2). The sort algorithm is, in order of precedence:\n\n* Longest `.path`\n* oldest `.creation` (which has a 1ms precision, same as `Date`)\n* lowest `.creationIndex` (to get beyond the 1ms precision)\n\n``` javascript\nvar cookies = [ /* unsorted array of Cookie objects */ ];\ncookies = cookies.sort(cookieCompare);\n```\n\n**Note**: Since JavaScript's `Date` is limited to a 1ms precision, cookies within the same milisecond are entirely possible. This is especially true when using the `now` option to `.setCookie()`. The `.creationIndex` property is a per-process global counter, assigned during construction with `new Cookie()`. This preserves the spirit of the RFC sorting: older cookies go first. This works great for `MemoryCookieStore`, since `Set-Cookie` headers are parsed in order, but may not be so great for distributed systems. Sophisticated `Store`s may wish to set this to some other _logical clock_ such that if cookies A and B are created in the same millisecond, but cookie A is created before cookie B, then `A.creationIndex < B.creationIndex`. If you want to alter the global counter, which you probably _shouldn't_ do, it's stored in `Cookie.cookiesCreated`.\n\n### `permuteDomain(domain)`\n\nGenerates a list of all possible domains that `domainMatch()` the parameter.  May be handy for implementing cookie stores.\n\n### `permutePath(path)`\n\nGenerates a list of all possible paths that `pathMatch()` the parameter.  May be handy for implementing cookie stores.\n\n\n## Cookie\n\nExported via `tough.Cookie`.\n\n### `Cookie.parse(cookieString[, options])`\n\nParses a single Cookie or Set-Cookie HTTP header into a `Cookie` object.  Returns `undefined` if the string can't be parsed.\n\nThe options parameter is not required and currently has only one property:\n\n  * _loose_ - boolean - if `true` enable parsing of key-less cookies like `=abc` and `=`, which are not RFC-compliant.\n\nIf options is not an object, it is ignored, which means you can use `Array#map` with it.\n\nHere's how to process the Set-Cookie header(s) on a node HTTP/HTTPS response:\n\n``` javascript\nif (res.headers['set-cookie'] instanceof Array)\n  cookies = res.headers['set-cookie'].map(Cookie.parse);\nelse\n  cookies = [Cookie.parse(res.headers['set-cookie'])];\n```\n\n### Properties\n\nCookie object properties:\n\n  * _key_ - string - the name or key of the cookie (default \"\")\n  * _value_ - string - the value of the cookie (default \"\")\n  * _expires_ - `Date` - if set, the `Expires=` attribute of the cookie (defaults to the string `\"Infinity\"`). See `setExpires()`\n  * _maxAge_ - seconds - if set, the `Max-Age=` attribute _in seconds_ of the cookie.  May also be set to strings `\"Infinity\"` and `\"-Infinity\"` for non-expiry and immediate-expiry, respectively.  See `setMaxAge()`\n  * _domain_ - string - the `Domain=` attribute of the cookie\n  * _path_ - string - the `Path=` of the cookie\n  * _secure_ - boolean - the `Secure` cookie flag\n  * _httpOnly_ - boolean - the `HttpOnly` cookie flag\n  * _extensions_ - `Array` - any unrecognized cookie attributes as strings (even if equal-signs inside)\n  * _creation_ - `Date` - when this cookie was constructed\n  * _creationIndex_ - number - set at construction, used to provide greater sort precision (please see `cookieCompare(a,b)` for a full explanation)\n\nAfter a cookie has been passed through `CookieJar.setCookie()` it will have the following additional attributes:\n\n  * _hostOnly_ - boolean - is this a host-only cookie (i.e. no Domain field was set, but was instead implied)\n  * _pathIsDefault_ - boolean - if true, there was no Path field on the cookie and `defaultPath()` was used to derive one.\n  * _creation_ - `Date` - **modified** from construction to when the cookie was added to the jar\n  * _lastAccessed_ - `Date` - last time the cookie got accessed. Will affect cookie cleaning once implemented.  Using `cookiejar.getCookies(...)` will update this attribute.\n\n### `Cookie([{properties}])`\n\nReceives an options object that can contain any of the above Cookie properties, uses the default for unspecified properties.\n\n### `.toString()`\n\nencode to a Set-Cookie header value.  The Expires cookie field is set using `formatDate()`, but is omitted entirely if `.expires` is `Infinity`.\n\n### `.cookieString()`\n\nencode to a Cookie header value (i.e. the `.key` and `.value` properties joined with '=').\n\n### `.setExpires(String)`\n\nsets the expiry based on a date-string passed through `parseDate()`.  If parseDate returns `null` (i.e. can't parse this date string), `.expires` is set to `\"Infinity\"` (a string) is set.\n\n### `.setMaxAge(number)`\n\nsets the maxAge in seconds.  Coerces `-Infinity` to `\"-Infinity\"` and `Infinity` to `\"Infinity\"` so it JSON serializes correctly.\n\n### `.expiryTime([now=Date.now()])`\n\n### `.expiryDate([now=Date.now()])`\n\nexpiryTime() Computes the absolute unix-epoch milliseconds that this cookie expires. expiryDate() works similarly, except it returns a `Date` object.  Note that in both cases the `now` parameter should be milliseconds.\n\nMax-Age takes precedence over Expires (as per the RFC). The `.creation` attribute -- or, by default, the `now` paramter -- is used to offset the `.maxAge` attribute.\n\nIf Expires (`.expires`) is set, that's returned.\n\nOtherwise, `expiryTime()` returns `Infinity` and `expiryDate()` returns a `Date` object for \"Tue, 19 Jan 2038 03:14:07 GMT\" (latest date that can be expressed by a 32-bit `time_t`; the common limit for most user-agents).\n\n### `.TTL([now=Date.now()])`\n\ncompute the TTL relative to `now` (milliseconds).  The same precedence rules as for `expiryTime`/`expiryDate` apply.\n\nThe \"number\" `Infinity` is returned for cookies without an explicit expiry and `0` is returned if the cookie is expired.  Otherwise a time-to-live in milliseconds is returned.\n\n### `.canonicalizedDoman()`\n\n### `.cdomain()`\n\nreturn the canonicalized `.domain` field.  This is lower-cased and punycode (RFC3490) encoded if the domain has any non-ASCII characters.\n\n### `.toJSON()`\n\nFor convenience in using `JSON.serialize(cookie)`. Returns a plain-old `Object` that can be JSON-serialized.\n\nAny `Date` properties (i.e., `.expires`, `.creation`, and `.lastAccessed`) are exported in ISO format (`.toISOString()`).\n\n**NOTE**: Custom `Cookie` properties will be discarded. In tough-cookie 1.x, since there was no `.toJSON` method explicitly defined, all enumerable properties were captured. If you want a property to be serialized, add the property name to the `Cookie.serializableProperties` Array.\n\n### `Cookie.fromJSON(strOrObj)`\n\nDoes the reverse of `cookie.toJSON()`. If passed a string, will `JSON.parse()` that first.\n\nAny `Date` properties (i.e., `.expires`, `.creation`, and `.lastAccessed`) are parsed via `Date.parse()`, not the tough-cookie `parseDate`, since it's JavaScript/JSON-y timestamps being handled at this layer.\n\nReturns `null` upon JSON parsing error.\n\n### `.clone()`\n\nDoes a deep clone of this cookie, exactly implemented as `Cookie.fromJSON(cookie.toJSON())`.\n\n### `.validate()`\n\nStatus: *IN PROGRESS*. Works for a few things, but is by no means comprehensive.\n\nvalidates cookie attributes for semantic correctness.  Useful for \"lint\" checking any Set-Cookie headers you generate.  For now, it returns a boolean, but eventually could return a reason string -- you can future-proof with this construct:\n\n``` javascript\nif (cookie.validate() === true) {\n  // it's tasty\n} else {\n  // yuck!\n}\n```\n\n\n## CookieJar\n\nExported via `tough.CookieJar`.\n\n### `CookieJar([store],[options])`\n\nSimply use `new CookieJar()`.  If you'd like to use a custom store, pass that to the constructor otherwise a `MemoryCookieStore` will be created and used.\n\nThe `options` object can be omitted and can have the following properties:\n\n  * _rejectPublicSuffixes_ - boolean - default `true` - reject cookies with domains like \"com\" and \"co.uk\"\n  * _looseMode_ - boolean - default `false` - accept malformed cookies like `bar` and `=bar`, which have an implied empty name.\n    This is not in the standard, but is used sometimes on the web and is accepted by (most) browsers.\n\nSince eventually this module would like to support database/remote/etc. CookieJars, continuation passing style is used for CookieJar methods.\n\n### `.setCookie(cookieOrString, currentUrl, [{options},] cb(err,cookie))`\n\nAttempt to set the cookie in the cookie jar.  If the operation fails, an error will be given to the callback `cb`, otherwise the cookie is passed through.  The cookie will have updated `.creation`, `.lastAccessed` and `.hostOnly` properties.\n\nThe `options` object can be omitted and can have the following properties:\n\n  * _http_ - boolean - default `true` - indicates if this is an HTTP or non-HTTP API.  Affects HttpOnly cookies.\n  * _secure_ - boolean - autodetect from url - indicates if this is a \"Secure\" API.  If the currentUrl starts with `https:` or `wss:` then this is defaulted to `true`, otherwise `false`.\n  * _now_ - Date - default `new Date()` - what to use for the creation/access time of cookies\n  * _ignoreError_ - boolean - default `false` - silently ignore things like parse errors and invalid domains.  `Store` errors aren't ignored by this option.\n\nAs per the RFC, the `.hostOnly` property is set if there was no \"Domain=\" parameter in the cookie string (or `.domain` was null on the Cookie object).  The `.domain` property is set to the fully-qualified hostname of `currentUrl` in this case.  Matching this cookie requires an exact hostname match (not a `domainMatch` as per usual).\n\n### `.setCookieSync(cookieOrString, currentUrl, [{options}])`\n\nSynchronous version of `setCookie`; only works with synchronous stores (e.g. the default `MemoryCookieStore`).\n\n### `.getCookies(currentUrl, [{options},] cb(err,cookies))`\n\nRetrieve the list of cookies that can be sent in a Cookie header for the current url.\n\nIf an error is encountered, that's passed as `err` to the callback, otherwise an `Array` of `Cookie` objects is passed.  The array is sorted with `cookieCompare()` unless the `{sort:false}` option is given.\n\nThe `options` object can be omitted and can have the following properties:\n\n  * _http_ - boolean - default `true` - indicates if this is an HTTP or non-HTTP API.  Affects HttpOnly cookies.\n  * _secure_ - boolean - autodetect from url - indicates if this is a \"Secure\" API.  If the currentUrl starts with `https:` or `wss:` then this is defaulted to `true`, otherwise `false`.\n  * _now_ - Date - default `new Date()` - what to use for the creation/access time of cookies\n  * _expire_ - boolean - default `true` - perform expiry-time checking of cookies and asynchronously remove expired cookies from the store.  Using `false` will return expired cookies and **not** remove them from the store (which is useful for replaying Set-Cookie headers, potentially).\n  * _allPaths_ - boolean - default `false` - if `true`, do not scope cookies by path. The default uses RFC-compliant path scoping. **Note**: may not be supported by the underlying store (the default `MemoryCookieStore` supports it).\n\nThe `.lastAccessed` property of the returned cookies will have been updated.\n\n### `.getCookiesSync(currentUrl, [{options}])`\n\nSynchronous version of `getCookies`; only works with synchronous stores (e.g. the default `MemoryCookieStore`).\n\n### `.getCookieString(...)`\n\nAccepts the same options as `.getCookies()` but passes a string suitable for a Cookie header rather than an array to the callback.  Simply maps the `Cookie` array via `.cookieString()`.\n\n### `.getCookieStringSync(...)`\n\nSynchronous version of `getCookieString`; only works with synchronous stores (e.g. the default `MemoryCookieStore`).\n\n### `.getSetCookieStrings(...)`\n\nReturns an array of strings suitable for **Set-Cookie** headers. Accepts the same options as `.getCookies()`.  Simply maps the cookie array via `.toString()`.\n\n### `.getSetCookieStringsSync(...)`\n\nSynchronous version of `getSetCookieStrings`; only works with synchronous stores (e.g. the default `MemoryCookieStore`).\n\n### `.serialize(cb(err,serializedObject))`\n\nSerialize the Jar if the underlying store supports `.getAllCookies`.\n\n**NOTE**: Custom `Cookie` properties will be discarded. If you want a property to be serialized, add the property name to the `Cookie.serializableProperties` Array.\n\nSee [Serialization Format].\n\n### `.serializeSync()`\n\nSync version of .serialize\n\n### `.toJSON()`\n\nAlias of .serializeSync() for the convenience of `JSON.stringify(cookiejar)`.\n\n### `CookieJar.deserialize(serialized, [store], cb(err,object))`\n\nA new Jar is created and the serialized Cookies are added to the underlying store. Each `Cookie` is added via `store.putCookie` in the order in which they appear in the serialization.\n\nThe `store` argument is optional, but should be an instance of `Store`. By default, a new instance of `MemoryCookieStore` is created.\n\nAs a convenience, if `serialized` is a string, it is passed through `JSON.parse` first. If that throws an error, this is passed to the callback.\n\n### `CookieJar.deserializeSync(serialized, [store])`\n\nSync version of `.deserialize`.  _Note_ that the `store` must be synchronous for this to work.\n\n### `CookieJar.fromJSON(string)`\n\nAlias of `.deserializeSync` to provide consistency with `Cookie.fromJSON()`.\n\n### `.clone([store,]cb(err,newJar))`\n\nProduces a deep clone of this jar. Modifications to the original won't affect the clone, and vice versa.\n\nThe `store` argument is optional, but should be an instance of `Store`. By default, a new instance of `MemoryCookieStore` is created. Transferring between store types is supported so long as the source implements `.getAllCookies()` and the destination implements `.putCookie()`.\n\n### `.cloneSync([store])`\n\nSynchronous version of `.clone`, returning a new `CookieJar` instance.\n\nThe `store` argument is optional, but must be a _synchronous_ `Store` instance if specified. If not passed, a new instance of `MemoryCookieStore` is used.\n\nThe _source_ and _destination_ must both be synchronous `Store`s. If one or both stores are asynchronous, use `.clone` instead. Recall that `MemoryCookieStore` supports both synchronous and asynchronous API calls.\n\n## Store\n\nBase class for CookieJar stores. Available as `tough.Store`.\n\n## Store API\n\nThe storage model for each `CookieJar` instance can be replaced with a custom implementation.  The default is `MemoryCookieStore` which can be found in the `lib/memstore.js` file.  The API uses continuation-passing-style to allow for asynchronous stores.\n\nStores should inherit from the base `Store` class, which is available as `require('tough-cookie').Store`.\n\nStores are asynchronous by default, but if `store.synchronous` is set to `true`, then the `*Sync` methods on the of the containing `CookieJar` can be used (however, the continuation-passing style\n\nAll `domain` parameters will have been normalized before calling.\n\nThe Cookie store must have all of the following methods.\n\n### `store.findCookie(domain, path, key, cb(err,cookie))`\n\nRetrieve a cookie with the given domain, path and key (a.k.a. name).  The RFC maintains that exactly one of these cookies should exist in a store.  If the store is using versioning, this means that the latest/newest such cookie should be returned.\n\nCallback takes an error and the resulting `Cookie` object.  If no cookie is found then `null` MUST be passed instead (i.e. not an error).\n\n### `store.findCookies(domain, path, cb(err,cookies))`\n\nLocates cookies matching the given domain and path.  This is most often called in the context of `cookiejar.getCookies()` above.\n\nIf no cookies are found, the callback MUST be passed an empty array.\n\nThe resulting list will be checked for applicability to the current request according to the RFC (domain-match, path-match, http-only-flag, secure-flag, expiry, etc.), so it's OK to use an optimistic search algorithm when implementing this method.  However, the search algorithm used SHOULD try to find cookies that `domainMatch()` the domain and `pathMatch()` the path in order to limit the amount of checking that needs to be done.\n\nAs of version 0.9.12, the `allPaths` option to `cookiejar.getCookies()` above will cause the path here to be `null`.  If the path is `null`, path-matching MUST NOT be performed (i.e. domain-matching only).\n\n### `store.putCookie(cookie, cb(err))`\n\nAdds a new cookie to the store.  The implementation SHOULD replace any existing cookie with the same `.domain`, `.path`, and `.key` properties -- depending on the nature of the implementation, it's possible that between the call to `fetchCookie` and `putCookie` that a duplicate `putCookie` can occur.\n\nThe `cookie` object MUST NOT be modified; the caller will have already updated the `.creation` and `.lastAccessed` properties.\n\nPass an error if the cookie cannot be stored.\n\n### `store.updateCookie(oldCookie, newCookie, cb(err))`\n\nUpdate an existing cookie.  The implementation MUST update the `.value` for a cookie with the same `domain`, `.path` and `.key`.  The implementation SHOULD check that the old value in the store is equivalent to `oldCookie` - how the conflict is resolved is up to the store.\n\nThe `.lastAccessed` property will always be different between the two objects (to the precision possible via JavaScript's clock).  Both `.creation` and `.creationIndex` are guaranteed to be the same.  Stores MAY ignore or defer the `.lastAccessed` change at the cost of affecting how cookies are selected for automatic deletion (e.g., least-recently-used, which is up to the store to implement).\n\nStores may wish to optimize changing the `.value` of the cookie in the store versus storing a new cookie.  If the implementation doesn't define this method a stub that calls `putCookie(newCookie,cb)` will be added to the store object.\n\nThe `newCookie` and `oldCookie` objects MUST NOT be modified.\n\nPass an error if the newCookie cannot be stored.\n\n### `store.removeCookie(domain, path, key, cb(err))`\n\nRemove a cookie from the store (see notes on `findCookie` about the uniqueness constraint).\n\nThe implementation MUST NOT pass an error if the cookie doesn't exist; only pass an error due to the failure to remove an existing cookie.\n\n### `store.removeCookies(domain, path, cb(err))`\n\nRemoves matching cookies from the store.  The `path` parameter is optional, and if missing means all paths in a domain should be removed.\n\nPass an error ONLY if removing any existing cookies failed.\n\n### `store.getAllCookies(cb(err, cookies))`\n\nProduces an `Array` of all cookies during `jar.serialize()`. The items in the array can be true `Cookie` objects or generic `Object`s with the [Serialization Format] data structure.\n\nCookies SHOULD be returned in creation order to preserve sorting via `compareCookies()`. For reference, `MemoryCookieStore` will sort by `.creationIndex` since it uses true `Cookie` objects internally. If you don't return the cookies in creation order, they'll still be sorted by creation time, but this only has a precision of 1ms.  See `compareCookies` for more detail.\n\nPass an error if retrieval fails.\n\n## MemoryCookieStore\n\nInherits from `Store`.\n\nA just-in-memory CookieJar synchronous store implementation, used by default. Despite being a synchronous implementation, it's usable with both the synchronous and asynchronous forms of the `CookieJar` API.\n\n## Community Cookie Stores\n\nThese are some Store implementations authored and maintained by the community. They aren't official and we don't vouch for them but you may be interested to have a look:\n\n- [`db-cookie-store`](https://github.com/JSBizon/db-cookie-store): SQL including SQLite-based databases\n- [`file-cookie-store`](https://github.com/JSBizon/file-cookie-store): Netscape cookie file format on disk\n- [`redis-cookie-store`](https://github.com/benkroeger/redis-cookie-store): Redis\n- [`tough-cookie-filestore`](https://github.com/mitsuru/tough-cookie-filestore): JSON on disk\n- [`tough-cookie-web-storage-store`](https://github.com/exponentjs/tough-cookie-web-storage-store): DOM localStorage and sessionStorage\n\n\n# Serialization Format\n\n**NOTE**: if you want to have custom `Cookie` properties serialized, add the property name to `Cookie.serializableProperties`.\n\n```js\n  {\n    // The version of tough-cookie that serialized this jar.\n    version: 'tough-cookie@1.x.y',\n\n    // add the store type, to make humans happy:\n    storeType: 'MemoryCookieStore',\n\n    // CookieJar configuration:\n    rejectPublicSuffixes: true,\n    // ... future items go here\n\n    // Gets filled from jar.store.getAllCookies():\n    cookies: [\n      {\n        key: 'string',\n        value: 'string',\n        // ...\n        /* other Cookie.serializableProperties go here */\n      }\n    ]\n  }\n```\n\n# Copyright and License\n\n(tl;dr: BSD-3-Clause with some MPL/2.0)\n\n```text\n Copyright (c) 2015, Salesforce.com, Inc.\n All rights reserved.\n\n Redistribution and use in source and binary forms, with or without\n modification, are permitted provided that the following conditions are met:\n\n 1. Redistributions of source code must retain the above copyright notice,\n this list of conditions and the following disclaimer.\n\n 2. Redistributions in binary form must reproduce the above copyright notice,\n this list of conditions and the following disclaimer in the documentation\n and/or other materials provided with the distribution.\n\n 3. Neither the name of Salesforce.com nor the names of its contributors may\n be used to endorse or promote products derived from this software without\n specific prior written permission.\n\n THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE\n ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE\n LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR\n CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF\n SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS\n INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN\n CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)\n ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE\n POSSIBILITY OF SUCH DAMAGE.\n```\n\nPortions may be licensed under different licenses (in particular `public_suffix_list.dat` is MPL/2.0); please read that file and the LICENSE file for full details.\n",
-	"readmeFilename": "README.md",
+	"readme": "ERROR: No README data found!",
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/salesforce/tough-cookie.git"
@@ -34721,13 +34385,13 @@ module.exports = {
 };
 
 /***/ }),
-/* 132 */
+/* 130 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_constants__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_constants__ = __webpack_require__(13);
 // Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information. 
+// Licensed under the MIT License. See License.txt in the project root for license information.
 
 
 const Buffer = __webpack_require__(0).Buffer;
@@ -34761,8 +34425,8 @@ class BasicAuthenticationCredentials {
      * @returns {Promise<WebResource>} - The signed request object.
      */
     signRequest(webResource) {
-        let credentials = `${this.userName}:${this.password}`;
-        let encodedCredentials = `${this.authorizationScheme} ${Buffer.from(credentials).toString('base64')}`;
+        const credentials = `${this.userName}:${this.password}`;
+        const encodedCredentials = `${this.authorizationScheme} ${Buffer.from(credentials).toString('base64')}`;
         webResource.headers[HeaderConstants.AUTHORIZATION] = encodedCredentials;
         return Promise.resolve(webResource);
     }
@@ -34772,13 +34436,13 @@ class BasicAuthenticationCredentials {
 
 
 /***/ }),
-/* 133 */
+/* 131 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_constants__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_constants__ = __webpack_require__(13);
 // Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information. 
+// Licensed under the MIT License. See License.txt in the project root for license information.
 
 
 const HeaderConstants = __WEBPACK_IMPORTED_MODULE_0__util_constants__["a" /* default */].HeaderConstants;
@@ -34815,13 +34479,13 @@ class TokenCredentials {
 
 
 /***/ }),
-/* 134 */
+/* 132 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseFilter__ = __webpack_require__(12);
 // Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information. 
+// Licensed under the MIT License. See License.txt in the project root for license information.
 
 
 const isStream = __webpack_require__(31);
@@ -34831,8 +34495,8 @@ class LogFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilter__["a" /* default
         this.logger = logger;
     }
     after(operationResponse) {
-        let self = this;
-        self.logger(`>> Request: ${JSON.stringify(operationResponse.request, null, 2)}`);
+        const self = this;
+        self.logger(`>> Request: ${JSON.stringify(operationResponse.request, undefined, 2)}`);
         self.logger(`>> Response status code: ${operationResponse.response.status}`);
         let responseBody = operationResponse.body;
         if (isStream(operationResponse.body)) {
@@ -34846,20 +34510,39 @@ class LogFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilter__["a" /* default
 
 
 /***/ }),
-/* 135 */
+/* 133 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__requestPipeline__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__filters_exponentialRetryPolicyFilter__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters_systemErrorRetryPolicyFilter__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__filters_signingFilter__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__filters_msRestUserAgentFilter__ = __webpack_require__(56);
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information. 
+
+class RestError extends Error {
+    constructor(message, code, statusCode, request, response, body) {
+        super(message);
+        this.code = code;
+        this.statusCode = statusCode;
+        this.request = request;
+        this.response = response;
+        this.body = body;
+    }
+}
+/* unused harmony export default */
+
+
+
+/***/ }),
+/* 134 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__requestPipeline__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__filters_exponentialRetryPolicyFilter__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters_systemErrorRetryPolicyFilter__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__filters_signingFilter__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__filters_msRestUserAgentFilter__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__webResource__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_fs__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_fs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_path__ = __webpack_require__(111);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_path__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__util_constants__ = __webpack_require__(13);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
@@ -34871,7 +34554,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-
 
 
 
@@ -34904,13 +34586,12 @@ class ServiceClient {
             throw new Error('credentials argument needs to implement signRequest method');
         }
         try {
-            const packageJson = JSON.parse(__WEBPACK_IMPORTED_MODULE_6_fs__["readFileSync"]('../package.json', { encoding: 'utf8' }));
-            const moduleName = packageJson.name;
-            const moduleVersion = packageJson.version;
+            const moduleName = 'ms-rest';
+            const moduleVersion = __WEBPACK_IMPORTED_MODULE_6__util_constants__["a" /* default */].msRestVersion;
             this.addUserAgentInfo(`${moduleName}/${moduleVersion}`);
         }
         catch (err) {
-            //do nothing
+            // do nothing
         }
         if (credentials) {
             options.filters.push(new __WEBPACK_IMPORTED_MODULE_3__filters_signingFilter__["a" /* default */](credentials));
@@ -34932,54 +34613,12 @@ class ServiceClient {
         }
         return;
     }
-    /**
-     * Attempts to find package.json for the given azure nodejs package.
-     * If found, returns the name and version of the package by reading the package.json
-     * If package.json is not found, returns a default value.
-     * @param {string} managementClientDir - pass the directory of the specific azure management client.
-     * @returns {object} packageJsonInfo - "name" and "version" of the desired package.
-     */
-    getPackageJsonInfo(managementClientDir) {
-        // algorithm:
-        // package.json is placed next to the lib directory. So we try to find the lib directory first.
-        // In most packages we generate via autorest, the management client directly lives in the lib directory
-        // so, package.json could be found just one level above where management client lives.
-        // In some packages (azure-arm-resource), management client lives at one level deeper in the lib directory
-        // so, we have to traverse at least two levels higher to locate package.json.
-        // The algorithm for locating package.json would then be, start at the current directory where management client lives
-        // and keep searching up until the file is located. We also limit the search depth to 2, since we know the structure of 
-        // the clients we generate.
-        let packageJsonInfo = {
-            name: 'NO_NAME',
-            version: '0.0.0'
-        };
-        // private helper
-        function _getLibPath(currentDir, searchDepth) {
-            if (searchDepth < 1) {
-                return '';
-            }
-            // if current directory is lib, return current dir, otherwise search one level up.
-            return (currentDir.endsWith('lib') || currentDir.endsWith('lib' + __WEBPACK_IMPORTED_MODULE_7_path__["sep"])) ?
-                currentDir :
-                _getLibPath(__WEBPACK_IMPORTED_MODULE_7_path__["join"](currentDir, '..'), searchDepth - 1);
-        }
-        let libPath = _getLibPath(managementClientDir, 2);
-        if (libPath) {
-            let packageJsonPath = __WEBPACK_IMPORTED_MODULE_7_path__["join"](libPath, '..', 'package.json');
-            if (__WEBPACK_IMPORTED_MODULE_6_fs__["existsSync"](packageJsonPath)) {
-                let data = !(function webpackMissingModule() { var e = new Error("Cannot find module \".\""); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-                packageJsonInfo.name = data.name;
-                packageJsonInfo.version = data.version;
-            }
-        }
-        return packageJsonInfo;
-    }
     sendRequest(options) {
         return __awaiter(this, void 0, void 0, function* () {
             if (options === null || options === undefined || typeof options !== 'object') {
                 throw new Error('options cannot be null or undefined and it must be of type object.');
             }
-            let httpRequest = null;
+            let httpRequest = undefined;
             try {
                 if (options instanceof __WEBPACK_IMPORTED_MODULE_5__webResource__["b" /* WebResource */]) {
                     options.validateRequestProperties();
@@ -34993,7 +34632,7 @@ class ServiceClient {
             catch (error) {
                 return Promise.reject(error);
             }
-            //send request
+            // send request
             let operationResponse;
             try {
                 operationResponse = yield this.pipeline(httpRequest);
@@ -35010,22 +34649,31 @@ class ServiceClient {
 
 
 /***/ }),
-/* 136 */
+/* 135 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_msRest__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_msRest__ = __webpack_require__(62);
 
 
 const clientOptions = {
     filters: [new __WEBPACK_IMPORTED_MODULE_0__lib_msRest__["a" /* LogFilter */]()]
 };
-const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6InowMzl6ZHNGdWl6cEJmQlZLMVRuMjVRSFlPMCIsImtpZCI6InowMzl6ZHNGdWl6cEJmQlZLMVRuMjVRSFlPMCJ9.eyJhdWQiOiJodHRwczovL21hbmFnZW1lbnQuYXp1cmUuY29tLyIsImlzcyI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0Ny8iLCJpYXQiOjE0OTQ2NDY5MDMsIm5iZiI6MTQ5NDY0NjkwMywiZXhwIjoxNDk0NjUwODAzLCJhY3IiOiIxIiwiYWlvIjoiQVNRQTIvOERBQUFBci82UERzalRaTHhmOWF2YUxDUzZZU2lIVFpoQzJsN2lqQnUrUS9BWk12ND0iLCJhbXIiOlsicHdkIiwibWZhIl0sImFwcGlkIjoiZmJmYzdhNzEtMjU2Yi00NTRhLWJmMjctMTIxNjJmNjMwZTBhIiwiYXBwaWRhY3IiOiIwIiwiZmFtaWx5X25hbWUiOiJaYXZlcnkiLCJnaXZlbl9uYW1lIjoiQW1hciIsImhhc2dyb3VwcyI6InRydWUiLCJpcGFkZHIiOiIyNy40LjgxLjE1IiwibmFtZSI6IkFtYXIgWmF2ZXJ5Iiwib2lkIjoiMTk2MWVhYmYtMjE1Ny00YzQzLTk0NDEtYTZkMDQ5ZDA1Y2RhIiwib25wcmVtX3NpZCI6IlMtMS01LTIxLTIxMjc1MjExODQtMTYwNDAxMjkyMC0xODg3OTI3NTI3LTExODM0MTQ0IiwicGxhdGYiOiIzIiwicHVpZCI6IjEwMDMwMDAwODVCMzJDNTUiLCJzY3AiOiJ1c2VyX2ltcGVyc29uYXRpb24iLCJzdWIiOiJrUzVhZGt6bXJiSDZuOUhCY0RzbVRQTmlFX0pIeHhOazRIUGpCUWQ5WkcwIiwidGlkIjoiNzJmOTg4YmYtODZmMS00MWFmLTkxYWItMmQ3Y2QwMTFkYjQ3IiwidW5pcXVlX25hbWUiOiJhbXphdmVyeUBtaWNyb3NvZnQuY29tIiwidXBuIjoiYW16YXZlcnlAbWljcm9zb2Z0LmNvbSIsInZlciI6IjEuMCJ9.AUwiez0pvOEzYCyM9G7XDL0QzQpiF87YUAlfcEuplD7FY1dMux8UYPN0kpweGDRQo5fAAQtbZN_fPHRMAXs25zBnsJMnoY80vThT4a6PJcCUr5hovidvxSbQ1QO1LmYsGWAC6FbLgYNUHwDppyejBIfsQyOMPH2c6EaGxLr_gxRgm5bBCBCyHQqgfumY0a0S3iTveRsWZkMKYjldzQDGTg1pVAiGOLIp4khGSsdt6CmtGo5KAPiGx3l01cPfudlnIEvg0vY3IRa7EhSAsTzBsVwZ6S5Usj3NHo71F2fqpC0mqqdyjrwLyS2XiPiv8vrpB5by8aQD0i6TqBL9BLhYog';
+const subscriptionId = "00977cdb-163f-435f-9c32-39ec8ae61f4d";
+// An easy way to get the token
+// 1. Go to this test drive link https://azure.github.io/projects/apis and authenticate by clicking on Authorize. Check the user impersoantion checkbox in the popup.
+// 1.1 select a subscription of your choice
+// 1.2 select the storage-2015-06-15 option from the first drop down list
+// 1.3 expand the url to list storage accounts in a subscription
+// 1.4 click on try it out button.
+// 1.5 in the curl tab you will see the actual curl request that has the bearer token in it
+// 1.6 copy paste that token here. That token is valid for 1 hour
+const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IjlGWERwYmZNRlQyU3ZRdVhoODQ2WVR3RUlCdyIsImtpZCI6IjlGWERwYmZNRlQyU3ZRdVhoODQ2WVR3RUlCdyJ9.eyJhdWQiOiJodHRwczovL21hbmFnZW1lbnQuYXp1cmUuY29tLyIsImlzcyI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0Ny8iLCJpYXQiOjE0OTczODgwNTAsIm5iZiI6MTQ5NzM4ODA1MCwiZXhwIjoxNDk3MzkxOTUwLCJhY3IiOiIxIiwiYWlvIjoiWTJaZ1lIQi9LdXQxSi9YdkRQdUN0ZWQrcXhkZTY4dWVFbGN5TjBoNmYrTE9uR0I3VVZFQSIsImFtciI6WyJwd2QiLCJtZmEiXSwiYXBwaWQiOiJmYmZjN2E3MS0yNTZiLTQ1NGEtYmYyNy0xMjE2MmY2MzBlMGEiLCJhcHBpZGFjciI6IjAiLCJmYW1pbHlfbmFtZSI6IlphdmVyeSIsImdpdmVuX25hbWUiOiJBbWFyIiwiaGFzZ3JvdXBzIjoidHJ1ZSIsImluX2NvcnAiOiJ0cnVlIiwiaXBhZGRyIjoiMTY3LjIyMC4wLjE2NSIsIm5hbWUiOiJBbWFyIFphdmVyeSIsIm9pZCI6IjE5NjFlYWJmLTIxNTctNGM0My05NDQxLWE2ZDA0OWQwNWNkYSIsIm9ucHJlbV9zaWQiOiJTLTEtNS0yMS0yMTI3NTIxMTg0LTE2MDQwMTI5MjAtMTg4NzkyNzUyNy0xMTgzNDE0NCIsInBsYXRmIjoiMyIsInB1aWQiOiIxMDAzMDAwMDg1QjMyQzU1Iiwic2NwIjoidXNlcl9pbXBlcnNvbmF0aW9uIiwic3ViIjoia1M1YWRrem1yYkg2bjlIQmNEc21UUE5pRV9KSHh4Tms0SFBqQlFkOVpHMCIsInRpZCI6IjcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0NyIsInVuaXF1ZV9uYW1lIjoiYW16YXZlcnlAbWljcm9zb2Z0LmNvbSIsInVwbiI6ImFtemF2ZXJ5QG1pY3Jvc29mdC5jb20iLCJ2ZXIiOiIxLjAifQ.UhUM8-LH-bmlTjM5L3DzFzJDblz9mjW98L4vtTCcG6QTIPO9yYmT6w-7kkK9kr7Kd8tFIlpg-wKHBiCxTXu5QjhfrbxvJ5IiusJWsGmG4xJ9C-x_BTFQ7Rfnk4gLpBgyKhuXdzCYptc5ILBVq1-UuffhgDMxXnSKEE0dccauRqSd8ClAfcPctfFXgKpOxAX5FJirxAd03ziAk68zOWKF12zZCNJTiPPhZ3Pzc7SKR-i8YyAjiaYXCOve2E0_r5hnFuuMx7GjoSFofakznJRcM9HMmc3ep6oQm6hhTQrzrsm4uN-XVOU6FKpohYwbnIZO9Q8shEPn1DRPsHvTorOVGQ";
 const creds = new __WEBPACK_IMPORTED_MODULE_0__lib_msRest__["b" /* TokenCredentials */](token);
 const client = new __WEBPACK_IMPORTED_MODULE_0__lib_msRest__["c" /* ServiceClient */](creds, clientOptions);
-let req = {
-    url: 'https://management.azure.com/subscriptions/00977cdb-163f-435f-9c32-39ec8ae61f4d/providers/Microsoft.Storage/storageAccounts?api-version=2015-06-15',
+const req = {
+    url: `https://management.azure.com/subscriptions/${subscriptionId}/providers/Microsoft.Storage/storageAccounts?api-version=2015-06-15`,
     method: __WEBPACK_IMPORTED_MODULE_0__lib_msRest__["d" /* HttpMethods */].GET
 };
 client.sendRequest(req).then(function (res) {
@@ -35034,7 +34682,7 @@ client.sendRequest(req).then(function (res) {
 
 
 /***/ }),
-/* 137 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35057,7 +34705,7 @@ module.exports = {
 
 
 /***/ }),
-/* 138 */
+/* 137 */
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {
@@ -35086,7 +34734,7 @@ if (typeof Object.create === 'function') {
 
 
 /***/ }),
-/* 139 */
+/* 138 */
 /***/ (function(module, exports) {
 
 module.exports = function isBuffer(arg) {
@@ -35097,11 +34745,11 @@ module.exports = function isBuffer(arg) {
 }
 
 /***/ }),
-/* 140 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var v1 = __webpack_require__(141);
-var v4 = __webpack_require__(142);
+var v1 = __webpack_require__(140);
+var v4 = __webpack_require__(141);
 
 var uuid = v4;
 uuid.v1 = v1;
@@ -35111,14 +34759,14 @@ module.exports = uuid;
 
 
 /***/ }),
-/* 141 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Unique ID creation requires a high quality random # generator.  We feature
 // detect to determine the best RNG source, normalizing to a function that
 // returns 128-bits of randomness, since that's what's usually required
-var rng = __webpack_require__(62);
-var bytesToUuid = __webpack_require__(61);
+var rng = __webpack_require__(61);
+var bytesToUuid = __webpack_require__(60);
 
 // **`v1()` - Generate time-based UUID**
 //
@@ -35220,11 +34868,11 @@ module.exports = v1;
 
 
 /***/ }),
-/* 142 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var rng = __webpack_require__(62);
-var bytesToUuid = __webpack_require__(61);
+var rng = __webpack_require__(61);
+var bytesToUuid = __webpack_require__(60);
 
 function v4(options, buf, offset) {
   var i = buf && offset || 0;
@@ -35255,7 +34903,7 @@ module.exports = v4;
 
 
 /***/ }),
-/* 143 */
+/* 142 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -35283,7 +34931,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 144 */
+/* 143 */
 /***/ (function(module, exports) {
 
 module.exports = extend
@@ -35308,6 +34956,12 @@ function extend() {
 
 
 /***/ }),
+/* 144 */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
 /* 145 */
 /***/ (function(module, exports) {
 
@@ -35319,11 +34973,6 @@ function extend() {
 
 /* (ignored) */
 
-/***/ }),
-/* 147 */
-/***/ (function(module, exports) {
-
-/* (ignored) */
-
 /***/ })
 /******/ ]);
+//# sourceMappingURL=bundle.js.map

@@ -1,43 +1,48 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information. 
+// Licensed under the MIT License. See License.txt in the project root for license information.
 'use strict';
-exports.__esModule = true;
-var Constants = {
+const Constants = {
     /**
-    * Specifies HTTP.
-    *
-    * @const
-    * @type {string}
-    */
+     * The ms-rest version
+     * @const
+     * @type {string}
+     */
+    msRestVersion: '3.0.0',
+    /**
+     * Specifies HTTP.
+     *
+     * @const
+     * @type {string}
+     */
     HTTP: 'http:',
     /**
-    * Specifies HTTPS.
-    *
-    * @const
-    * @type {string}
-    */
+     * Specifies HTTPS.
+     *
+     * @const
+     * @type {string}
+     */
     HTTPS: 'https:',
     /**
-    * Specifies HTTP Proxy.
-    *
-    * @const
-    * @type {string}
-    */
+     * Specifies HTTP Proxy.
+     *
+     * @const
+     * @type {string}
+     */
     HTTP_PROXY: 'HTTP_PROXY',
     /**
-    * Specifies HTTPS Proxy.
-    *
-    * @const
-    * @type {string}
-    */
+     * Specifies HTTPS Proxy.
+     *
+     * @const
+     * @type {string}
+     */
     HTTPS_PROXY: 'HTTPS_PROXY',
     HttpConstants: {
         /**
-        * Http Verbs
-        *
-        * @const
-        * @enum {string}
-        */
+         * Http Verbs
+         *
+         * @const
+         * @enum {string}
+         */
         HttpVerbs: {
             PUT: 'PUT',
             GET: 'GET',
@@ -46,27 +51,27 @@ var Constants = {
             MERGE: 'MERGE',
             HEAD: 'HEAD',
             PATCH: 'PATCH'
-        }
+        },
     },
     /**
-    * Defines constants for use with HTTP headers.
-    */
+     * Defines constants for use with HTTP headers.
+     */
     HeaderConstants: {
         /**
-        * The Authorization header.
-        *
-        * @const
-        * @type {string}
-        */
+         * The Authorization header.
+         *
+         * @const
+         * @type {string}
+         */
         AUTHORIZATION: 'authorization',
         AUTHORIZATION_SCHEME: 'Bearer',
         /**
-        * The UserAgent header.
-        *
-        * @const
-        * @type {string}
-        */
+         * The UserAgent header.
+         *
+         * @const
+         * @type {string}
+         */
         USER_AGENT: 'user-agent'
     }
 };
-exports["default"] = Constants;
+export default Constants;
