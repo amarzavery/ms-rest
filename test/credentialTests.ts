@@ -1,8 +1,8 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import * as should from "should";
 import * as msRest from "../lib/msRest";
+const should = require('should');
 const Buffer = require("buffer/").Buffer;
 const TokenCredentials = msRest.TokenCredentials;
 const BasicAuthenticationCredentials = msRest.BasicAuthenticationCredentials;

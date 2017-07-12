@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 import * as assert from "assert";
-import * as should from "should";
 import { WebResource } from "../lib/webResource";
 import UserAgentFilter from "../lib/filters/msRestUserAgentFilter";
 const userAgentHeader = "user-agent";
+const should = require('should');
 
 describe("ms-rest user agent filter", () => {
 

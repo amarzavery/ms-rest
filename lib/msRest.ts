@@ -14,7 +14,15 @@ import ExponentialRetryPolicyFilter from './filters/exponentialRetryPolicyFilter
 import SystemErrorRetryPolicyFilter from './filters/systemErrorRetryPolicyFilter';
 import SigningFilter from './filters/signingFilter';
 import UserAgentFilter from './filters/msRestUserAgentFilter';
-import { stripRequest, stripResponse, delay, executePromisesSequentially, generateUuid, encodeUri } from './util/utils';
+import {
+  BaseMapperType, CompositeMapper, DictionaryMapper, EnumMapper, Mapper,
+  MapperConstraints, MapperType, PolymorphicDiscriminator,
+  SequenceMapper, Serializer, UrlParameterValue, serializeObject
+} from './serializer';
+import {
+  stripRequest, stripResponse, delay,
+  executePromisesSequentially, generateUuid, encodeUri
+} from './util/utils';
 
 // Credentials
 import TokenCredentials from './credentials/tokenCredentials';
@@ -22,8 +30,10 @@ import BasicAuthenticationCredentials from './credentials/basicAuthenticationCre
 import ServiceClientCredentials from './credentials/serviceClientCredentials';
 
 export {
+  BaseMapperType, CompositeMapper, DictionaryMapper, EnumMapper, Mapper, MapperConstraints, MapperType,
+  PolymorphicDiscriminator, SequenceMapper, UrlParameterValue, RequestOptions,
   WebResource, RequestPrepareOptions, HttpMethods, ParameterValue, HttpOperationResponse, ServiceClient, Constants, RequestPipeline, TokenCredentials,
   BasicAuthenticationCredentials, ServiceClientCredentials, BaseFilter, LogFilter, ServiceClientOptions, ExponentialRetryPolicyFilter,
   SystemErrorRetryPolicyFilter, SigningFilter, UserAgentFilter, stripRequest, stripResponse, delay, executePromisesSequentially,
-  generateUuid, encodeUri, RestError, RequestOptions
+  generateUuid, encodeUri, RestError, Serializer, serializeObject
 };
