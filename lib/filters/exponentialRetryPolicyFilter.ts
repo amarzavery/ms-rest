@@ -3,9 +3,9 @@
 
 'use strict';
 
-import BaseFilter from './baseFilter';
+import { BaseFilter } from './baseFilter';
 import * as utils from '../util/utils';
-import HttpOperationResponse from '../httpOperationResponse';
+import { HttpOperationResponse } from '../httpOperationResponse';
 
 export interface RetryData {
   retryCount: number;
@@ -29,7 +29,7 @@ export interface RetryError extends Error {
  * @param {number} minRetryInterval  The minimum retry interval, in milliseconds.
  * @param {number} maxRetryInterval  The maximum retry interval, in milliseconds.
  */
-class ExponentialRetryPolicyFilter extends BaseFilter {
+export class ExponentialRetryPolicyFilter extends BaseFilter {
 
   retryCount: number;
   retryInterval: number;
@@ -129,5 +129,3 @@ class ExponentialRetryPolicyFilter extends BaseFilter {
     return this.retry(operationResponse, null, null);
   }
 }
-
-export default ExponentialRetryPolicyFilter;

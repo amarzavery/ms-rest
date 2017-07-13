@@ -3,11 +3,11 @@
 
 'use strict';
 
-import BaseFilter from './baseFilter';
-import HttpOperationResponse from '../httpOperationResponse';
+import { BaseFilter } from './baseFilter';
+import { HttpOperationResponse } from '../httpOperationResponse';
 const isStream = require('is-stream');
 
-class LogFilter extends BaseFilter {
+export class LogFilter extends BaseFilter {
 
   logger?: any;
 
@@ -28,5 +28,3 @@ class LogFilter extends BaseFilter {
     return Promise.resolve(operationResponse);
   }
 }
-
-export default LogFilter;

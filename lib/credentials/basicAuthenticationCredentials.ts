@@ -3,11 +3,9 @@
 
 'use strict';
 
-import Constants from '../util/constants';
+import { Constants } from '../util/constants';
 import { WebResource } from '../webResource';
-import SereviceClientCredentials from './serviceClientCredentials';
-
-const Buffer = require('buffer/').Buffer;
+import { ServiceClientCredentials } from './serviceClientCredentials';
 const HeaderConstants = Constants.HeaderConstants;
 const DEFAULT_AUTHORIZATION_SCHEME = 'Basic';
 
@@ -19,7 +17,7 @@ const DEFAULT_AUTHORIZATION_SCHEME = 'Basic';
  * @param {string} password                 Password.
  * @param {string} [authorizationScheme]    The authorization scheme.
  */
-export default class BasicAuthenticationCredentials implements SereviceClientCredentials {
+export class BasicAuthenticationCredentials implements ServiceClientCredentials {
   userName: string;
   password: string;
   authorizationScheme: string = DEFAULT_AUTHORIZATION_SCHEME;

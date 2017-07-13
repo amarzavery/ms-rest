@@ -3,10 +3,9 @@
 
 
 import * as assert from "assert";
-import * as nodeFetch from "node-fetch";
 import { WebResource } from "../lib/webResource";
-import HttpOperationResponse from "../lib/httpOperationResponse";
-import LogFilter from "../lib/filters/logFilter";
+import { HttpOperationResponse } from "../lib/httpOperationResponse";
+import { LogFilter } from "../lib/filters/logFilter";
 
 describe("Log filter", () => {
 
@@ -28,7 +27,7 @@ describe("Log filter", () => {
     const logger: Function = (message: string): void => { output += message + "\n"; };
     const lf = new LogFilter(logger);
     const req = new WebResource("https://foo.com", "PUT", { "a": 1 });
-    const res = new nodeFetch.Response();
+    const res = new Response();
     const opRes = new HttpOperationResponse(req, res);
     lf.after(opRes).then(() => {
       assert.deepEqual(output, expected);

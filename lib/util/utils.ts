@@ -4,9 +4,8 @@
 'use strict';
 
 import { WebResource } from '../webResource';
-import Constants from './constants';
+import { Constants } from './constants';
 import * as uuid from 'uuid';
-import * as nodeFetch from 'node-fetch';
 
 /**
  * Checks if a parsed URL is HTTPS
@@ -54,7 +53,7 @@ export function encodeUri(uri: string) {
  *
  * @return {object} strippedResponse - The stripped version of Http Response.
  */
-export function stripResponse(response: nodeFetch.Response) {
+export function stripResponse(response: Response) {
   const strippedResponse: any = {};
   strippedResponse.body = response.body;
   strippedResponse.headers = response.headers;
@@ -71,7 +70,7 @@ export function stripResponse(response: nodeFetch.Response) {
  * @return {object} strippedRequest - The stripped version of Http Request.
  */
 export function stripRequest(request: WebResource): WebResource {
-  let strippedRequest: WebResource = new WebResource();
+  let strippedRequest = new WebResource();
   try {
     strippedRequest = JSON.parse(JSON.stringify(request));
     if (strippedRequest.headers && strippedRequest.headers.Authorization) {

@@ -1,8 +1,9 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 'use strict';
-import Constants from '../util/constants';
-const HeaderConstants = Constants.HeaderConstants;
+Object.defineProperty(exports, "__esModule", { value: true });
+const constants_1 = require("../util/constants");
+const HeaderConstants = constants_1.Constants.HeaderConstants;
 const DEFAULT_AUTHORIZATION_SCHEME = 'Bearer';
 /**
  * Creates a new TokenCredentials object.
@@ -11,7 +12,7 @@ const DEFAULT_AUTHORIZATION_SCHEME = 'Bearer';
  * @param {string} token               The token.
  * @param {string} authorizationScheme The authorization scheme.
  */
-export default class TokenCredentials {
+class TokenCredentials {
     constructor(token, authorizationScheme = DEFAULT_AUTHORIZATION_SCHEME) {
         this.authorizationScheme = DEFAULT_AUTHORIZATION_SCHEME;
         if (!token) {
@@ -31,3 +32,5 @@ export default class TokenCredentials {
         return Promise.resolve(webResource);
     }
 }
+exports.TokenCredentials = TokenCredentials;
+//# sourceMappingURL=tokenCredentials.js.map

@@ -3,11 +3,11 @@
 
 'use strict';
 
-import BaseFilter from './baseFilter';
+import { BaseFilter } from './baseFilter';
 import { WebResource } from '../webResource';
-import ServiceClientCredentials from '../credentials/serviceClientCredentials';
+import { ServiceClientCredentials } from '../credentials/serviceClientCredentials';
 
-class SigningFilter extends BaseFilter {
+export class SigningFilter extends BaseFilter {
 
   authenticationProvider: ServiceClientCredentials;
 
@@ -21,5 +21,3 @@ class SigningFilter extends BaseFilter {
     return self.authenticationProvider.signRequest(request);
   }
 }
-
-export default SigningFilter;

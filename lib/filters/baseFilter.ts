@@ -4,9 +4,9 @@
 'use strict';
 
 import { WebResource } from '../webResource';
-import HttpOperationResponse from '../httpOperationResponse';
+import { HttpOperationResponse } from '../httpOperationResponse';
 
-class BaseFilter {
+export class BaseFilter {
 
   constructor() { }
 
@@ -18,5 +18,3 @@ class BaseFilter {
     return Promise.resolve(response);
   }
 }
-
-export default BaseFilter;

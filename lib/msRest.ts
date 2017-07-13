@@ -3,17 +3,17 @@
 
 'use strict';
 import { WebResource, RequestPrepareOptions, HttpMethods, ParameterValue, RequestOptions } from './webResource';
-import HttpOperationResponse from './httpOperationResponse';
-import RestError from './restError';
+import { HttpOperationResponse } from './httpOperationResponse';
+import { RestError } from './restError';
 import { ServiceClient, ServiceClientOptions } from './serviceClient';
-import Constants from './util/constants';
-import RequestPipeline from './requestPipeline';
-import LogFilter from './filters/logFilter';
-import BaseFilter from './filters/baseFilter';
-import ExponentialRetryPolicyFilter from './filters/exponentialRetryPolicyFilter';
-import SystemErrorRetryPolicyFilter from './filters/systemErrorRetryPolicyFilter';
-import SigningFilter from './filters/signingFilter';
-import UserAgentFilter from './filters/msRestUserAgentFilter';
+import { Constants } from './util/constants';
+import { RequestPipeline } from './requestPipeline';
+import { LogFilter } from './filters/logFilter';
+import { BaseFilter } from './filters/baseFilter';
+import { ExponentialRetryPolicyFilter } from './filters/exponentialRetryPolicyFilter';
+import { SystemErrorRetryPolicyFilter } from './filters/systemErrorRetryPolicyFilter';
+import { SigningFilter } from './filters/signingFilter';
+import { MsRestUserAgentFilter } from './filters/msRestUserAgentFilter';
 import {
   BaseMapperType, CompositeMapper, DictionaryMapper, EnumMapper, Mapper,
   MapperConstraints, MapperType, PolymorphicDiscriminator,
@@ -25,15 +25,15 @@ import {
 } from './util/utils';
 
 // Credentials
-import TokenCredentials from './credentials/tokenCredentials';
-import BasicAuthenticationCredentials from './credentials/basicAuthenticationCredentials';
-import ServiceClientCredentials from './credentials/serviceClientCredentials';
+import { TokenCredentials } from './credentials/tokenCredentials';
+import { BasicAuthenticationCredentials } from './credentials/basicAuthenticationCredentials';
+import { ServiceClientCredentials } from './credentials/serviceClientCredentials';
 
 export {
   BaseMapperType, CompositeMapper, DictionaryMapper, EnumMapper, Mapper, MapperConstraints, MapperType,
-  PolymorphicDiscriminator, SequenceMapper, UrlParameterValue, RequestOptions,
-  WebResource, RequestPrepareOptions, HttpMethods, ParameterValue, HttpOperationResponse, ServiceClient, Constants, RequestPipeline, TokenCredentials,
+  PolymorphicDiscriminator, SequenceMapper, UrlParameterValue, Serializer, serializeObject, TokenCredentials,
+  WebResource, RequestPrepareOptions, HttpMethods, ParameterValue, HttpOperationResponse, ServiceClient, Constants, RequestPipeline,
   BasicAuthenticationCredentials, ServiceClientCredentials, BaseFilter, LogFilter, ServiceClientOptions, ExponentialRetryPolicyFilter,
-  SystemErrorRetryPolicyFilter, SigningFilter, UserAgentFilter, stripRequest, stripResponse, delay, executePromisesSequentially,
-  generateUuid, encodeUri, RestError, Serializer, serializeObject
+  SystemErrorRetryPolicyFilter, SigningFilter, MsRestUserAgentFilter, stripRequest, stripResponse, delay, executePromisesSequentially,
+  generateUuid, encodeUri, RestError, RequestOptions
 };

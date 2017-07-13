@@ -3,13 +3,13 @@
 
 'use strict';
 
-import BaseFilter from './baseFilter';
+import { BaseFilter } from './baseFilter';
 import { WebResource } from '../webResource';
-import Constants from '../util/constants';
+import { Constants } from '../util/constants';
 import * as os from 'os';
 const HeaderConstants = Constants.HeaderConstants;
 
-class MsRestUserAgentFilter extends BaseFilter {
+export class MsRestUserAgentFilter extends BaseFilter {
 
   userAgentInfo: Array<string>;
 
@@ -52,5 +52,3 @@ class MsRestUserAgentFilter extends BaseFilter {
     }
   }
 }
-
-export default MsRestUserAgentFilter;

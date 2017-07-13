@@ -3,7 +3,7 @@
 
 import * as assert from "assert";
 import { WebResource } from "../lib/webResource";
-import UserAgentFilter from "../lib/filters/msRestUserAgentFilter";
+import { MsRestUserAgentFilter } from "../lib/filters/msRestUserAgentFilter";
 const userAgentHeader = "user-agent";
 const should = require('should');
 
@@ -11,7 +11,7 @@ describe("ms-rest user agent filter", () => {
 
   it("should construct user agent header when supplied empty array", (done) => {
     const userAgentArray: Array<string> = [];
-    const userAgentFilter = new UserAgentFilter(userAgentArray);
+    const userAgentFilter = new MsRestUserAgentFilter(userAgentArray);
     const resource = new WebResource();
     resource.headers = {};
     userAgentFilter.before(resource).then((resource) => {
@@ -27,7 +27,7 @@ describe("ms-rest user agent filter", () => {
     const azureRuntime = "ms-rest-azure";
     const azureSDK = "Azure-SDK-For-Node";
     const userAgentArray = [`${genericRuntime}/v1.0.0`, `${azureRuntime}/v1.0.0`];
-    const userAgentFilter = new UserAgentFilter(userAgentArray);
+    const userAgentFilter = new MsRestUserAgentFilter(userAgentArray);
     const customUA = "my custom user agent";
     const resource = new WebResource();
     resource.headers = { "user-agent": customUA };
@@ -47,7 +47,7 @@ describe("ms-rest user agent filter", () => {
     const azureRuntime = "ms-rest-azure";
     const azureSDK = "Azure-SDK-For-Node";
     const userAgentArray = [`${genericRuntime}/v1.0.0`, `${azureRuntime}/v1.0.0`];
-    const userAgentFilter = new UserAgentFilter(userAgentArray);
+    const userAgentFilter = new MsRestUserAgentFilter(userAgentArray);
     const resource = new WebResource();
     resource.headers = {};
     userAgentFilter.before(resource).then((resource) => {

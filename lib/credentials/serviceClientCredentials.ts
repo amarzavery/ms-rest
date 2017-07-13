@@ -5,7 +5,7 @@
 
 import { WebResource } from '../webResource';
 
-interface ServiceClientCredentials {
+export interface ServiceClientCredentials {
   /**
    * Signs a request with the Authentication header.
    *
@@ -14,5 +14,3 @@ interface ServiceClientCredentials {
    */
   signRequest(webResource: WebResource): Promise<WebResource>;
 }
-
-export default ServiceClientCredentials;

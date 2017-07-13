@@ -3,9 +3,9 @@
 
 'use strict';
 
-import BaseFilter from './baseFilter';
+import { BaseFilter } from './baseFilter';
 import * as utils from '../util/utils';
-import HttpOperationResponse from '../httpOperationResponse';
+import { HttpOperationResponse } from '../httpOperationResponse';
 
 export interface RetryData {
   retryCount: number;
@@ -29,7 +29,7 @@ export interface RetryError extends Error {
  * @param {number} minRetryInterval  The minimum retry interval, in milliseconds.
  * @param {number} maxRetryInterval  The maximum retry interval, in milliseconds.
  */
-class SystemErrorRetryPolicyFilter extends BaseFilter {
+export class SystemErrorRetryPolicyFilter extends BaseFilter {
 
   retryCount: number;
   retryInterval: number;
@@ -125,5 +125,3 @@ class SystemErrorRetryPolicyFilter extends BaseFilter {
     return this.retry(operationResponse, null, null); // TODO Audit usages of null. See: https://github.com/Microsoft/TypeScript/issues/7426
   }
 }
-
-export default SystemErrorRetryPolicyFilter;

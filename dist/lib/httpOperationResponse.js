@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 'use strict';
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Wrapper object for http request and response. Deserialized object is stored in
  * the `body` property.
@@ -8,7 +9,7 @@
  * Initializes a new instance of the HttpOperationResponse class.
  * @constructor
  */
-export default class HttpOperationResponse {
+class HttpOperationResponse {
     constructor(request, response) {
         /**
          * Reference to the original request object.
@@ -29,3 +30,5 @@ export default class HttpOperationResponse {
         this.body = undefined;
     }
 }
+exports.HttpOperationResponse = HttpOperationResponse;
+//# sourceMappingURL=httpOperationResponse.js.map

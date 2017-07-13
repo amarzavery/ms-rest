@@ -4,23 +4,17 @@
 'use strict';
 
 import { WebResource } from './webResource';
-import HttpOperationResponse from './httpOperationResponse';
-import BaseFilter from './filters/baseFilter';
+import { HttpOperationResponse } from './httpOperationResponse';
+import { BaseFilter } from './filters/baseFilter';
 import * as utils from './util/utils';
-import * as nodeFetch from 'node-fetch';
-const fetchCookie = require('fetch-cookie');
 import * as FormData from 'form-data';
-const fetch = fetchCookie(nodeFetch);
+const fPF = require('fetch-ponyfill')();
 
-Object.assign(nodeFetch.Response.prototype, {
-  statusCode: nodeFetch.Response.prototype.status
-});
-
-export default class RequestPipeline {
+export class RequestPipeline {
   filters?: BaseFilter[];
-  requestOptions?: nodeFetch.RequestInit;
+  requestOptions?: RequestInit;
 
-  constructor(filters?: BaseFilter[], requestOptions?: nodeFetch.RequestInit) {
+  constructor(filters?: BaseFilter[], requestOptions?: RequestInit) {
     this.filters = filters || [];
     this.requestOptions = requestOptions;
   }
@@ -86,9 +80,9 @@ export default class RequestPipeline {
       options.body = requestForm;
       options.formData = undefined;
     }
-    let res: nodeFetch.Response;
+    let res: Response;
     try {
-      res = await fetch(options.url, options);
+      res = await fPF.fetch(options.url, options);
     } catch (err) {
       throw err;
     }

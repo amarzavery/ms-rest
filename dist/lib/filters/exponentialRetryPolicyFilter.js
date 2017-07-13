@@ -1,8 +1,9 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 'use strict';
-import BaseFilter from './baseFilter';
-import * as utils from '../util/utils';
+Object.defineProperty(exports, "__esModule", { value: true });
+const baseFilter_1 = require("./baseFilter");
+const utils = require("../util/utils");
 /**
  * @class
  * Instantiates a new 'ExponentialRetryPolicyFilter' instance.
@@ -13,7 +14,7 @@ import * as utils from '../util/utils';
  * @param {number} minRetryInterval  The minimum retry interval, in milliseconds.
  * @param {number} maxRetryInterval  The maximum retry interval, in milliseconds.
  */
-class ExponentialRetryPolicyFilter extends BaseFilter {
+class ExponentialRetryPolicyFilter extends baseFilter_1.BaseFilter {
     constructor(retryCount, retryInterval, minRetryInterval, maxRetryInterval) {
         super();
         this.DEFAULT_CLIENT_RETRY_INTERVAL = 1000 * 30;
@@ -97,4 +98,5 @@ class ExponentialRetryPolicyFilter extends BaseFilter {
         return this.retry(operationResponse, null, null);
     }
 }
-export default ExponentialRetryPolicyFilter;
+exports.ExponentialRetryPolicyFilter = ExponentialRetryPolicyFilter;
+//# sourceMappingURL=exponentialRetryPolicyFilter.js.map

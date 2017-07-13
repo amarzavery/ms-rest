@@ -3,9 +3,9 @@
 
 'use strict';
 
-import Constants from '../util/constants';
+import { Constants } from '../util/constants';
 import { WebResource } from '../webResource';
-import SereviceClientCredentials from './serviceClientCredentials';
+import { ServiceClientCredentials } from './serviceClientCredentials';
 
 const HeaderConstants = Constants.HeaderConstants;
 const DEFAULT_AUTHORIZATION_SCHEME = 'Bearer';
@@ -17,7 +17,7 @@ const DEFAULT_AUTHORIZATION_SCHEME = 'Bearer';
  * @param {string} token               The token.
  * @param {string} authorizationScheme The authorization scheme.
  */
-export default class TokenCredentials implements SereviceClientCredentials {
+export class TokenCredentials implements ServiceClientCredentials {
   token: string;
   authorizationScheme: string = DEFAULT_AUTHORIZATION_SCHEME;
 

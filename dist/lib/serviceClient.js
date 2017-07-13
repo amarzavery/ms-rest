@@ -9,13 +9,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import RequestPipeline from './requestPipeline';
-import ExponentialRetryPolicyFilter from './filters/exponentialRetryPolicyFilter';
-import SystemErrorRetryPolicyFilter from './filters/systemErrorRetryPolicyFilter';
-import SigningFilter from './filters/signingFilter';
-import UserAgentFilter from './filters/msRestUserAgentFilter';
-import { WebResource } from './webResource';
-import Constants from './util/constants';
+Object.defineProperty(exports, "__esModule", { value: true });
+const requestPipeline_1 = require("./requestPipeline");
+const exponentialRetryPolicyFilter_1 = require("./filters/exponentialRetryPolicyFilter");
+const systemErrorRetryPolicyFilter_1 = require("./filters/systemErrorRetryPolicyFilter");
+const signingFilter_1 = require("./filters/signingFilter");
+const msRestUserAgentFilter_1 = require("./filters/msRestUserAgentFilter");
+const webResource_1 = require("./webResource");
+const constants_1 = require("./util/constants");
 /**
  * @class
  * Initializes a new instance of the ServiceClient.
@@ -25,7 +26,7 @@ import Constants from './util/constants';
  *
  * @param {ServiceClientOptions} [options] The service client options that govern the behavior of the client.
  */
-export class ServiceClient {
+class ServiceClient {
     constructor(credentials, options) {
         if (!options) {
             options = {};
@@ -42,21 +43,21 @@ export class ServiceClient {
         }
         try {
             const moduleName = 'ms-rest';
-            const moduleVersion = Constants.msRestVersion;
+            const moduleVersion = constants_1.Constants.msRestVersion;
             this.addUserAgentInfo(`${moduleName}/${moduleVersion}`);
         }
         catch (err) {
             // do nothing
         }
         if (credentials) {
-            options.filters.push(new SigningFilter(credentials));
+            options.filters.push(new signingFilter_1.SigningFilter(credentials));
         }
-        options.filters.push(new UserAgentFilter(this.userAgentInfo.value));
+        options.filters.push(new msRestUserAgentFilter_1.MsRestUserAgentFilter(this.userAgentInfo.value));
         if (!options.noRetryPolicy) {
-            options.filters.push(new ExponentialRetryPolicyFilter());
-            options.filters.push(new SystemErrorRetryPolicyFilter());
+            options.filters.push(new exponentialRetryPolicyFilter_1.ExponentialRetryPolicyFilter());
+            options.filters.push(new systemErrorRetryPolicyFilter_1.SystemErrorRetryPolicyFilter());
         }
-        this.pipeline = new RequestPipeline(options.filters, options.requestOptions).create();
+        this.pipeline = new requestPipeline_1.RequestPipeline(options.filters, options.requestOptions).create();
     }
     /**
      * Adds custom information to user agent header
@@ -75,12 +76,12 @@ export class ServiceClient {
             }
             let httpRequest = undefined;
             try {
-                if (options instanceof WebResource) {
+                if (options instanceof webResource_1.WebResource) {
                     options.validateRequestProperties();
                     httpRequest = options;
                 }
                 else {
-                    httpRequest = new WebResource();
+                    httpRequest = new webResource_1.WebResource();
                     httpRequest = httpRequest.prepare(options);
                 }
             }
@@ -99,3 +100,5 @@ export class ServiceClient {
         });
     }
 }
+exports.ServiceClient = ServiceClient;
+//# sourceMappingURL=serviceClient.js.map

@@ -9,16 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import HttpOperationResponse from './httpOperationResponse';
-import * as utils from './util/utils';
-import * as nodeFetch from 'node-fetch';
-const fetchCookie = require('fetch-cookie');
-import * as FormData from 'form-data';
-const fetch = fetchCookie(nodeFetch);
-Object.assign(nodeFetch.Response.prototype, {
-    statusCode: nodeFetch.Response.prototype.status
-});
-export default class RequestPipeline {
+Object.defineProperty(exports, "__esModule", { value: true });
+const httpOperationResponse_1 = require("./httpOperationResponse");
+const utils = require("./util/utils");
+const FormData = require("form-data");
+const fPF = require('fetch-ponyfill')();
+class RequestPipeline {
     constructor(filters, requestOptions) {
         this.filters = filters || [];
         this.requestOptions = requestOptions;
@@ -89,12 +85,12 @@ export default class RequestPipeline {
             }
             let res;
             try {
-                res = yield fetch(options.url, options);
+                res = yield fPF.fetch(options.url, options);
             }
             catch (err) {
                 throw err;
             }
-            const operationResponse = new HttpOperationResponse(options, res);
+            const operationResponse = new httpOperationResponse_1.HttpOperationResponse(options, res);
             if (options.rawResponse) {
                 operationResponse.body = res.body;
             }
@@ -105,3 +101,5 @@ export default class RequestPipeline {
         });
     }
 }
+exports.RequestPipeline = RequestPipeline;
+//# sourceMappingURL=requestPipeline.js.map

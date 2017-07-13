@@ -1,9 +1,10 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 'use strict';
-import BaseFilter from './baseFilter';
+Object.defineProperty(exports, "__esModule", { value: true });
+const baseFilter_1 = require("./baseFilter");
 const isStream = require('is-stream');
-class LogFilter extends BaseFilter {
+class LogFilter extends baseFilter_1.BaseFilter {
     constructor(logger = console.log) {
         super();
         this.logger = logger;
@@ -20,4 +21,5 @@ class LogFilter extends BaseFilter {
         return Promise.resolve(operationResponse);
     }
 }
-export default LogFilter;
+exports.LogFilter = LogFilter;
+//# sourceMappingURL=logFilter.js.map

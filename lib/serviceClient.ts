@@ -3,26 +3,25 @@
 
 'use strict';
 
-import RequestPipeline from './requestPipeline';
-import ServiceClientCredentials from './credentials/serviceClientCredentials';
-import BaseFilter from './filters/baseFilter';
-import ExponentialRetryPolicyFilter from './filters/exponentialRetryPolicyFilter';
-import SystemErrorRetryPolicyFilter from './filters/systemErrorRetryPolicyFilter';
-import SigningFilter from './filters/signingFilter';
-import UserAgentFilter from './filters/msRestUserAgentFilter';
+import { RequestPipeline } from './requestPipeline';
+import { ServiceClientCredentials } from './credentials/serviceClientCredentials';
+import { BaseFilter } from './filters/baseFilter';
+import { ExponentialRetryPolicyFilter } from './filters/exponentialRetryPolicyFilter';
+import { SystemErrorRetryPolicyFilter } from './filters/systemErrorRetryPolicyFilter';
+import { SigningFilter } from './filters/signingFilter';
+import { MsRestUserAgentFilter } from './filters/msRestUserAgentFilter';
 import { WebResource, RequestPrepareOptions } from './webResource';
-import Constants from './util/constants';
-import HttpOperationResponse from './httpOperationResponse';
-import * as nodeFetch from 'node-fetch';
+import { Constants } from './util/constants';
+import { HttpOperationResponse } from './httpOperationResponse';
 
 /**
  * Options to be provided while creating the client.
- * @property {object} [requestOptions] The request options. Detailed info can be found here https://github.com/bitinn/node-fetch#fetch-options
+ * @property {RequestInit} [requestOptions] The request options. Detailed info can be found here https://github.github.io/fetch/#Request
  * @property {Array<BaseFilter>} [filters] An array of filters/interceptors that will be processed in the request pipeline (before and after) sending the request on the wire.
  * @property {bool} [options.noRetryPolicy] - If set to true, turn off default retry policy
  */
 export interface ServiceClientOptions {
-  requestOptions?: nodeFetch.RequestInit;
+  requestOptions?: RequestInit;
   filters?: BaseFilter[];
   noRetryPolicy?: boolean;
 }
@@ -71,7 +70,7 @@ export class ServiceClient {
       options.filters.push(new SigningFilter(credentials));
     }
 
-    options.filters.push(new UserAgentFilter(this.userAgentInfo.value));
+    options.filters.push(new MsRestUserAgentFilter(this.userAgentInfo.value));
 
 
     if (!options.noRetryPolicy) {

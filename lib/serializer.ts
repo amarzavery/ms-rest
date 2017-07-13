@@ -100,7 +100,7 @@ export class Serializer {
     // Base64Url to Base64.
     str = str.replace(/\-/g, '+').replace(/\_/g, '/');
     // Base64 to Buffer.
-    return new Buffer(str, 'base64');
+    return Buffer.from(str, 'base64');
   }
 
   splitSerializeName(prop: string): Array<string> {
@@ -162,7 +162,7 @@ export class Serializer {
           throw new Error(`${objectName} must be of type object.`);
         }
       } else if (typeName.match(/^Stream$/ig) !== null) {
-        if (isStream(value)) {
+        if (!isStream(value)) {
           throw new Error(`${objectName} must be of type stream.`);
         }
       }
@@ -531,7 +531,7 @@ export class Serializer {
     } else if (mapperType.match(/^UnixTime$/ig) !== null) {
       payload = this.unixTimeToDate(responseBody);
     } else if (mapperType.match(/^ByteArray$/ig) !== null) {
-      payload = new Buffer(responseBody, 'base64');
+      payload = Buffer.from(responseBody, 'base64');
     } else if (mapperType.match(/^Base64Url$/ig) !== null) {
       payload = this.base64UrlToBuffer(responseBody);
     } else if (mapperType.match(/^Sequence$/ig) !== null) {

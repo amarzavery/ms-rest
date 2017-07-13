@@ -1,9 +1,9 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 'use strict';
-import Constants from '../util/constants';
-const Buffer = require('buffer/').Buffer;
-const HeaderConstants = Constants.HeaderConstants;
+Object.defineProperty(exports, "__esModule", { value: true });
+const constants_1 = require("../util/constants");
+const HeaderConstants = constants_1.Constants.HeaderConstants;
 const DEFAULT_AUTHORIZATION_SCHEME = 'Basic';
 /**
  * Creates a new BasicAuthenticationCredentials object.
@@ -13,7 +13,7 @@ const DEFAULT_AUTHORIZATION_SCHEME = 'Basic';
  * @param {string} password                 Password.
  * @param {string} [authorizationScheme]    The authorization scheme.
  */
-export default class BasicAuthenticationCredentials {
+class BasicAuthenticationCredentials {
     constructor(userName, password, authorizationScheme = DEFAULT_AUTHORIZATION_SCHEME) {
         this.authorizationScheme = DEFAULT_AUTHORIZATION_SCHEME;
         if (userName === null || userName === undefined || typeof userName.valueOf() !== 'string') {
@@ -39,3 +39,5 @@ export default class BasicAuthenticationCredentials {
         return Promise.resolve(webResource);
     }
 }
+exports.BasicAuthenticationCredentials = BasicAuthenticationCredentials;
+//# sourceMappingURL=basicAuthenticationCredentials.js.map

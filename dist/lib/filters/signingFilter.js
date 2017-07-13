@@ -1,8 +1,9 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 'use strict';
-import BaseFilter from './baseFilter';
-class SigningFilter extends BaseFilter {
+Object.defineProperty(exports, "__esModule", { value: true });
+const baseFilter_1 = require("./baseFilter");
+class SigningFilter extends baseFilter_1.BaseFilter {
     constructor(authenticationProvider) {
         super();
         this.authenticationProvider = authenticationProvider;
@@ -12,4 +13,5 @@ class SigningFilter extends BaseFilter {
         return self.authenticationProvider.signRequest(request);
     }
 }
-export default SigningFilter;
+exports.SigningFilter = SigningFilter;
+//# sourceMappingURL=signingFilter.js.map

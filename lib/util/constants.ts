@@ -3,7 +3,7 @@
 
 'use strict';
 
-const Constants = {
+export const Constants = {
 
   /**
    * The ms-rest version
@@ -85,5 +85,3 @@ const Constants = {
     USER_AGENT: 'user-agent'
   }
 };
-
-export default Constants;

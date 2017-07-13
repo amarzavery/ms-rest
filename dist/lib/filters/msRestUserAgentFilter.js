@@ -1,11 +1,12 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 'use strict';
-import BaseFilter from './baseFilter';
-import Constants from '../util/constants';
-import * as os from 'os';
-const HeaderConstants = Constants.HeaderConstants;
-class MsRestUserAgentFilter extends BaseFilter {
+Object.defineProperty(exports, "__esModule", { value: true });
+const baseFilter_1 = require("./baseFilter");
+const constants_1 = require("../util/constants");
+const os = require("os");
+const HeaderConstants = constants_1.Constants.HeaderConstants;
+class MsRestUserAgentFilter extends baseFilter_1.BaseFilter {
     constructor(userAgentInfo) {
         super();
         this.userAgentInfo = userAgentInfo;
@@ -40,4 +41,5 @@ class MsRestUserAgentFilter extends BaseFilter {
         }
     }
 }
-export default MsRestUserAgentFilter;
+exports.MsRestUserAgentFilter = MsRestUserAgentFilter;
+//# sourceMappingURL=msRestUserAgentFilter.js.map

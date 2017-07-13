@@ -1,7 +1,8 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 'use strict';
-const Constants = {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Constants = {
     /**
      * The ms-rest version
      * @const
@@ -74,4 +75,4 @@ const Constants = {
         USER_AGENT: 'user-agent'
     }
 };
-export default Constants;
+//# sourceMappingURL=constants.js.map
