@@ -7,6 +7,8 @@ import { WebResource } from "../lib/webResource";
 import { HttpOperationResponse } from "../lib/httpOperationResponse";
 import { LogFilter } from "../lib/filters/logFilter";
 
+const fPF = require('fetch-ponyfill')();
+
 describe("Log filter", () => {
 
   it("should log messages when a logger object is provided", (done) => {
@@ -17,21 +19,25 @@ describe("Log filter", () => {
   "method": "PUT",
   "body": {
     "a": 1
-  },
-  "formData": null
+  }
 }
 >> Response status code: 200
->> Body: null
+>> Body: undefined
 `;
     let output = "";
     const logger: Function = (message: string): void => { output += message + "\n"; };
     const lf = new LogFilter(logger);
     const req = new WebResource("https://foo.com", "PUT", { "a": 1 });
-    const res = new Response();
+    const res = new fPF.Response();
     const opRes = new HttpOperationResponse(req, res);
     lf.after(opRes).then(() => {
+      //console.dir(output, { depth: null });
+      //console.log('>>>>>>>');
+      //console.dir(expected);
       assert.deepEqual(output, expected);
       done();
+    }).catch((err: Error) => {
+      done(err);
     });
   });
 });

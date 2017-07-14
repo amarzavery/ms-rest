@@ -22,7 +22,7 @@ import { Fish } from './fish';
 import { Shark } from './shark';
 import { Sawshark } from './sawshark';
 import { PetGallery } from './petgallery';
-type discriminators = {
+const discriminators = {
   'Fish': Fish,
   'Fish.shark': Shark,
   'Fish.sawshark': Sawshark,

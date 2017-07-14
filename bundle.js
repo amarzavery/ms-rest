@@ -61,36 +61,21 @@ var className =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* unused harmony export urlIsHTTPS */
-/* harmony export (immutable) */ __webpack_exports__["f"] = objectIsNull;
-/* unused harmony export encodeUri */
-/* unused harmony export stripResponse */
-/* unused harmony export stripRequest */
-/* harmony export (immutable) */ __webpack_exports__["d"] = isValidUuid;
-/* unused harmony export objectValues */
-/* harmony export (immutable) */ __webpack_exports__["c"] = generateUuid;
-/* harmony export (immutable) */ __webpack_exports__["b"] = executePromisesSequentially;
-/* harmony export (immutable) */ __webpack_exports__["e"] = mergeObjects;
-/* harmony export (immutable) */ __webpack_exports__["a"] = delay;
-/* harmony export (immutable) */ __webpack_exports__["g"] = strEnum;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__webResource__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constants__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_uuid__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_uuid___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_uuid__);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+const webResource_1 = __webpack_require__(3);
+const constants_1 = __webpack_require__(1);
+const uuid = __webpack_require__(16);
 /**
  * Checks if a parsed URL is HTTPS
  *
@@ -98,8 +83,9 @@ var className =
  * @return {boolean} True if the URL is HTTPS; false otherwise.
  */
 function urlIsHTTPS(urlToCheck) {
-    return urlToCheck.protocol.toLowerCase() === __WEBPACK_IMPORTED_MODULE_1__constants__["a" /* Constants */].HTTPS;
+    return urlToCheck.protocol.toLowerCase() === constants_1.Constants.HTTPS;
 }
+exports.urlIsHTTPS = urlIsHTTPS;
 ;
 /**
  * Checks if a value is null or undefined.
@@ -113,6 +99,7 @@ function urlIsHTTPS(urlToCheck) {
 function objectIsNull(value) {
     return value === null || value === undefined;
 }
+exports.objectIsNull = objectIsNull;
 ;
 /**
  * Encodes an URI.
@@ -128,6 +115,7 @@ function encodeUri(uri) {
         .replace(/\)/g, '%29')
         .replace(/\*/g, '%2A');
 }
+exports.encodeUri = encodeUri;
 ;
 /**
  * Returns a stripped version of the Http Response which only contains body,
@@ -144,6 +132,7 @@ function stripResponse(response) {
     strippedResponse.status = response.status;
     return strippedResponse;
 }
+exports.stripResponse = stripResponse;
 /**
  * Returns a stripped version of the Http Request that does not contain the
  * Authorization header.
@@ -153,7 +142,7 @@ function stripResponse(response) {
  * @return {object} strippedRequest - The stripped version of Http Request.
  */
 function stripRequest(request) {
-    let strippedRequest = new __WEBPACK_IMPORTED_MODULE_0__webResource__["a" /* WebResource */]();
+    let strippedRequest = new webResource_1.WebResource();
     try {
         strippedRequest = JSON.parse(JSON.stringify(request));
         if (strippedRequest.headers && strippedRequest.headers.Authorization) {
@@ -170,6 +159,7 @@ function stripRequest(request) {
     }
     return strippedRequest;
 }
+exports.stripRequest = stripRequest;
 /**
  * Validates the given uuid as a string
  *
@@ -181,6 +171,7 @@ function isValidUuid(uuid) {
     const validUuidRegex = new RegExp('^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$', 'ig');
     return validUuidRegex.test(uuid);
 }
+exports.isValidUuid = isValidUuid;
 /**
  * Provides an array of values of an object. For example
  * for a given object { 'a': 'foo', 'b': 'bar' }, the method returns ['foo', 'bar'].
@@ -204,14 +195,16 @@ function objectValues(obj) {
     }
     return result;
 }
+exports.objectValues = objectValues;
 /**
  * Generated UUID
  *
  * @return {string} RFC4122 v4 UUID.
  */
 function generateUuid() {
-    return __WEBPACK_IMPORTED_MODULE_2_uuid__["v4"]();
+    return uuid.v4();
 }
+exports.generateUuid = generateUuid;
 /*
  * Executes an array of promises sequentially. Inspiration of this method is here:
  * https://pouchdb.com/2015/05/18/we-have-a-problem-with-promises.html. An awesome blog on promises!
@@ -230,6 +223,7 @@ function executePromisesSequentially(promiseFactories, kickstart) {
     });
     return result;
 }
+exports.executePromisesSequentially = executePromisesSequentially;
 ;
 /*
  * Merges source object into the target object
@@ -245,6 +239,7 @@ function mergeObjects(source, target) {
     });
     return target;
 }
+exports.mergeObjects = mergeObjects;
 /**
  * A wrapper for setTimeout that resolves a promise after t milliseconds.
  * @param {number} t - The number of milliseconds to be delayed.
@@ -254,6 +249,7 @@ function mergeObjects(source, target) {
 function delay(t, value) {
     return new Promise((resolve) => setTimeout(() => resolve(value), t));
 }
+exports.delay = delay;
 /**
  * Utility function to create a K:V from a list of strings
  */
@@ -263,17 +259,19 @@ function strEnum(o) {
         return res;
     }, Object.create(null)); // TODO: Audit usage of null.
 }
+exports.strEnum = strEnum;
 
 
 /***/ }),
 /* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-const Constants = {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Constants = {
     /**
      * The ms-rest version
      * @const
@@ -346,18 +344,17 @@ const Constants = {
         USER_AGENT: 'user-agent'
     }
 };
-/* harmony export (immutable) */ __webpack_exports__["a"] = Constants;
-
 
 
 /***/ }),
 /* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+Object.defineProperty(exports, "__esModule", { value: true });
 class BaseFilter {
     constructor() { }
     before(request) {
@@ -367,20 +364,19 @@ class BaseFilter {
         return Promise.resolve(response);
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = BaseFilter;
-
+exports.BaseFilter = BaseFilter;
 
 
 /***/ }),
 /* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_utils__ = __webpack_require__(0);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-
+Object.defineProperty(exports, "__esModule", { value: true });
+const utils_1 = __webpack_require__(0);
 /**
  * Creates a new WebResource object.
  *
@@ -544,7 +540,7 @@ class WebResource {
         }
         // ensure the request-id is set correctly
         if (!this.headers['x-ms-client-request-id'] && !options.disableClientRequestId) {
-            this.headers['x-ms-client-request-id'] = Object(__WEBPACK_IMPORTED_MODULE_0__util_utils__["c" /* generateUuid */])();
+            this.headers['x-ms-client-request-id'] = utils_1.generateUuid();
         }
         // default
         if (!this.headers['Content-Type']) {
@@ -580,12 +576,201 @@ class WebResource {
         return this;
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = WebResource;
-
+exports.WebResource = WebResource;
 
 
 /***/ }),
 /* 4 */
+/***/ (function(module, exports) {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {// Unique ID creation requires a high quality random # generator.  In the
@@ -622,10 +807,10 @@ if (!rng) {
 
 module.exports = rng;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18)))
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 /**
@@ -654,13 +839,14 @@ module.exports = bytesToUuid;
 
 
 /***/ }),
-/* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Wrapper object for http request and response. Deserialized object is stored in
  * the `body` property.
@@ -689,19 +875,14 @@ class HttpOperationResponse {
         this.body = undefined;
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = HttpOperationResponse;
-
+exports.HttpOperationResponse = HttpOperationResponse;
 
 
 /***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__httpOperationResponse__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_utils__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_form_data__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_form_data___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_form_data__);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
@@ -713,10 +894,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-
-
-
-const fPF = __webpack_require__(22)();
+Object.defineProperty(exports, "__esModule", { value: true });
+const httpOperationResponse_1 = __webpack_require__(7);
+const utils = __webpack_require__(0);
+const FormData = __webpack_require__(22);
+const fPF = __webpack_require__(23)();
 class RequestPipeline {
     constructor(filters, requestOptions) {
         this.filters = filters || [];
@@ -751,17 +933,17 @@ class RequestPipeline {
         return (request) => {
             if (!request.headers)
                 request.headers = {};
-            return __WEBPACK_IMPORTED_MODULE_1__util_utils__["b" /* executePromisesSequentially */](pipeline, request);
+            return utils.executePromisesSequentially(pipeline, request);
         };
     }
     requestSink(options) {
         return __awaiter(this, void 0, void 0, function* () {
             if (this.requestOptions.method)
                 delete this.requestOptions.method;
-            __WEBPACK_IMPORTED_MODULE_1__util_utils__["e" /* mergeObjects */](this.requestOptions, options);
+            utils.mergeObjects(this.requestOptions, options);
             if (options.formData) {
                 const formData = options.formData;
-                const requestForm = new __WEBPACK_IMPORTED_MODULE_2_form_data__();
+                const requestForm = new FormData();
                 const appendFormValue = (key, value) => {
                     if (value && value.hasOwnProperty('value') && value.hasOwnProperty('options')) {
                         requestForm.append(key, value.value, value.options);
@@ -793,7 +975,7 @@ class RequestPipeline {
             catch (err) {
                 throw err;
             }
-            const operationResponse = new __WEBPACK_IMPORTED_MODULE_0__httpOperationResponse__["a" /* HttpOperationResponse */](options, res);
+            const operationResponse = new httpOperationResponse_1.HttpOperationResponse(options, res);
             if (options.rawResponse) {
                 operationResponse.body = res.body;
             }
@@ -804,22 +986,20 @@ class RequestPipeline {
         });
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = RequestPipeline;
-
+exports.RequestPipeline = RequestPipeline;
 
 
 /***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseFilter__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_utils__ = __webpack_require__(0);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+const baseFilter_1 = __webpack_require__(2);
+const utils = __webpack_require__(0);
 /**
  * @class
  * Instantiates a new 'ExponentialRetryPolicyFilter' instance.
@@ -830,7 +1010,7 @@ class RequestPipeline {
  * @param {number} minRetryInterval  The minimum retry interval, in milliseconds.
  * @param {number} maxRetryInterval  The maximum retry interval, in milliseconds.
  */
-class ExponentialRetryPolicyFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilter__["a" /* BaseFilter */] {
+class ExponentialRetryPolicyFilter extends baseFilter_1.BaseFilter {
     constructor(retryCount, retryInterval, minRetryInterval, maxRetryInterval) {
         super();
         this.DEFAULT_CLIENT_RETRY_INTERVAL = 1000 * 30;
@@ -895,14 +1075,14 @@ class ExponentialRetryPolicyFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilt
         const self = this;
         const response = operationResponse.response;
         retryData = self.updateRetryData(retryData, err);
-        if (!__WEBPACK_IMPORTED_MODULE_1__util_utils__["f" /* objectIsNull */](response) && self.shouldRetry(response.status, retryData)) {
+        if (!utils.objectIsNull(response) && self.shouldRetry(response.status, retryData)) {
             // If previous operation ended with an error and the policy allows a retry, do that
-            return __WEBPACK_IMPORTED_MODULE_1__util_utils__["a" /* delay */](retryData.retryInterval).then(() => {
+            return utils.delay(retryData.retryInterval).then(() => {
                 return self.retry(operationResponse, retryData, err);
             });
         }
         else {
-            if (!__WEBPACK_IMPORTED_MODULE_1__util_utils__["f" /* objectIsNull */](err)) {
+            if (!utils.objectIsNull(err)) {
                 // If the operation failed in the end, return all errors instead of just the last one
                 err = retryData.error;
                 return Promise.reject(err);
@@ -914,22 +1094,20 @@ class ExponentialRetryPolicyFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilt
         return this.retry(operationResponse, null, null);
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = ExponentialRetryPolicyFilter;
-
+exports.ExponentialRetryPolicyFilter = ExponentialRetryPolicyFilter;
 
 
 /***/ }),
-/* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseFilter__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_utils__ = __webpack_require__(0);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+const baseFilter_1 = __webpack_require__(2);
+const utils = __webpack_require__(0);
 /**
  * @class
  * Instantiates a new 'ExponentialRetryPolicyFilter' instance.
@@ -940,7 +1118,7 @@ class ExponentialRetryPolicyFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilt
  * @param {number} minRetryInterval  The minimum retry interval, in milliseconds.
  * @param {number} maxRetryInterval  The maximum retry interval, in milliseconds.
  */
-class SystemErrorRetryPolicyFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilter__["a" /* BaseFilter */] {
+class SystemErrorRetryPolicyFilter extends baseFilter_1.BaseFilter {
     constructor(retryCount, retryInterval, minRetryInterval, maxRetryInterval) {
         super();
         this.DEFAULT_CLIENT_RETRY_INTERVAL = 1000 * 30;
@@ -1001,16 +1179,16 @@ class SystemErrorRetryPolicyFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilt
     retry(operationResponse, retryData, err) {
         const self = this;
         retryData = self.updateRetryData(retryData, err);
-        if (!__WEBPACK_IMPORTED_MODULE_1__util_utils__["f" /* objectIsNull */](err) && self.shouldRetry(retryData) &&
+        if (!utils.objectIsNull(err) && self.shouldRetry(retryData) &&
             (err.code === 'ETIMEDOUT' || err.code === 'ESOCKETTIMEDOUT' || err.code === 'ECONNREFUSED' ||
                 err.code === 'ECONNRESET' || err.code === 'ENOENT')) {
             // If previous operation ended with an error and the policy allows a retry, do that
-            return __WEBPACK_IMPORTED_MODULE_1__util_utils__["a" /* delay */](retryData.retryInterval).then(() => {
+            return utils.delay(retryData.retryInterval).then(() => {
                 return self.retry(operationResponse, retryData, err);
             });
         }
         else {
-            if (!__WEBPACK_IMPORTED_MODULE_1__util_utils__["f" /* objectIsNull */](err)) {
+            if (!utils.objectIsNull(err)) {
                 // If the operation failed in the end, return all errors instead of just the last one
                 err = retryData.error;
                 return Promise.reject(err);
@@ -1022,21 +1200,20 @@ class SystemErrorRetryPolicyFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilt
         return this.retry(operationResponse, null, null); // TODO Audit usages of null. See: https://github.com/Microsoft/TypeScript/issues/7426
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = SystemErrorRetryPolicyFilter;
-
+exports.SystemErrorRetryPolicyFilter = SystemErrorRetryPolicyFilter;
 
 
 /***/ }),
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseFilter__ = __webpack_require__(2);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-
-class SigningFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilter__["a" /* BaseFilter */] {
+Object.defineProperty(exports, "__esModule", { value: true });
+const baseFilter_1 = __webpack_require__(2);
+class SigningFilter extends baseFilter_1.BaseFilter {
     constructor(authenticationProvider) {
         super();
         this.authenticationProvider = authenticationProvider;
@@ -1046,33 +1223,29 @@ class SigningFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilter__["a" /* Bas
         return self.authenticationProvider.signRequest(request);
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = SigningFilter;
-
+exports.SigningFilter = SigningFilter;
 
 
 /***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseFilter__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_constants__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_os__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_os___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_os__);
-// Copyright (c) Microsoft Corporation. All rights reserved.
+/* WEBPACK VAR INJECTION */(function(process) {// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-
-
-
-const HeaderConstants = __WEBPACK_IMPORTED_MODULE_1__util_constants__["a" /* Constants */].HeaderConstants;
-class MsRestUserAgentFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilter__["a" /* BaseFilter */] {
+Object.defineProperty(exports, "__esModule", { value: true });
+const baseFilter_1 = __webpack_require__(2);
+const constants_1 = __webpack_require__(1);
+const os = __webpack_require__(24);
+const HeaderConstants = constants_1.Constants.HeaderConstants;
+class MsRestUserAgentFilter extends baseFilter_1.BaseFilter {
     constructor(userAgentInfo) {
         super();
         this.userAgentInfo = userAgentInfo;
     }
     tagRequest(request) {
-        const osInfo = `(${__WEBPACK_IMPORTED_MODULE_2_os__["arch"]()}-${__WEBPACK_IMPORTED_MODULE_2_os__["type"]()}-${__WEBPACK_IMPORTED_MODULE_2_os__["release"]()})`;
+        const osInfo = `(${os.arch()}-${os.type()}-${os.release()})`;
         if (this.userAgentInfo.indexOf(osInfo) === -1) {
             this.userAgentInfo.unshift(osInfo);
         }
@@ -1101,13 +1274,12 @@ class MsRestUserAgentFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilter__["a
         }
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = MsRestUserAgentFilter;
+exports.MsRestUserAgentFilter = MsRestUserAgentFilter;
 
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(23)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1135,18 +1307,17 @@ isStream.transform = function (stream) {
 
 
 /***/ }),
-/* 13 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_msRest__ = __webpack_require__(14);
-
-
+/* WEBPACK VAR INJECTION */(function(process) {
+Object.defineProperty(exports, "__esModule", { value: true });
+const msRest = __webpack_require__(15);
 const clientOptions = {
-    filters: [new __WEBPACK_IMPORTED_MODULE_0__lib_msRest__["a" /* LogFilter */]()]
+    filters: [new msRest.LogFilter()]
 };
-const subscriptionId = "00977cdb-163f-435f-9c32-39ec8ae61f4d";
+const subscriptionId = process.env['AZURE_SUBSCRIPTION_ID'];
 // An easy way to get the token
 // 1. Go to this test drive link https://azure.github.io/projects/apis and authenticate by clicking on Authorize. Check the user impersoantion checkbox in the popup.
 // 1.1 select a subscription of your choice
@@ -1155,9 +1326,9 @@ const subscriptionId = "00977cdb-163f-435f-9c32-39ec8ae61f4d";
 // 1.4 click on try it out button.
 // 1.5 in the curl tab you will see the actual curl request that has the bearer token in it
 // 1.6 copy paste that token here. That token is valid for 1 hour
-const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IjlGWERwYmZNRlQyU3ZRdVhoODQ2WVR3RUlCdyIsImtpZCI6IjlGWERwYmZNRlQyU3ZRdVhoODQ2WVR3RUlCdyJ9.eyJhdWQiOiJodHRwczovL21hbmFnZW1lbnQuYXp1cmUuY29tLyIsImlzcyI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0Ny8iLCJpYXQiOjE0OTk5MjE1NTYsIm5iZiI6MTQ5OTkyMTU1NiwiZXhwIjoxNDk5OTI1NDU2LCJhY3IiOiIxIiwiYWlvIjoiQVNRQTIvOERBQUFBQ2VoU0ErUG9xUjk1WjlHVisvMWFBOWNpY01icTYvSUZkZDRmUzlmVFBibz0iLCJhbXIiOlsicHdkIiwibWZhIl0sImFwcGlkIjoiZmJmYzdhNzEtMjU2Yi00NTRhLWJmMjctMTIxNjJmNjMwZTBhIiwiYXBwaWRhY3IiOiIwIiwiZmFtaWx5X25hbWUiOiJaYXZlcnkiLCJnaXZlbl9uYW1lIjoiQW1hciIsImhhc2dyb3VwcyI6InRydWUiLCJpbl9jb3JwIjoidHJ1ZSIsImlwYWRkciI6IjczLjE2OS4xNDkuMTEwIiwibmFtZSI6IkFtYXIgWmF2ZXJ5Iiwib2lkIjoiMTk2MWVhYmYtMjE1Ny00YzQzLTk0NDEtYTZkMDQ5ZDA1Y2RhIiwib25wcmVtX3NpZCI6IlMtMS01LTIxLTIxMjc1MjExODQtMTYwNDAxMjkyMC0xODg3OTI3NTI3LTExODM0MTQ0IiwicGxhdGYiOiI1IiwicHVpZCI6IjEwMDMwMDAwODVCMzJDNTUiLCJzY3AiOiJ1c2VyX2ltcGVyc29uYXRpb24iLCJzdWIiOiJrUzVhZGt6bXJiSDZuOUhCY0RzbVRQTmlFX0pIeHhOazRIUGpCUWQ5WkcwIiwidGlkIjoiNzJmOTg4YmYtODZmMS00MWFmLTkxYWItMmQ3Y2QwMTFkYjQ3IiwidW5pcXVlX25hbWUiOiJhbXphdmVyeUBtaWNyb3NvZnQuY29tIiwidXBuIjoiYW16YXZlcnlAbWljcm9zb2Z0LmNvbSIsInZlciI6IjEuMCJ9.hridI8eJ_glFem0DaxzeMNgXQIEwaDI3rpgWdA5Mvx5RaQ22P2-gro0p2lZdDABlEjjPUP624SN93GvA0mQq9zFoLzfGtemd1QkWKXTXs97H714iaoawy7azUcNxZjqBu61Oe8BxlMImTeo4g53UQiPOjFhAr2g5Ld1JGle6CepEp5yyeOP6uuOFn6cANNMcxDwr6jrNkmdQj6XKQ8tCTKP57aw8naaqZ8jp0DOCaiy3SjRsxfzHFLdhRtlMGaPKlC8_iVF6J4PwJRruUf0tJpBszUKuxHaTFhp93JJ8hPzlZiXO4QNtw5lCQCnfB0sxsHi39vEG-Ue9csA9E5kl5A";
-const creds = new __WEBPACK_IMPORTED_MODULE_0__lib_msRest__["c" /* TokenCredentials */](token);
-const client = new __WEBPACK_IMPORTED_MODULE_0__lib_msRest__["b" /* ServiceClient */](creds, clientOptions);
+const token = process.env['AZURE_TOKEN'];
+const creds = new msRest.TokenCredentials(token);
+const client = new msRest.ServiceClient(creds, clientOptions);
 const req = {
     url: `https://management.azure.com/subscriptions/${subscriptionId}/providers/Microsoft.Storage/storageAccounts?api-version=2015-06-15`,
     method: 'GET'
@@ -1166,80 +1337,65 @@ client.sendRequest(req).then(function (res) {
     document.write(res.body);
 });
 
-
-/***/ }),
-/* 14 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__webResource__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__httpOperationResponse__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__restError__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__serviceClient__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__util_constants__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__requestPipeline__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__filters_logFilter__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__filters_baseFilter__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__filters_exponentialRetryPolicyFilter__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__filters_systemErrorRetryPolicyFilter__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__filters_signingFilter__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__filters_msRestUserAgentFilter__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__serializer__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__util_utils__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__credentials_tokenCredentials__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__credentials_basicAuthenticationCredentials__ = __webpack_require__(31);
-/* unused harmony reexport MapperType */
-/* unused harmony reexport Serializer */
-/* unused harmony reexport serializeObject */
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_14__credentials_tokenCredentials__["a"]; });
-/* unused harmony reexport WebResource */
-/* unused harmony reexport HttpOperationResponse */
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_3__serviceClient__["a"]; });
-/* unused harmony reexport Constants */
-/* unused harmony reexport RequestPipeline */
-/* unused harmony reexport BasicAuthenticationCredentials */
-/* unused harmony reexport BaseFilter */
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_6__filters_logFilter__["a"]; });
-/* unused harmony reexport ExponentialRetryPolicyFilter */
-/* unused harmony reexport SystemErrorRetryPolicyFilter */
-/* unused harmony reexport SigningFilter */
-/* unused harmony reexport MsRestUserAgentFilter */
-/* unused harmony reexport stripRequest */
-/* unused harmony reexport stripResponse */
-/* unused harmony reexport delay */
-/* unused harmony reexport executePromisesSequentially */
-/* unused harmony reexport generateUuid */
-/* unused harmony reexport encodeUri */
-/* unused harmony reexport RestError */
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Credentials
-
-
-
-
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
 /* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var v1 = __webpack_require__(16);
-var v4 = __webpack_require__(18);
+"use strict";
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const webResource_1 = __webpack_require__(3);
+exports.WebResource = webResource_1.WebResource;
+const httpOperationResponse_1 = __webpack_require__(7);
+exports.HttpOperationResponse = httpOperationResponse_1.HttpOperationResponse;
+const restError_1 = __webpack_require__(20);
+exports.RestError = restError_1.RestError;
+const serviceClient_1 = __webpack_require__(21);
+exports.ServiceClient = serviceClient_1.ServiceClient;
+const constants_1 = __webpack_require__(1);
+exports.Constants = constants_1.Constants;
+const requestPipeline_1 = __webpack_require__(8);
+exports.RequestPipeline = requestPipeline_1.RequestPipeline;
+const logFilter_1 = __webpack_require__(25);
+exports.LogFilter = logFilter_1.LogFilter;
+const baseFilter_1 = __webpack_require__(2);
+exports.BaseFilter = baseFilter_1.BaseFilter;
+const exponentialRetryPolicyFilter_1 = __webpack_require__(9);
+exports.ExponentialRetryPolicyFilter = exponentialRetryPolicyFilter_1.ExponentialRetryPolicyFilter;
+const systemErrorRetryPolicyFilter_1 = __webpack_require__(10);
+exports.SystemErrorRetryPolicyFilter = systemErrorRetryPolicyFilter_1.SystemErrorRetryPolicyFilter;
+const signingFilter_1 = __webpack_require__(11);
+exports.SigningFilter = signingFilter_1.SigningFilter;
+const msRestUserAgentFilter_1 = __webpack_require__(12);
+exports.MsRestUserAgentFilter = msRestUserAgentFilter_1.MsRestUserAgentFilter;
+const serializer_1 = __webpack_require__(26);
+exports.MapperType = serializer_1.MapperType;
+exports.Serializer = serializer_1.Serializer;
+exports.serializeObject = serializer_1.serializeObject;
+const utils_1 = __webpack_require__(0);
+exports.stripRequest = utils_1.stripRequest;
+exports.stripResponse = utils_1.stripResponse;
+exports.delay = utils_1.delay;
+exports.executePromisesSequentially = utils_1.executePromisesSequentially;
+exports.generateUuid = utils_1.generateUuid;
+exports.encodeUri = utils_1.encodeUri;
+// Credentials
+const tokenCredentials_1 = __webpack_require__(30);
+exports.TokenCredentials = tokenCredentials_1.TokenCredentials;
+const basicAuthenticationCredentials_1 = __webpack_require__(31);
+exports.BasicAuthenticationCredentials = basicAuthenticationCredentials_1.BasicAuthenticationCredentials;
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var v1 = __webpack_require__(17);
+var v4 = __webpack_require__(19);
 
 var uuid = v4;
 uuid.v1 = v1;
@@ -1249,11 +1405,11 @@ module.exports = uuid;
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var rng = __webpack_require__(4);
-var bytesToUuid = __webpack_require__(5);
+var rng = __webpack_require__(5);
+var bytesToUuid = __webpack_require__(6);
 
 // **`v1()` - Generate time-based UUID**
 //
@@ -1355,7 +1511,7 @@ module.exports = v1;
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 var g;
@@ -1382,11 +1538,11 @@ module.exports = g;
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var rng = __webpack_require__(4);
-var bytesToUuid = __webpack_require__(5);
+var rng = __webpack_require__(5);
+var bytesToUuid = __webpack_require__(6);
 
 function v4(options, buf, offset) {
   var i = buf && offset || 0;
@@ -1417,13 +1573,14 @@ module.exports = v4;
 
 
 /***/ }),
-/* 19 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information. 
 
+Object.defineProperty(exports, "__esModule", { value: true });
 class RestError extends Error {
     constructor(message, code, statusCode, request, response, body) {
         super(message);
@@ -1434,22 +1591,14 @@ class RestError extends Error {
         this.body = body;
     }
 }
-/* unused harmony export RestError */
-
+exports.RestError = RestError;
 
 
 /***/ }),
-/* 20 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__requestPipeline__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__filters_exponentialRetryPolicyFilter__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters_systemErrorRetryPolicyFilter__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__filters_signingFilter__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__filters_msRestUserAgentFilter__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__webResource__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__util_constants__ = __webpack_require__(1);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
@@ -1461,13 +1610,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-
-
-
-
-
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+const requestPipeline_1 = __webpack_require__(8);
+const exponentialRetryPolicyFilter_1 = __webpack_require__(9);
+const systemErrorRetryPolicyFilter_1 = __webpack_require__(10);
+const signingFilter_1 = __webpack_require__(11);
+const msRestUserAgentFilter_1 = __webpack_require__(12);
+const webResource_1 = __webpack_require__(3);
+const constants_1 = __webpack_require__(1);
 /**
  * @class
  * Initializes a new instance of the ServiceClient.
@@ -1494,21 +1644,21 @@ class ServiceClient {
         }
         try {
             const moduleName = 'ms-rest';
-            const moduleVersion = __WEBPACK_IMPORTED_MODULE_6__util_constants__["a" /* Constants */].msRestVersion;
+            const moduleVersion = constants_1.Constants.msRestVersion;
             this.addUserAgentInfo(`${moduleName}/${moduleVersion}`);
         }
         catch (err) {
             // do nothing
         }
         if (credentials) {
-            options.filters.push(new __WEBPACK_IMPORTED_MODULE_3__filters_signingFilter__["a" /* SigningFilter */](credentials));
+            options.filters.push(new signingFilter_1.SigningFilter(credentials));
         }
-        options.filters.push(new __WEBPACK_IMPORTED_MODULE_4__filters_msRestUserAgentFilter__["a" /* MsRestUserAgentFilter */](this.userAgentInfo.value));
+        options.filters.push(new msRestUserAgentFilter_1.MsRestUserAgentFilter(this.userAgentInfo.value));
         if (!options.noRetryPolicy) {
-            options.filters.push(new __WEBPACK_IMPORTED_MODULE_1__filters_exponentialRetryPolicyFilter__["a" /* ExponentialRetryPolicyFilter */]());
-            options.filters.push(new __WEBPACK_IMPORTED_MODULE_2__filters_systemErrorRetryPolicyFilter__["a" /* SystemErrorRetryPolicyFilter */]());
+            options.filters.push(new exponentialRetryPolicyFilter_1.ExponentialRetryPolicyFilter());
+            options.filters.push(new systemErrorRetryPolicyFilter_1.SystemErrorRetryPolicyFilter());
         }
-        this.pipeline = new __WEBPACK_IMPORTED_MODULE_0__requestPipeline__["a" /* RequestPipeline */](options.filters, options.requestOptions).create();
+        this.pipeline = new requestPipeline_1.RequestPipeline(options.filters, options.requestOptions).create();
     }
     /**
      * Adds custom information to user agent header
@@ -1527,12 +1677,12 @@ class ServiceClient {
             }
             let httpRequest = undefined;
             try {
-                if (options instanceof __WEBPACK_IMPORTED_MODULE_5__webResource__["a" /* WebResource */]) {
+                if (options instanceof webResource_1.WebResource) {
                     options.validateRequestProperties();
                     httpRequest = options;
                 }
                 else {
-                    httpRequest = new __WEBPACK_IMPORTED_MODULE_5__webResource__["a" /* WebResource */]();
+                    httpRequest = new webResource_1.WebResource();
                     httpRequest = httpRequest.prepare(options);
                 }
             }
@@ -1551,12 +1701,11 @@ class ServiceClient {
         });
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = ServiceClient;
-
+exports.ServiceClient = ServiceClient;
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports) {
 
 /* eslint-env browser */
@@ -1564,7 +1713,7 @@ module.exports = typeof self == 'object' ? self.FormData : window.FormData;
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;(function (self) {
@@ -2067,196 +2216,6 @@ var __WEBPACK_AMD_DEFINE_RESULT__;(function (self) {
 
 
 /***/ }),
-/* 23 */
-/***/ (function(module, exports) {
-
-// shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-} ())
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-
-
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-
-
-
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) { return [] }
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
-
-
-/***/ }),
 /* 24 */
 /***/ (function(module, exports) {
 
@@ -2309,16 +2268,16 @@ exports.EOL = '\n';
 
 /***/ }),
 /* 25 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseFilter__ = __webpack_require__(2);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-
-const isStream = __webpack_require__(12);
-class LogFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilter__["a" /* BaseFilter */] {
+Object.defineProperty(exports, "__esModule", { value: true });
+const baseFilter_1 = __webpack_require__(2);
+const isStream = __webpack_require__(13);
+class LogFilter extends baseFilter_1.BaseFilter {
     constructor(logger = console.log) {
         super();
         this.logger = logger;
@@ -2335,26 +2294,22 @@ class LogFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilter__["a" /* BaseFil
         return Promise.resolve(operationResponse);
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = LogFilter;
-
+exports.LogFilter = LogFilter;
 
 
 /***/ }),
 /* 26 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* unused harmony export serializeObject */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_utils__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_moment__);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information. 
 
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+const utils = __webpack_require__(0);
+const moment_1 = __webpack_require__(27);
 const isBuffer = __webpack_require__(29);
-const isStream = __webpack_require__(12);
+const isStream = __webpack_require__(13);
 class Serializer {
     constructor(models) {
         this.models = models;
@@ -2499,7 +2454,7 @@ class Serializer {
                 }
             }
             else if (typeName.match(/^Uuid$/ig) !== null) {
-                if (!(typeof value.valueOf() === 'string' && __WEBPACK_IMPORTED_MODULE_0__util_utils__["d" /* isValidUuid */](value))) {
+                if (!(typeof value.valueOf() === 'string' && utils.isValidUuid(value))) {
                     throw new Error(`${objectName} with value "${value}" must be of type string and a valid uuid.`);
                 }
             }
@@ -2586,7 +2541,7 @@ class Serializer {
                 value = this.dateToUnixTime(value);
             }
             else if (typeName.match(/^TimeSpan$/ig) !== null) {
-                if (!Object(__WEBPACK_IMPORTED_MODULE_1_moment__["isDuration"])(value)) {
+                if (!moment_1.isDuration(value)) {
                     throw new Error(`${objectName} must be a TimeSpan/Duration.`);
                 }
                 value = value.toISOString();
@@ -2880,7 +2835,7 @@ class Serializer {
             payload = new Date(responseBody);
         }
         else if (mapperType.match(/^TimeSpan$/ig) !== null) {
-            payload = Object(__WEBPACK_IMPORTED_MODULE_1_moment__["duration"])(responseBody);
+            payload = moment_1.duration(responseBody);
         }
         else if (mapperType.match(/^UnixTime$/ig) !== null) {
             payload = this.unixTimeToDate(responseBody);
@@ -3002,8 +2957,7 @@ class Serializer {
         return mapper;
     }
 }
-/* unused harmony export Serializer */
-
+exports.Serializer = Serializer;
 function serializeObject(toSerialize) {
     if (toSerialize === null || toSerialize === undefined)
         return null;
@@ -3030,7 +2984,8 @@ function serializeObject(toSerialize) {
     }
     return toSerialize;
 }
-const MapperType = __WEBPACK_IMPORTED_MODULE_0__util_utils__["g" /* strEnum */]([
+exports.serializeObject = serializeObject;
+exports.MapperType = utils.strEnum([
     'Base64Url',
     'Boolean',
     'ByteArray',
@@ -3048,8 +3003,6 @@ const MapperType = __WEBPACK_IMPORTED_MODULE_0__util_utils__["g" /* strEnum */](
     'TimeSpan',
     'UnixTime'
 ]);
-/* unused harmony export MapperType */
-
 
 
 /***/ }),
@@ -7579,15 +7532,15 @@ function isSlowBuffer (obj) {
 
 /***/ }),
 /* 30 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_constants__ = __webpack_require__(1);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-
-const HeaderConstants = __WEBPACK_IMPORTED_MODULE_0__util_constants__["a" /* Constants */].HeaderConstants;
+Object.defineProperty(exports, "__esModule", { value: true });
+const constants_1 = __webpack_require__(1);
+const HeaderConstants = constants_1.Constants.HeaderConstants;
 const DEFAULT_AUTHORIZATION_SCHEME = 'Bearer';
 /**
  * Creates a new TokenCredentials object.
@@ -7616,21 +7569,20 @@ class TokenCredentials {
         return Promise.resolve(webResource);
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = TokenCredentials;
-
+exports.TokenCredentials = TokenCredentials;
 
 
 /***/ }),
 /* 31 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_constants__ = __webpack_require__(1);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-
-const HeaderConstants = __WEBPACK_IMPORTED_MODULE_0__util_constants__["a" /* Constants */].HeaderConstants;
+Object.defineProperty(exports, "__esModule", { value: true });
+const constants_1 = __webpack_require__(1);
+const HeaderConstants = constants_1.Constants.HeaderConstants;
 const DEFAULT_AUTHORIZATION_SCHEME = 'Basic';
 /**
  * Creates a new BasicAuthenticationCredentials object.
@@ -7666,8 +7618,7 @@ class BasicAuthenticationCredentials {
         return Promise.resolve(webResource);
     }
 }
-/* unused harmony export BasicAuthenticationCredentials */
-
+exports.BasicAuthenticationCredentials = BasicAuthenticationCredentials;
 
 
 /***/ })

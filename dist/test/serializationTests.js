@@ -6,7 +6,7 @@ const assert = require("assert");
 const moment = require("moment");
 const msRest = require("../lib/msRest");
 const should = require('should');
-var testClient = require('./data/TestClient/lib/testClient');
+const testClient_1 = require("./data/TestClient/lib/testClient");
 var Serializer = new msRest.Serializer({});
 var valid_uuid = 'ceaafd1e-f936-429f-bbfc-82ee75dddc33';
 describe('msrest', function () {
@@ -345,7 +345,7 @@ describe('msrest', function () {
             done();
         });
         it('should correctly serialize a composite type', function (done) {
-            var client = new testClient('http://localhost:9090');
+            var client = new testClient_1.TestClient('http://localhost:9090');
             var product = new client.models['Product']();
             let mapper = product.mapper();
             var productObj = {
@@ -396,7 +396,7 @@ describe('msrest', function () {
                     }
                 ]
             };
-            var serializedProduct = client.serialize(mapper, productObj, 'productObject');
+            var serializedProduct = client.serializer.serialize(mapper, productObj, 'productObject');
             for (var prop in serializedProduct) {
                 if (prop === 'properties') {
                     serializedProduct[prop].provisioningState.should.equal(productObj.provisioningState);
@@ -423,7 +423,7 @@ describe('msrest', function () {
             done();
         });
         it('should correctly serialize object version of polymorphic discriminator', function (done) {
-            var client = new testClient('http://localhost:9090');
+            var client = new testClient_1.TestClient('http://localhost:9090');
             var SawsharkModel = new client.models['Sawshark']();
             let mapper = SawsharkModel.mapper();
             var sawshark = {
@@ -451,7 +451,7 @@ describe('msrest', function () {
                     }
                 ]
             };
-            var serializedSawshark = client.serialize(mapper, sawshark, 'result');
+            var serializedSawshark = client.serializer.serialize(mapper, sawshark, 'result');
             serializedSawshark.age.should.equal(22);
             serializedSawshark['fish.type'].should.equal('sawshark');
             serializedSawshark.siblings.length.should.equal(2);
@@ -466,7 +466,7 @@ describe('msrest', function () {
             done();
         });
         it('should correctly serialize string version of polymorphic discriminator', function (done) {
-            var client = new testClient('http://localhost:9090');
+            var client = new testClient_1.TestClient('http://localhost:9090');
             var PetGalleryModel = new client.models['PetGallery']();
             let mapper = PetGalleryModel.mapper();
             var petgallery = {
@@ -489,7 +489,7 @@ describe('msrest', function () {
                     }
                 ]
             };
-            var serializedPetGallery = client.serialize(mapper, petgallery, 'result');
+            var serializedPetGallery = client.serializer.serialize(mapper, petgallery, 'result');
             serializedPetGallery.id.should.equal(1);
             serializedPetGallery.name.should.equal('Fav pet gallery');
             serializedPetGallery.pets.length.should.equal(2);
@@ -512,7 +512,7 @@ describe('msrest', function () {
             done();
         });
         it('should correctly deserialize a composite type', function (done) {
-            var client = new testClient('http://localhost:9090');
+            var client = new testClient_1.TestClient('http://localhost:9090');
             var product = new client.models['Product']();
             let mapper = product.mapper();
             var responseBody = {
@@ -565,7 +565,7 @@ describe('msrest', function () {
                     }
                 ]
             };
-            var deserializedProduct = client.deserialize(mapper, responseBody, 'responseBody', client);
+            var deserializedProduct = client.serializer.deserialize(mapper, responseBody, 'responseBody');
             for (var prop in deserializedProduct) {
                 if (prop === 'provisioningState') {
                     deserializedProduct.provisioningState.should.equal(responseBody.properties.provisioningState);
@@ -592,7 +592,7 @@ describe('msrest', function () {
             done();
         });
         it('should correctly deserialize a pageable type without nextLink', function (done) {
-            var client = new testClient('http://localhost:9090');
+            var client = new testClient_1.TestClient('http://localhost:9090');
             var productListResult = new client.models['ProductListResult']();
             let mapper = productListResult.mapper();
             var responseBody = {
@@ -613,7 +613,7 @@ describe('msrest', function () {
                     }
                 ]
             };
-            var deserializedProduct = client.deserialize(mapper, responseBody, 'responseBody');
+            var deserializedProduct = client.serializer.deserialize(mapper, responseBody, 'responseBody');
             (Array.isArray(deserializedProduct)).should.be.true;
             deserializedProduct.length.should.equal(2);
             for (var i = 0; i < deserializedProduct.length; i++) {
@@ -631,7 +631,7 @@ describe('msrest', function () {
             done();
         });
         it('should correctly deserialize a pageable type with nextLink', function (done) {
-            var client = new testClient('http://localhost:9090');
+            var client = new testClient_1.TestClient('http://localhost:9090');
             var productListResultNextLink = new client.models['ProductListResultNextLink']();
             let mapper = productListResultNextLink.mapper();
             var responseBody = {
@@ -653,7 +653,7 @@ describe('msrest', function () {
                 ],
                 nextLink: 'https://helloworld.com'
             };
-            var deserializedProduct = client.deserialize(mapper, responseBody, 'responseBody');
+            var deserializedProduct = client.serializer.deserialize(mapper, responseBody, 'responseBody');
             (Array.isArray(deserializedProduct)).should.be.true;
             deserializedProduct.length.should.equal(2);
             deserializedProduct.nextLink.should.equal('https://helloworld.com');
@@ -672,7 +672,7 @@ describe('msrest', function () {
             done();
         });
         it('should correctly deserialize object version of polymorphic discriminator', function (done) {
-            var client = new testClient('http://localhost:9090');
+            var client = new testClient_1.TestClient('http://localhost:9090');
             var fish = new client.models['Fish']();
             let mapper = fish.mapper();
             var responseBody = {
@@ -700,7 +700,7 @@ describe('msrest', function () {
                     }
                 ]
             };
-            var deserializedSawshark = client.deserialize(mapper, responseBody, 'responseBody');
+            var deserializedSawshark = client.serializer.deserialize(mapper, responseBody, 'responseBody');
             deserializedSawshark.age.should.equal(22);
             deserializedSawshark.fishtype.should.equal('sawshark');
             deserializedSawshark.siblings.length.should.equal(2);
@@ -713,7 +713,7 @@ describe('msrest', function () {
             done();
         });
         it('should correctly deserialize string version of polymorphic discriminator', function (done) {
-            var client = new testClient('http://localhost:9090');
+            var client = new testClient_1.TestClient('http://localhost:9090');
             var PetGalleryModel = new client.models['PetGallery']();
             let mapper = PetGalleryModel.mapper();
             var petgallery = {
@@ -734,7 +734,7 @@ describe('msrest', function () {
                     }
                 ]
             };
-            var deserializedPetGallery = client.deserialize(mapper, petgallery, 'result');
+            var deserializedPetGallery = client.serializer.deserialize(mapper, petgallery, 'result');
             deserializedPetGallery.id.should.equal(1);
             deserializedPetGallery.name.should.equal('Fav pet gallery');
             deserializedPetGallery.pets.length.should.equal(2);

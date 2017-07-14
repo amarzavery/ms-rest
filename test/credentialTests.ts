@@ -3,7 +3,6 @@
 
 import * as msRest from "../lib/msRest";
 const should = require('should');
-const Buffer = require("buffer/").Buffer;
 const TokenCredentials = msRest.TokenCredentials;
 const BasicAuthenticationCredentials = msRest.BasicAuthenticationCredentials;
 const dummyToken = "A-dummy-access-token";

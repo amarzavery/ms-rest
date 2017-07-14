@@ -6,6 +6,7 @@ const assert = require("assert");
 const webResource_1 = require("../lib/webResource");
 const httpOperationResponse_1 = require("../lib/httpOperationResponse");
 const logFilter_1 = require("../lib/filters/logFilter");
+const fPF = require('fetch-ponyfill')();
 describe("Log filter", () => {
     it("should log messages when a logger object is provided", (done) => {
         const expected = `>> Request: {
@@ -15,21 +16,25 @@ describe("Log filter", () => {
   "method": "PUT",
   "body": {
     "a": 1
-  },
-  "formData": null
+  }
 }
 >> Response status code: 200
->> Body: null
+>> Body: undefined
 `;
         let output = "";
         const logger = (message) => { output += message + "\n"; };
         const lf = new logFilter_1.LogFilter(logger);
         const req = new webResource_1.WebResource("https://foo.com", "PUT", { "a": 1 });
-        const res = new Response();
+        const res = new fPF.Response();
         const opRes = new httpOperationResponse_1.HttpOperationResponse(req, res);
         lf.after(opRes).then(() => {
+            //console.dir(output, { depth: null });
+            //console.log('>>>>>>>');
+            //console.dir(expected);
             assert.deepEqual(output, expected);
             done();
+        }).catch((err) => {
+            done(err);
         });
     });
 });
