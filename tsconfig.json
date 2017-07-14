@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "es2015",
+        "module": "commonjs",
         "noImplicitAny": true,
         "preserveConstEnums": true,
         "sourceMap": true,
@@ -12,8 +12,9 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "outDir": "dist",
-        "declaration": false,
-        "allowJs": true,
+        "declaration": true,
+        "declarationDir": "typings",
+        "allowJs": false,
         "lib": [
             "dom",
             "es2015",
