@@ -2,7 +2,7 @@ import { BaseFilter } from './baseFilter';
 import { HttpOperationResponse } from '../httpOperationResponse';
 export interface RetryData {
     retryCount: number;
-    retryInterval?: number;
+    retryInterval: number;
     error?: RetryError;
 }
 export interface RetryError extends Error {
@@ -44,7 +44,7 @@ export declare class SystemErrorRetryPolicyFilter extends BaseFilter {
      * @param {RetryData} retryData  The retry data.
      * @param {object} err        The operation's error, if any.
      */
-    updateRetryData(retryData: RetryData, err: RetryError): RetryData;
+    updateRetryData(retryData?: RetryData, err?: RetryError): RetryData;
     retry(operationResponse: HttpOperationResponse, retryData?: RetryData, err?: RetryError): Promise<HttpOperationResponse>;
     after(operationResponse: HttpOperationResponse): Promise<HttpOperationResponse>;
 }

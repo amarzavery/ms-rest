@@ -18,6 +18,6 @@ export declare class HttpOperationResponse {
     /**
      * The response body as text (string format) or a stream
      */
-    body: string | ReadableStream;
+    body: string | ReadableStream | null;
     constructor(request: WebResource, response: Response);
 }

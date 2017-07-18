@@ -1,8 +1,6 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-'use strict';
-
 import { WebResource } from './webResource';
 import { HttpOperationResponse } from './httpOperationResponse';
 import { BaseFilter } from './filters/baseFilter';
@@ -11,12 +9,12 @@ import * as FormData from 'form-data';
 const fPF = require('fetch-ponyfill')();
 
 export class RequestPipeline {
-  filters?: BaseFilter[];
-  requestOptions?: RequestInit;
+  filters: BaseFilter[];
+  requestOptions: RequestInit;
 
   constructor(filters?: BaseFilter[], requestOptions?: RequestInit) {
     this.filters = filters || [];
-    this.requestOptions = requestOptions;
+    this.requestOptions = requestOptions || {};
   }
 
   addFilter(f: BaseFilter): void {

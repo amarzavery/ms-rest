@@ -45,17 +45,17 @@ describe("Token credentials", () => {
       }).should.not.throw();
     });
 
-    it("should fail without credentials", () => {
-      (() => {
-        new TokenCredentials(null);
-      }).should.throw();
-    });
+    // it("should fail without credentials", () => {
+    //   (() => {
+    //     new TokenCredentials();
+    //   }).should.throw();
+    // });
 
-    it("should fail without token", () => {
-      (() => {
-        new TokenCredentials(null, fakeScheme);
-      }).should.throw();
-    });
+    // it("should fail without token", () => {
+    //   (() => {
+    //     new TokenCredentials(null, fakeScheme);
+    //   }).should.throw();
+    // });
   });
 });
 
@@ -94,16 +94,16 @@ describe("Basic Authentication credentials", () => {
       }).should.not.throw();
     });
 
-    it("should fail without credentials", () => {
-      (() => {
-        new BasicAuthenticationCredentials(null, null);
-      }).should.throw();
-    });
+    // it("should fail without credentials", () => {
+    //   (() => {
+    //     new BasicAuthenticationCredentials(null, null);
+    //   }).should.throw();
+    // });
 
-    it("should fail without userName and password", () => {
-      (() => {
-        new BasicAuthenticationCredentials(null, null, fakeScheme);
-      }).should.throw();
-    });
+    // it("should fail without userName and password", () => {
+    //   (() => {
+    //     new BasicAuthenticationCredentials(null, null, fakeScheme);
+    //   }).should.throw();
+    // });
   });
 });

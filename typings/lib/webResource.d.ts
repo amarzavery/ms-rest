@@ -8,10 +8,10 @@ export declare type HttpMethods = 'GET' | 'PUT' | 'POST' | 'DELETE' | 'PATCH' | 
  * @constructor
  */
 export declare class WebResource {
-    url?: string;
-    method?: HttpMethods;
+    url: string;
+    method: HttpMethods;
     body?: any;
-    headers?: {
+    headers: {
         [key: string]: any;
     };
     rawResponse?: boolean;

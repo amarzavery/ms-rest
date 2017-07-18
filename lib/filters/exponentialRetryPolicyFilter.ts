@@ -1,15 +1,13 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-'use strict';
-
 import { BaseFilter } from './baseFilter';
 import * as utils from '../util/utils';
 import { HttpOperationResponse } from '../httpOperationResponse';
 
 export interface RetryData {
   retryCount: number;
-  retryInterval?: number;
+  retryInterval: number;
   error?: RetryError;
 }
 
@@ -76,11 +74,11 @@ export class ExponentialRetryPolicyFilter extends BaseFilter {
    * @param {RetryData} retryData  The retry data.
    * @param {object} err        The operation's error, if any.
    */
-  updateRetryData(retryData: RetryData, err: RetryError) {
+  updateRetryData(retryData?: RetryData, err?: RetryError): RetryData {
     if (!retryData) {
       retryData = {
         retryCount: 0,
-        error: null
+        retryInterval: 0
       };
     }
 
@@ -126,6 +124,6 @@ export class ExponentialRetryPolicyFilter extends BaseFilter {
   }
 
   after(operationResponse: HttpOperationResponse): Promise<HttpOperationResponse> {
-    return this.retry(operationResponse, null, null);
+    return this.retry(operationResponse);
   }
 }

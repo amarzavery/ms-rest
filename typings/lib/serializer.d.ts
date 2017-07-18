@@ -7,11 +7,11 @@ export declare class Serializer {
     });
     validateConstraints(mapper: Mapper, value: any, objectName: string): void;
     trimEnd(str: string, ch: string): string;
-    bufferToBase64Url(buffer: any): string;
+    bufferToBase64Url(buffer: any): string | null;
     base64UrlToBuffer(str: string): any;
     splitSerializeName(prop: string): Array<string>;
-    dateToUnixTime(d: string | Date): number;
-    unixTimeToDate(n: number): Date;
+    dateToUnixTime(d: string | Date): number | null;
+    unixTimeToDate(n: number): Date | null;
     serializeBasicTypes(typeName: string, objectName: string, value: any): any;
     serializeEnumType(objectName: string, allowedValues: Array<any>, value: any): any;
     serializeBufferType(objectName: string, value: any): any;
@@ -119,18 +119,18 @@ export interface UrlParameterValue {
 }
 export declare function serializeObject(toSerialize: any): any;
 export declare const MapperType: {
+    Composite: "Composite";
+    Enum: "Enum";
+    Sequence: "Sequence";
+    Dictionary: "Dictionary";
     Base64Url: "Base64Url";
     Boolean: "Boolean";
     ByteArray: "ByteArray";
-    Composite: "Composite";
     Date: "Date";
     DateTime: "DateTime";
     DateTimeRfc1123: "DateTimeRfc1123";
-    Dictionary: "Dictionary";
-    Enum: "Enum";
     Number: "Number";
     Object: "Object";
-    Sequence: "Sequence";
     String: "String";
     Stream: "Stream";
     TimeSpan: "TimeSpan";

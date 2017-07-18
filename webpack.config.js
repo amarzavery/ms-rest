@@ -1,7 +1,8 @@
 const webpack = require('webpack');
+//var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-  entry: './sample.ts',
+  entry: './browser-sample.ts',
   devtool: 'source-map',
   output: {
     filename: 'bundle.js',
@@ -17,7 +18,10 @@ module.exports = {
       {
         test: /\.tsx?$/,
         loader: 'ts-loader',
-        exclude: /(node_modules|test)/
+        exclude: /(node_modules|test)/,
+        options: {
+          configFileName: './tsconfig.browser.json'
+        }
       }
     ]
   },

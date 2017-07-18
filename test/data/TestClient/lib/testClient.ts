@@ -41,8 +41,7 @@ export class TestClient extends msRest.ServiceClient {
   serializer: msRest.Serializer;
   constructor(baseUri: string, options?: msRest.ServiceClientOptions) {
     if (!options) options = {};
-
-    super(null, options);
+    super(undefined, options);
     this.baseUri = baseUri;
     if (!this.baseUri) {
       this.baseUri = 'https://management.azure.com';

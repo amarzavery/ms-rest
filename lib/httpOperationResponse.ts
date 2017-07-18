@@ -1,8 +1,6 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-'use strict';
-
 import { WebResource } from './webResource';
 
 /**
@@ -24,7 +22,7 @@ export class HttpOperationResponse {
   /**
    * The response body as text (string format) or a stream
    */
-  body: string | ReadableStream;
+  body: string | ReadableStream | null;
   constructor(request: WebResource, response: Response) {
     /**
      * Reference to the original request object.
@@ -44,6 +42,6 @@ export class HttpOperationResponse {
      * The response object.
      * @type {object}
      */
-    this.body = undefined;
+    this.body = null;
   }
 }

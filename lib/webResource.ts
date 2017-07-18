@@ -1,8 +1,6 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-'use strict';
-
 import { generateUuid } from './util/utils';
 
 export type HttpMethods = 'GET' | 'PUT' | 'POST' | 'DELETE' | 'PATCH' | 'HEAD' | 'OPTIONS' | 'TRACE';
@@ -16,10 +14,10 @@ export type HttpMethods = 'GET' | 'PUT' | 'POST' | 'DELETE' | 'PATCH' | 'HEAD' |
  * @constructor
  */
 export class WebResource {
-  url?: string;
-  method?: HttpMethods;
+  url: string;
+  method: HttpMethods;
   body?: any;
-  headers?: { [key: string]: any; } = {};
+  headers: { [key: string]: any; } = {};
   rawResponse?: boolean;
   formData?: any;
   query?: { [key: string]: any; };
@@ -27,9 +25,9 @@ export class WebResource {
 
   constructor(url?: string, method?: HttpMethods, body?: any, query?: { [key: string]: any; }, headers: { [key: string]: any; } = {}, rawResponse = false) {
     this.rawResponse = rawResponse;
-    this.url = url;
-    this.method = method;
-    this.headers = headers;
+    this.url = url || "";
+    this.method = method || "GET";
+    this.headers = headers || {};
     this.body = body;
     this.query = query;
     this.formData = undefined;
@@ -106,7 +104,7 @@ export class WebResource {
         }
         segments.forEach(function (item) {
           const pathParamName = item.slice(1, -1);
-          const pathParam = options.pathParameters[pathParamName];
+          const pathParam = (options.pathParameters as { [key: string]: any })[pathParamName];
           if (pathParam === null || pathParam === undefined || !(typeof pathParam === 'string' || typeof pathParam === 'object')) {
             throw new Error(`pathTemplate: ${options.pathTemplate} contains the path parameter ${pathParamName}` +
               ` however, it is not present in ${options.pathParameters} - ${JSON.stringify(options.pathParameters, null, 2)}.` +

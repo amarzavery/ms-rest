@@ -19,8 +19,8 @@
     "autorest",
     "clientruntime"
   ],
-  "main": "./dist/lib/msRest.js",
-  "types": "./lib/msRest.ts",
+  "main": "./dist/node/lib/msRest.js",
+  "types": "./typings/lib/msRest.d.ts",
   "license": "MIT",
   "dependencies": {
     "@types/form-data": "^0.0.33",
@@ -44,7 +44,8 @@
     "ts-loader": "^2.2.2",
     "tslint": "^5.2.0",
     "typescript": "^2.4.1",
-    "webpack": "^3.2.0"
+    "webpack": "^3.3.0",
+    "uglify-es": "^3.0.25"
   },
   "homepage": "https://github.com/Azure/azure-sdk-for-node/runtime/ms-rest",
   "repository": {
@@ -55,8 +56,9 @@
     "url": "http://github.com/Azure/azure-sdk-for-node/issues"
   },
   "scripts": {
+    "tsc": "tsc -p tsconfig.node.json && tsc -p tsconfig.browser.json",
     "test": "npm install && npm -s run-script unit",
     "unit": "mocha -t 50000 dist/test",
-    "build": "webpack"
+    "build": "webpack && node_modules/uglify-es/bin/uglifyjs -c -m -o bundle.min.js bundle.js"
   }
 }

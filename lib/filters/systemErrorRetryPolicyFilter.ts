@@ -1,15 +1,13 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-'use strict';
-
 import { BaseFilter } from './baseFilter';
 import * as utils from '../util/utils';
 import { HttpOperationResponse } from '../httpOperationResponse';
 
 export interface RetryData {
   retryCount: number;
-  retryInterval?: number;
+  retryInterval: number;
   error?: RetryError;
 }
 
@@ -71,11 +69,11 @@ export class SystemErrorRetryPolicyFilter extends BaseFilter {
    * @param {RetryData} retryData  The retry data.
    * @param {object} err        The operation's error, if any.
    */
-  updateRetryData(retryData: RetryData, err: RetryError) {
+  updateRetryData(retryData?: RetryData, err?: RetryError): RetryData {
     if (!retryData) {
       retryData = {
         retryCount: 0,
-        error: undefined
+        retryInterval: 0
       };
     }
 
@@ -104,7 +102,7 @@ export class SystemErrorRetryPolicyFilter extends BaseFilter {
   retry(operationResponse: HttpOperationResponse, retryData?: RetryData, err?: RetryError): Promise<HttpOperationResponse> {
     const self = this;
     retryData = self.updateRetryData(retryData, err);
-    if (!utils.objectIsNull(err) && self.shouldRetry(retryData) &&
+    if (err && err.code && self.shouldRetry(retryData) &&
       (err.code === 'ETIMEDOUT' || err.code === 'ESOCKETTIMEDOUT' || err.code === 'ECONNREFUSED' ||
         err.code === 'ECONNRESET' || err.code === 'ENOENT')) {
       // If previous operation ended with an error and the policy allows a retry, do that
@@ -122,6 +120,6 @@ export class SystemErrorRetryPolicyFilter extends BaseFilter {
   }
 
   after(operationResponse: HttpOperationResponse): Promise<HttpOperationResponse> {
-    return this.retry(operationResponse, null, null); // TODO Audit usages of null. See: https://github.com/Microsoft/TypeScript/issues/7426
+    return this.retry(operationResponse); //See: https://github.com/Microsoft/TypeScript/issues/7426
   }
 }

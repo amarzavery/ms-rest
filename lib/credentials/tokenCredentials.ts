@@ -1,8 +1,6 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-'use strict';
-
 import { Constants } from '../util/constants';
 import { WebResource } from '../webResource';
 import { ServiceClientCredentials } from './serviceClientCredentials';
@@ -36,6 +34,7 @@ export class TokenCredentials implements ServiceClientCredentials {
    * @return {Promise<WebResource>} The signed request object.
    */
   signRequest(webResource: WebResource) {
+    if (!webResource.headers) webResource.headers = {};
     webResource.headers[HeaderConstants.AUTHORIZATION] = `${this.authorizationScheme} ${this.token}`;
     return Promise.resolve(webResource);
   }

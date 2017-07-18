@@ -1,8 +1,6 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-'use strict';
-
 import { RequestPipeline } from './requestPipeline';
 import { ServiceClientCredentials } from './credentials/serviceClientCredentials';
 import { BaseFilter } from './filters/baseFilter';
@@ -97,7 +95,7 @@ export class ServiceClient {
       throw new Error('options cannot be null or undefined and it must be of type object.');
     }
 
-    let httpRequest: WebResource = undefined;
+    let httpRequest: WebResource;
     try {
       if (options instanceof WebResource) {
         options.validateRequestProperties();
