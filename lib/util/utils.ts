@@ -4,6 +4,7 @@
 import { WebResource } from '../webResource';
 import { Constants } from './constants';
 import * as uuid from 'uuid';
+import { RestError } from '../restError';
 
 /**
  * Checks if a parsed URL is HTTPS
@@ -182,3 +183,13 @@ export function strEnum<T extends string>(o: Array<T>): {[K in T]: K} {
     return res;
   }, Object.create(null)); // TODO: Audit usage of null.
 }
+
+/**
+ * Service callback that is returned for REST requests initiated by the service client.
+ * 
+ * @property {Error|RestError} err         - The error occurred if any, while executing the request; otherwise null
+ * @property {TResult} result                 - The deserialized response body if an error did not occur.
+ * @property {WebResource}  request           - The raw/actual request sent to the server if an error did not occur.
+ * @property {Response} response  - The raw/actual response from the server if an error did not occur.
+ */
+export interface ServiceCallback<TResult> { (err: Error | RestError, result?: TResult, request?: WebResource, response?: Response): void }

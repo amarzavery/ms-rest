@@ -1,4 +1,5 @@
 import { WebResource } from '../webResource';
+import { RestError } from '../restError';
 /**
  * Checks if a parsed URL is HTTPS
  *
@@ -86,3 +87,14 @@ export declare function delay<T>(t: number, value?: T): Promise<T>;
 export declare function strEnum<T extends string>(o: Array<T>): {
     [K in T]: K;
 };
+/**
+ * Service callback that is returned for REST requests initiated by the service client.
+ *
+ * @property {Error|RestError} err         - The error occurred if any, while executing the request; otherwise null
+ * @property {TResult} result                 - The deserialized response body if an error did not occur.
+ * @property {WebResource}  request           - The raw/actual request sent to the server if an error did not occur.
+ * @property {Response} response  - The raw/actual response from the server if an error did not occur.
+ */
+export interface ServiceCallback<TResult> {
+    (err: Error | RestError, result?: TResult, request?: WebResource, response?: Response): void;
+}
