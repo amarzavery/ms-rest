@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { HttpOperationResponse } from './httpOperationResponse';
+import { RestError } from './restError';
 import * as utils from './util/utils';
 import * as FormData from 'form-data';
 const fPF = require('fetch-ponyfill')();
@@ -93,12 +94,23 @@ export class RequestPipeline {
             if (!options.rawResponse) {
                 try {
                     operationResponse.bodyAsText = yield res.text();
+                }
+                catch (err) {
+                    let msg = `Error "${err}" occured while converting the raw response body into string.`;
+                    let errCode = err.code || 'RAWTEXT_CONVERSION_ERROR';
+                    let e = new RestError(msg, errCode, res.status, options, res, res.body);
+                    return Promise.reject(e);
+                }
+                try {
                     if (operationResponse.bodyAsText) {
                         operationResponse.bodyAsJson = JSON.parse(operationResponse.bodyAsText);
                     }
                 }
                 catch (err) {
-                    //do nothing
+                    let msg = `Error "${err}" occured while executing JSON.parse on the response body - ${operationResponse.bodyAsText}.`;
+                    let errCode = err.code || 'JSON_PARSE_ERROR';
+                    let e = new RestError(msg, errCode, res.status, options, res, operationResponse.bodyAsText);
+                    return Promise.reject(e);
                 }
             }
             return Promise.resolve(operationResponse);

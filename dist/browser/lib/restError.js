@@ -9,53 +9,5 @@ export class RestError extends Error {
         this.response = response;
         this.body = body;
     }
-    mapper() {
-        return {
-            required: false,
-            serializedName: 'CloudError',
-            type: {
-                name: 'Composite',
-                className: 'CloudError',
-                modelProperties: {
-                    code: {
-                        required: false,
-                        serializedName: 'code',
-                        type: {
-                            name: 'String'
-                        }
-                    },
-                    message: {
-                        required: false,
-                        serializedName: 'message',
-                        type: {
-                            name: 'String'
-                        }
-                    },
-                    target: {
-                        required: false,
-                        serializedName: 'target',
-                        type: {
-                            name: 'String'
-                        }
-                    },
-                    details: {
-                        required: false,
-                        serializedName: 'details',
-                        type: {
-                            name: 'Sequence',
-                            element: {
-                                required: false,
-                                serializedName: 'CloudErrorElementType',
-                                type: {
-                                    name: 'Composite',
-                                    className: 'CloudError'
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        };
-    }
 }
 //# sourceMappingURL=restError.js.map

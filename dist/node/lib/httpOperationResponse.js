@@ -28,6 +28,8 @@ class HttpOperationResponse {
          * @type {object}
          */
         this.bodyAsStream = body;
+        this.bodyAsText = null;
+        this.bodyAsJson = null;
     }
 }
 exports.HttpOperationResponse = HttpOperationResponse;

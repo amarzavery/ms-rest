@@ -26,6 +26,8 @@ export class HttpOperationResponse {
          * @type {object}
          */
         this.bodyAsStream = body;
+        this.bodyAsText = null;
+        this.bodyAsJson = null;
     }
 }
 //# sourceMappingURL=httpOperationResponse.js.map
