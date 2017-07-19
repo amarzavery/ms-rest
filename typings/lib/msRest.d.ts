@@ -3,7 +3,7 @@ import { HttpOperationResponse } from './httpOperationResponse';
 import { RestError } from './restError';
 import { ServiceClient, ServiceClientOptions } from './serviceClient';
 import { Constants } from './util/constants';
-import { RequestPipeline } from './requestPipeline';
+import { RequestPipeline, RequestFunction } from './requestPipeline';
 import { LogFilter } from './filters/logFilter';
 import { BaseFilter } from './filters/baseFilter';
 import { ExponentialRetryPolicyFilter } from './filters/exponentialRetryPolicyFilter';
@@ -15,4 +15,4 @@ import { stripRequest, stripResponse, delay, executePromisesSequentially, genera
 import { TokenCredentials } from './credentials/tokenCredentials';
 import { BasicAuthenticationCredentials } from './credentials/basicAuthenticationCredentials';
 import { ServiceClientCredentials } from './credentials/serviceClientCredentials';
-export { BaseMapperType, CompositeMapper, DictionaryMapper, EnumMapper, Mapper, MapperConstraints, MapperType, PolymorphicDiscriminator, SequenceMapper, UrlParameterValue, Serializer, serializeObject, TokenCredentials, WebResource, RequestPrepareOptions, HttpMethods, ParameterValue, HttpOperationResponse, ServiceClient, Constants, RequestPipeline, BasicAuthenticationCredentials, ServiceClientCredentials, BaseFilter, LogFilter, ServiceClientOptions, ExponentialRetryPolicyFilter, SystemErrorRetryPolicyFilter, SigningFilter, MsRestUserAgentFilter, stripRequest, stripResponse, delay, executePromisesSequentially, generateUuid, encodeUri, RestError, RequestOptions };
+export { BaseMapperType, CompositeMapper, DictionaryMapper, EnumMapper, Mapper, MapperConstraints, MapperType, PolymorphicDiscriminator, SequenceMapper, UrlParameterValue, Serializer, serializeObject, TokenCredentials, WebResource, RequestPrepareOptions, HttpMethods, ParameterValue, HttpOperationResponse, ServiceClient, Constants, RequestPipeline, BasicAuthenticationCredentials, ServiceClientCredentials, BaseFilter, LogFilter, ServiceClientOptions, ExponentialRetryPolicyFilter, SystemErrorRetryPolicyFilter, SigningFilter, MsRestUserAgentFilter, stripRequest, stripResponse, delay, executePromisesSequentially, generateUuid, encodeUri, RestError, RequestOptions, RequestFunction };

@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @constructor
  */
 class HttpOperationResponse {
-    constructor(request, response) {
+    constructor(request, response, body) {
         /**
          * Reference to the original request object.
          * [WebResource] object.
@@ -27,7 +27,7 @@ class HttpOperationResponse {
          * The response object.
          * @type {object}
          */
-        this.body = null;
+        this.bodyAsStream = body;
     }
 }
 exports.HttpOperationResponse = HttpOperationResponse;

@@ -23,6 +23,6 @@ const req: msRest.RequestPrepareOptions = {
 };
 
 client.sendRequest(req).then(function (res: msRest.HttpOperationResponse) {
-  document.write(res.body as string);
+  document.write(res.bodyAsText as string);
 });
 

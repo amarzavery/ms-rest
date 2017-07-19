@@ -21,6 +21,6 @@ const req = {
     method: 'GET'
 };
 client.sendRequest(req).then(function (res) {
-    console.log(res.body);
+    console.log(res.bodyAsText);
 });
 //# sourceMappingURL=node-sample.js.map

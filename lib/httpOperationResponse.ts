@@ -20,10 +20,19 @@ export class HttpOperationResponse {
    */
   response: Response;
   /**
-   * The response body as text (string format) or a stream
+   * The response body as a readable stream
    */
-  body: string | ReadableStream | null;
-  constructor(request: WebResource, response: Response) {
+  bodyAsStream: ReadableStream | null;
+  /**
+   * The response body as text (string format)
+   */
+  bodyAsText: string | null;
+  /**
+   * The response body as parsed JSON
+   */
+  bodyAsJson: { [key: string]: any } | Array<any> | string | number | boolean | null;
+
+  constructor(request: WebResource, response: Response, body: ReadableStream | null) {
     /**
      * Reference to the original request object.
      * [WebResource] object.
@@ -42,6 +51,8 @@ export class HttpOperationResponse {
      * The response object.
      * @type {object}
      */
-    this.body = null;
+    this.bodyAsStream = body;
+    this.bodyAsText = null;
+    this.bodyAsJson = null;
   }
 }

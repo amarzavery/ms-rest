@@ -3,7 +3,6 @@
 
 import { BaseFilter } from './baseFilter';
 import { HttpOperationResponse } from '../httpOperationResponse';
-const isStream = require('is-stream');
 
 export class LogFilter extends BaseFilter {
 
@@ -18,10 +17,7 @@ export class LogFilter extends BaseFilter {
     const self = this;
     self.logger(`>> Request: ${JSON.stringify(operationResponse.request, undefined, 2)}`);
     self.logger(`>> Response status code: ${operationResponse.response.status}`);
-    let responseBody = operationResponse.body;
-    if (isStream(operationResponse.body)) {
-      responseBody = 'The response body is a stream. Hence omitting it from logging.';
-    }
+    let responseBody = operationResponse.bodyAsText;
     self.logger(`>> Body: ${responseBody}`);
     return Promise.resolve(operationResponse);
   }

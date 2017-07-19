@@ -45,11 +45,12 @@ class RequestPipeline {
         else {
             pipeline.push(self.requestSink.bind(self));
         }
-        return (request) => {
+        let requestFun = (request) => {
             if (!request.headers)
                 request.headers = {};
             return utils.executePromisesSequentially(pipeline, request);
         };
+        return requestFun;
     }
     requestSink(options) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -90,14 +91,19 @@ class RequestPipeline {
             catch (err) {
                 throw err;
             }
-            const operationResponse = new httpOperationResponse_1.HttpOperationResponse(options, res);
-            if (options.rawResponse) {
-                operationResponse.body = res.body;
+            const operationResponse = new httpOperationResponse_1.HttpOperationResponse(options, res, res.body);
+            if (!options.rawResponse) {
+                try {
+                    operationResponse.bodyAsText = yield res.text();
+                    if (operationResponse.bodyAsText) {
+                        operationResponse.bodyAsJson = JSON.parse(operationResponse.bodyAsText);
+                    }
+                }
+                catch (err) {
+                    //do nothing
+                }
             }
-            else {
-                operationResponse.body = yield res.text();
-            }
-            return operationResponse;
+            return Promise.resolve(operationResponse);
         });
     }
 }

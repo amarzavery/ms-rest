@@ -3,7 +3,6 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 Object.defineProperty(exports, "__esModule", { value: true });
 const baseFilter_1 = require("./baseFilter");
-const isStream = require('is-stream');
 class LogFilter extends baseFilter_1.BaseFilter {
     constructor(logger = console.log) {
         super();
@@ -13,10 +12,7 @@ class LogFilter extends baseFilter_1.BaseFilter {
         const self = this;
         self.logger(`>> Request: ${JSON.stringify(operationResponse.request, undefined, 2)}`);
         self.logger(`>> Response status code: ${operationResponse.response.status}`);
-        let responseBody = operationResponse.body;
-        if (isStream(operationResponse.body)) {
-            responseBody = 'The response body is a stream. Hence omitting it from logging.';
-        }
+        let responseBody = operationResponse.bodyAsText;
         self.logger(`>> Body: ${responseBody}`);
         return Promise.resolve(operationResponse);
     }

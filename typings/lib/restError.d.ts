@@ -4,6 +4,6 @@ export declare class RestError extends Error {
     statusCode?: number;
     request?: WebResource;
     response?: Response;
-    body?: string | object;
-    constructor(message: string, code?: string, statusCode?: number, request?: WebResource, response?: Response, body?: string | object);
+    body?: any;
+    constructor(message: string, code?: string, statusCode?: number, request?: WebResource, response?: Response, body?: any);
 }

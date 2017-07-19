@@ -3,11 +3,15 @@
 
 import { WebResource } from './webResource';
 import { HttpOperationResponse } from './httpOperationResponse';
+import { RestError } from './restError';
 import { BaseFilter } from './filters/baseFilter';
 import * as utils from './util/utils';
 import * as FormData from 'form-data';
 const fPF = require('fetch-ponyfill')();
 
+export interface RequestFunction {
+  (webResource: WebResource): Promise<HttpOperationResponse>;
+}
 export class RequestPipeline {
   filters: BaseFilter[];
   requestOptions: RequestInit;
@@ -22,7 +26,7 @@ export class RequestPipeline {
     return;
   }
 
-  create(): Function {
+  create(): RequestFunction {
     const self = this;
     let pipeline: Array<Function> = [];
     if (self.filters && self.filters.length) {
@@ -43,10 +47,11 @@ export class RequestPipeline {
     } else {
       pipeline.push(self.requestSink.bind(self));
     }
-    return (request: WebResource): Promise<HttpOperationResponse> => {
+    let requestFun: RequestFunction = (request: WebResource): Promise<HttpOperationResponse> => {
       if (!request.headers) request.headers = {};
       return utils.executePromisesSequentially(pipeline, request);
-    };
+    }
+    return requestFun;
   }
 
   async requestSink(options: WebResource): Promise<HttpOperationResponse> {
@@ -84,12 +89,27 @@ export class RequestPipeline {
     } catch (err) {
       throw err;
     }
-    const operationResponse = new HttpOperationResponse(options, res);
-    if (options.rawResponse) {
-      operationResponse.body = res.body;
-    } else {
-      operationResponse.body = await res.text();
+    const operationResponse = new HttpOperationResponse(options, res, res.body);
+    if (!options.rawResponse) {
+      try {
+        operationResponse.bodyAsText = await res.text();
+      } catch (err) {
+        let msg = `Error "${err}" occured while converting the raw response body into string.`;
+        let errCode = err.code || 'RAWTEXT_CONVERSION_ERROR';
+        let e = new RestError(msg, errCode, res.status, options, res, res.body);
+        return Promise.reject(e);
+      }
+      try {
+        if (operationResponse.bodyAsText) {
+          operationResponse.bodyAsJson = JSON.parse(operationResponse.bodyAsText);
+        }
+      } catch (err) {
+        let msg: string = `Error "${err}" occured while executing JSON.parse on the response body - ${operationResponse.bodyAsText}.`;
+        let errCode = err.code || 'JSON_PARSE_ERROR';
+        let e = new RestError(msg, errCode, res.status, options, res, operationResponse.bodyAsText);
+        return Promise.reject(e);
+      }
     }
-    return operationResponse;
+    return Promise.resolve(operationResponse);
   }
 }

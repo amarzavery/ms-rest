@@ -6,7 +6,7 @@ import { HttpOperationResponse } from './httpOperationResponse';
 import { RestError } from './restError';
 import { ServiceClient, ServiceClientOptions } from './serviceClient';
 import { Constants } from './util/constants';
-import { RequestPipeline } from './requestPipeline';
+import { RequestPipeline, RequestFunction } from './requestPipeline';
 import { LogFilter } from './filters/logFilter';
 import { BaseFilter } from './filters/baseFilter';
 import { ExponentialRetryPolicyFilter } from './filters/exponentialRetryPolicyFilter';
@@ -34,5 +34,5 @@ export {
   WebResource, RequestPrepareOptions, HttpMethods, ParameterValue, HttpOperationResponse, ServiceClient, Constants, RequestPipeline,
   BasicAuthenticationCredentials, ServiceClientCredentials, BaseFilter, LogFilter, ServiceClientOptions, ExponentialRetryPolicyFilter,
   SystemErrorRetryPolicyFilter, SigningFilter, MsRestUserAgentFilter, stripRequest, stripResponse, delay, executePromisesSequentially,
-  generateUuid, encodeUri, RestError, RequestOptions
+  generateUuid, encodeUri, RestError, RequestOptions, RequestFunction
 };

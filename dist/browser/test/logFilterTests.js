@@ -24,7 +24,7 @@ describe("Log filter", () => {
         const lf = new LogFilter(logger);
         const req = new WebResource("https://foo.com", "PUT", { "a": 1 });
         const res = new fPF.Response();
-        const opRes = new HttpOperationResponse(req, res);
+        const opRes = new HttpOperationResponse(req, res, res.body);
         lf.after(opRes).then(() => {
             //console.dir(output, { depth: null });
             //console.log('>>>>>>>');
