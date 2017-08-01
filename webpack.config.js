@@ -2,7 +2,7 @@ const webpack = require('webpack');
 //var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-  entry: './browser-sample.ts',
+  entry: './lib/msRest.ts',
   devtool: 'source-map',
   output: {
     filename: 'bundle.js',

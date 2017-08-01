@@ -6,22 +6,20 @@ export declare class Serializer {
         [key: string]: any;
     });
     validateConstraints(mapper: Mapper, value: any, objectName: string): void;
-    trimEnd(str: string, ch: string): string;
-    bufferToBase64Url(buffer: any): string | null;
-    base64UrlToBuffer(str: string): any;
-    splitSerializeName(prop: string): Array<string>;
-    dateToUnixTime(d: string | Date): number | null;
-    unixTimeToDate(n: number): Date | null;
-    serializeBasicTypes(typeName: string, objectName: string, value: any): any;
-    serializeEnumType(objectName: string, allowedValues: Array<any>, value: any): any;
-    serializeBufferType(objectName: string, value: any): any;
-    serializeBase64UrlType(objectName: string, value: any): any;
-    serializeDateTypes(typeName: string, value: any, objectName: string): any;
-    serializeSequenceType(mapper: SequenceMapper, object: any, objectName: string): any[];
-    serializeDictionaryType(mapper: DictionaryMapper, object: any, objectName: string): {
-        [key: string]: any;
-    };
-    serializeCompositeType(mapper: CompositeMapper, object: any, objectName: string): any;
+    private trimEnd(str, ch);
+    private bufferToBase64Url(buffer);
+    private base64UrlToBuffer(str);
+    private splitSerializeName(prop);
+    private dateToUnixTime(d);
+    private unixTimeToDate(n);
+    private serializeBasicTypes(typeName, objectName, value);
+    private serializeEnumType(objectName, allowedValues, value);
+    private serializeBufferType(objectName, value);
+    private serializeBase64UrlType(objectName, value);
+    private serializeDateTypes(typeName, value, objectName);
+    private serializeSequenceType(mapper, object, objectName);
+    private serializeDictionaryType(mapper, object, objectName);
+    private serializeCompositeType(mapper, object, objectName);
     /**
      * Serialize the given object based on its metadata defined in the mapper
      *
@@ -34,9 +32,9 @@ export declare class Serializer {
      * @returns {object|string|Array|number|boolean|Date|stream} A valid serialized Javascript object
      */
     serialize(mapper: Mapper, object: any, objectName: string): any;
-    deserializeCompositeType(mapper: CompositeMapper, responseBody: any, objectName: string): any;
-    deserializeDictionaryType(mapper: DictionaryMapper, responseBody: any, objectName: string): any;
-    deserializeSequenceType(mapper: SequenceMapper, responseBody: any, objectName: string): any;
+    private deserializeCompositeType(mapper, responseBody, objectName);
+    private deserializeDictionaryType(mapper, responseBody, objectName);
+    private deserializeSequenceType(mapper, responseBody, objectName);
     /**
      * Deserialize the given object based on its metadata defined in the mapper
      *
@@ -49,7 +47,7 @@ export declare class Serializer {
      * @returns {object|string|Array|number|boolean|Date|stream} A valid deserialized Javascript object
      */
     deserialize(mapper: Mapper, responseBody: any, objectName: string): any;
-    getPolymorphicMapper(mapper: CompositeMapper, object: any, objectName: string, mode: string): CompositeMapper;
+    private getPolymorphicMapper(mapper, object, objectName, mode);
     private getPolymorphicMapperObjectVersion(mapper, object, objectName, mode);
     private getPolymorphicMapperStringVersion(mapper, object, objectName);
 }
