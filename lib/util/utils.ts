@@ -5,6 +5,8 @@ import { WebResource } from '../webResource';
 import { Constants } from './constants';
 import * as uuid from 'uuid';
 import { RestError } from '../restError';
+import { HttpOperationResponse } from '../httpOperationResponse';
+
 
 /**
  * Checks if a parsed URL is HTTPS
@@ -193,3 +195,39 @@ export function strEnum<T extends string>(o: Array<T>): {[K in T]: K} {
  * @property {Response} response  - The raw/actual response from the server if an error did not occur.
  */
 export interface ServiceCallback<TResult> { (err: Error | RestError, result?: TResult, request?: WebResource, response?: Response): void }
+
+/**
+ * Converts a Promise to a callback.
+ * @param {Promise<any>} promise - The Promise to be converted to a callback
+ * @returns {Function} fn - A function that takes the callback (cb: Function): void
+ */
+export function promiseToCallback(promise: Promise<any>): Function {
+  if (typeof promise.then !== 'function') {
+    throw new Error('The provided input is not a Promise.');
+  }
+  return (cb: Function): void => {
+    promise.then((data: any) => {
+      process.nextTick(cb, null, data);
+    }, (err: Error) => {
+      process.nextTick(cb, err);
+    });
+  };
+}
+
+/**
+ * Converts a Promise to a service callback.
+ * @param {Promise<HttpOperationResponse>} promise - The Promise of HttpOperationResponse to be converted to a service callback
+ * @returns {Function} fn - A function that takes the service callback (cb: ServiceCallback<T>): void
+ */
+export function promiseToServiceCallback<T>(promise: Promise<HttpOperationResponse>): Function {
+  if (typeof promise.then !== 'function') {
+    throw new Error('The provided input is not a Promise.');
+  }
+  return (cb: ServiceCallback<T>): void => {
+    promise.then((data: HttpOperationResponse) => {
+      process.nextTick(cb, null, data.bodyAsJson as T, data.request, data.response);
+    }, (err: Error) => {
+      process.nextTick(cb, err);
+    });
+  };
+}

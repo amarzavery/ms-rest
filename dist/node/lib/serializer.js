@@ -7,8 +7,8 @@ const moment_1 = require("moment");
 const isBuffer = require('is-buffer');
 const isStream = require('is-stream');
 class Serializer {
-    constructor(models) {
-        this.models = models;
+    constructor(mappers) {
+        this.modelMappers = mappers;
     }
     validateConstraints(mapper, value, objectName) {
         if (mapper.constraints && (value !== null || value !== undefined)) {
@@ -298,7 +298,7 @@ class Serializer {
                 }
                 //get the mapper if modelProperties of the CompositeType is not present and 
                 //then get the modelProperties from it.
-                modelMapper = new this.models[mapper.type.className]().mapper();
+                modelMapper = new this.modelMappers[mapper.type.className]().mapper();
                 if (!modelMapper) {
                     throw new Error(`mapper() cannot be null or undefined for model "${mapper.type.className}".`);
                 }
@@ -427,7 +427,7 @@ class Serializer {
                 }
                 //get the mapper if modelProperties of the CompositeType is not present and 
                 //then get the modelProperties from it.
-                modelMapper = new this.models[mapper.type.className]().mapper();
+                modelMapper = new this.modelMappers[mapper.type.className]().mapper();
                 if (!modelMapper) {
                     throw new Error(`mapper() cannot be null or undefined for model "${mapper.type.className}"`);
                 }
@@ -614,13 +614,13 @@ class Serializer {
             else {
                 indexDiscriminator = mapper.type.uberParent + '.' + object[discriminatorAsObject[polymorphicPropertyName]];
             }
-            if (!this.models.discriminators[indexDiscriminator]) {
+            if (!this.modelMappers.discriminators[indexDiscriminator]) {
                 throw new Error(`${discriminatorAsObject[polymorphicPropertyName]}": ` +
                     `"${object[discriminatorAsObject[polymorphicPropertyName]]}" in "${objectName}" is not a valid ` +
                     `discriminator as a corresponding model class for the disciminator "${indexDiscriminator}" ` +
                     `was not found in this.models.discriminators object.`);
             }
-            mapper = new this.models.discriminators[indexDiscriminator]().mapper();
+            mapper = new this.modelMappers.discriminators[indexDiscriminator]().mapper();
         }
         return mapper;
     }
@@ -643,13 +643,13 @@ class Serializer {
             else {
                 indexDiscriminator = mapper.type.uberParent + '.' + object[discriminatorAsString];
             }
-            if (!this.models.discriminators[indexDiscriminator]) {
+            if (!this.modelMappers.discriminators[indexDiscriminator]) {
                 throw new Error(`${discriminatorAsString}": ` +
                     `"${object[discriminatorAsString]}"  in "${objectName}" is not a valid ` +
                     `discriminator as a corresponding model class for the disciminator "${indexDiscriminator}" ` +
                     `was not found in this.models.discriminators object.`);
             }
-            mapper = new this.models.discriminators[indexDiscriminator]().mapper();
+            mapper = new this.modelMappers.discriminators[indexDiscriminator]().mapper();
         }
         return mapper;
     }

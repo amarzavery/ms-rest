@@ -7,10 +7,10 @@ const isBuffer = require('is-buffer');
 const isStream = require('is-stream');
 
 export class Serializer {
-  models?: { [key: string]: any };
+  modelMappers?: { [key: string]: any };
 
-  constructor(models?: { [key: string]: any }) {
-    this.models = models;
+  constructor(mappers?: { [key: string]: any }) {
+    this.modelMappers = mappers;
   }
 
   validateConstraints(mapper: Mapper, value: any, objectName: string): void {
@@ -67,7 +67,7 @@ export class Serializer {
     }
   }
 
-  trimEnd(str: string, ch: string) {
+  private trimEnd(str: string, ch: string) {
     let len = str.length;
     while ((len - 1) >= 0 && str[len - 1] === ch) {
       --len;
@@ -75,7 +75,7 @@ export class Serializer {
     return str.substr(0, len);
   }
 
-  bufferToBase64Url(buffer: any): string | null {
+  private bufferToBase64Url(buffer: any): string | null {
     if (!buffer) {
       return null;
     }
@@ -88,7 +88,7 @@ export class Serializer {
     return this.trimEnd(str, '=').replace(/\+/g, '-').replace(/\//g, '_');
   }
 
-  base64UrlToBuffer(str: string): any {
+  private base64UrlToBuffer(str: string): any {
     if (!str) {
       return null;
     }
@@ -101,7 +101,7 @@ export class Serializer {
     return Buffer.from(str, 'base64');
   }
 
-  splitSerializeName(prop: string): Array<string> {
+  private splitSerializeName(prop: string): Array<string> {
     let classes: Array<string> = [];
     let partialclass = '';
     let subwords = prop.split('.');
@@ -119,7 +119,7 @@ export class Serializer {
     return classes;
   }
 
-  dateToUnixTime(d: string | Date): number | null {
+  private dateToUnixTime(d: string | Date): number | null {
     if (!d) {
       return null;
     }
@@ -130,14 +130,14 @@ export class Serializer {
     return Math.floor((d as Date).getTime() / 1000);
   }
 
-  unixTimeToDate(n: number): Date | null {
+  private unixTimeToDate(n: number): Date | null {
     if (!n) {
       return null;
     }
     return new Date(n * 1000);
   }
 
-  serializeBasicTypes(typeName: string, objectName: string, value: any): any {
+  private serializeBasicTypes(typeName: string, objectName: string, value: any): any {
     if (value !== null && value !== undefined) {
       if (typeName.match(/^Number$/ig) !== null) {
         if (typeof value !== 'number') {
@@ -168,7 +168,7 @@ export class Serializer {
     return value;
   }
 
-  serializeEnumType(objectName: string, allowedValues: Array<any>, value: any): any {
+  private serializeEnumType(objectName: string, allowedValues: Array<any>, value: any): any {
     if (!allowedValues) {
       throw new Error(`Please provide a set of allowedValues to validate ${objectName} as an Enum Type.`);
     }
@@ -184,7 +184,7 @@ export class Serializer {
     return value;
   }
 
-  serializeBufferType(objectName: string, value: any): any {
+  private serializeBufferType(objectName: string, value: any): any {
     if (value !== null && value !== undefined) {
       if (!isBuffer(value)) {
         throw new Error(`${objectName} must be of type Buffer.`);
@@ -194,7 +194,7 @@ export class Serializer {
     return value;
   }
 
-  serializeBase64UrlType(objectName: string, value: any): any {
+  private serializeBase64UrlType(objectName: string, value: any): any {
     if (value !== null && value !== undefined) {
       if (!isBuffer(value)) {
         throw new Error(`${objectName} must be of type Buffer.`);
@@ -204,7 +204,7 @@ export class Serializer {
     return value;
   }
 
-  serializeDateTypes(typeName: string, value: any, objectName: string) {
+  private serializeDateTypes(typeName: string, value: any, objectName: string) {
     if (value !== null && value !== undefined) {
       if (typeName.match(/^Date$/ig) !== null) {
         if (!(value instanceof Date ||
@@ -241,7 +241,7 @@ export class Serializer {
     return value;
   }
 
-  serializeSequenceType(mapper: SequenceMapper, object: any, objectName: string) {
+  private serializeSequenceType(mapper: SequenceMapper, object: any, objectName: string) {
 
     if (!Array.isArray(object)) {
       throw new Error(`${objectName} must be of type Array.`);
@@ -257,7 +257,7 @@ export class Serializer {
     return tempArray;
   }
 
-  serializeDictionaryType(mapper: DictionaryMapper, object: any, objectName: string) {
+  private serializeDictionaryType(mapper: DictionaryMapper, object: any, objectName: string) {
 
     if (typeof object !== 'object') {
       throw new Error(`${objectName} must be of type object.`);
@@ -275,7 +275,7 @@ export class Serializer {
     return tempDictionary;
   }
 
-  serializeCompositeType(mapper: CompositeMapper, object: any, objectName: string) {
+  private serializeCompositeType(mapper: CompositeMapper, object: any, objectName: string) {
     //check for polymorphic discriminator
     if (mapper.type.polymorphicDiscriminator) {
       mapper = this.getPolymorphicMapper(mapper, object, objectName, 'serialize');
@@ -299,7 +299,7 @@ export class Serializer {
         }
         //get the mapper if modelProperties of the CompositeType is not present and 
         //then get the modelProperties from it.
-        modelMapper = new (this.models as { [key: string]: any })[mapper.type.className]().mapper();
+        modelMapper = new (this.modelMappers as { [key: string]: any })[mapper.type.className]().mapper();
         if (!modelMapper) {
           throw new Error(`mapper() cannot be null or undefined for model "${mapper.type.className}".`);
         }
@@ -399,7 +399,7 @@ export class Serializer {
     return payload;
   }
 
-  deserializeCompositeType(mapper: CompositeMapper, responseBody: any, objectName: string): any {
+  private deserializeCompositeType(mapper: CompositeMapper, responseBody: any, objectName: string): any {
     /*jshint validthis: true */
     //check for polymorphic discriminator
     if (mapper.type.polymorphicDiscriminator) {
@@ -422,7 +422,7 @@ export class Serializer {
         }
         //get the mapper if modelProperties of the CompositeType is not present and 
         //then get the modelProperties from it.
-        modelMapper = new (this.models as { [key: string]: any })[mapper.type.className]().mapper();
+        modelMapper = new (this.modelMappers as { [key: string]: any })[mapper.type.className]().mapper();
         if (!modelMapper) {
           throw new Error(`mapper() cannot be null or undefined for model "${mapper.type.className}"`);
         }
@@ -468,7 +468,7 @@ export class Serializer {
     return responseBody;
   }
 
-  deserializeDictionaryType(mapper: DictionaryMapper, responseBody: any, objectName: string): any {
+  private deserializeDictionaryType(mapper: DictionaryMapper, responseBody: any, objectName: string): any {
     /*jshint validthis: true */
     if (!mapper.type.value || typeof mapper.type.value !== 'object') {
       throw new Error(`"value" metadata for a Dictionary must be defined in the ` +
@@ -486,7 +486,7 @@ export class Serializer {
     return responseBody;
   }
 
-  deserializeSequenceType(mapper: SequenceMapper, responseBody: any, objectName: string): any {
+  private deserializeSequenceType(mapper: SequenceMapper, responseBody: any, objectName: string): any {
     /*jshint validthis: true */
     if (!mapper.type.element || typeof mapper.type.element !== 'object') {
       throw new Error(`element" metadata for an Array must be defined in the ` +
@@ -545,7 +545,7 @@ export class Serializer {
     return payload;
   }
 
-  getPolymorphicMapper(mapper: CompositeMapper, object: any, objectName: string, mode: string): CompositeMapper {
+  private getPolymorphicMapper(mapper: CompositeMapper, object: any, objectName: string, mode: string): CompositeMapper {
 
     //check for polymorphic discriminator
     //Until version 1.15.1, 'polymorphicDiscriminator' in the mapper was a string. This method was not effective when the 
@@ -602,13 +602,13 @@ export class Serializer {
       } else {
         indexDiscriminator = mapper.type.uberParent + '.' + object[discriminatorAsObject[polymorphicPropertyName]];
       }
-      if (!(this.models as { [key: string]: any }).discriminators[indexDiscriminator]) {
+      if (!(this.modelMappers as { [key: string]: any }).discriminators[indexDiscriminator]) {
         throw new Error(`${discriminatorAsObject[polymorphicPropertyName]}": ` +
           `"${object[discriminatorAsObject[polymorphicPropertyName]]}" in "${objectName}" is not a valid ` +
           `discriminator as a corresponding model class for the disciminator "${indexDiscriminator}" ` +
           `was not found in this.models.discriminators object.`);
       }
-      mapper = new (this.models as { [key: string]: any }).discriminators[indexDiscriminator]().mapper();
+      mapper = new (this.modelMappers as { [key: string]: any }).discriminators[indexDiscriminator]().mapper();
     }
     return mapper;
   }
@@ -631,13 +631,13 @@ export class Serializer {
       } else {
         indexDiscriminator = mapper.type.uberParent + '.' + object[discriminatorAsString];
       }
-      if (!(this.models as { [key: string]: any }).discriminators[indexDiscriminator]) {
+      if (!(this.modelMappers as { [key: string]: any }).discriminators[indexDiscriminator]) {
         throw new Error(`${discriminatorAsString}": ` +
           `"${object[discriminatorAsString]}"  in "${objectName}" is not a valid ` +
           `discriminator as a corresponding model class for the disciminator "${indexDiscriminator}" ` +
           `was not found in this.models.discriminators object.`);
       }
-      mapper = new (this.models as { [key: string]: any }).discriminators[indexDiscriminator]().mapper();
+      mapper = new (this.modelMappers as { [key: string]: any }).discriminators[indexDiscriminator]().mapper();
     }
     return mapper;
   }

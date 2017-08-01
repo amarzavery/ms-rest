@@ -1,5 +1,6 @@
 import { WebResource } from '../webResource';
 import { RestError } from '../restError';
+import { HttpOperationResponse } from '../httpOperationResponse';
 /**
  * Checks if a parsed URL is HTTPS
  *
@@ -98,3 +99,15 @@ export declare function strEnum<T extends string>(o: Array<T>): {
 export interface ServiceCallback<TResult> {
     (err: Error | RestError, result?: TResult, request?: WebResource, response?: Response): void;
 }
+/**
+ * Converts a Promise to a callback.
+ * @param {Promise<any>} promise - The Promise to be converted to a callback
+ * @returns {Function} fn - A function that takes the callback (cb: Function): void
+ */
+export declare function promiseToCallback(promise: Promise<any>): Function;
+/**
+ * Converts a Promise to a service callback.
+ * @param {Promise<HttpOperationResponse>} promise - The Promise of HttpOperationResponse to be converted to a service callback
+ * @returns {Function} fn - A function that takes the service callback (cb: ServiceCallback<T>): void
+ */
+export declare function promiseToServiceCallback<T>(promise: Promise<HttpOperationResponse>): Function;

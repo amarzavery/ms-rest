@@ -37,6 +37,8 @@ exports.delay = utils_1.delay;
 exports.executePromisesSequentially = utils_1.executePromisesSequentially;
 exports.generateUuid = utils_1.generateUuid;
 exports.encodeUri = utils_1.encodeUri;
+exports.promiseToCallback = utils_1.promiseToCallback;
+exports.promiseToServiceCallback = utils_1.promiseToServiceCallback;
 // Credentials
 const tokenCredentials_1 = require("./credentials/tokenCredentials");
 exports.TokenCredentials = tokenCredentials_1.TokenCredentials;

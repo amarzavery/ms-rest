@@ -1,8 +1,8 @@
 export declare class Serializer {
-    models?: {
+    modelMappers?: {
         [key: string]: any;
     };
-    constructor(models?: {
+    constructor(mappers?: {
         [key: string]: any;
     });
     validateConstraints(mapper: Mapper, value: any, objectName: string): void;

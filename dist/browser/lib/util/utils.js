@@ -175,4 +175,38 @@ export function strEnum(o) {
         return res;
     }, Object.create(null)); // TODO: Audit usage of null.
 }
+/**
+ * Converts a Promise to a callback.
+ * @param {Promise<any>} promise - The Promise to be converted to a callback
+ * @returns {Function} fn - A function that takes the callback (cb: Function): void
+ */
+export function promiseToCallback(promise) {
+    if (typeof promise.then !== 'function') {
+        throw new Error('The provided input is not a Promise.');
+    }
+    return (cb) => {
+        promise.then((data) => {
+            process.nextTick(cb, null, data);
+        }, (err) => {
+            process.nextTick(cb, err);
+        });
+    };
+}
+/**
+ * Converts a Promise to a service callback.
+ * @param {Promise<HttpOperationResponse>} promise - The Promise of HttpOperationResponse to be converted to a service callback
+ * @returns {Function} fn - A function that takes the service callback (cb: ServiceCallback<T>): void
+ */
+export function promiseToServiceCallback(promise) {
+    if (typeof promise.then !== 'function') {
+        throw new Error('The provided input is not a Promise.');
+    }
+    return (cb) => {
+        promise.then((data) => {
+            process.nextTick(cb, null, data.bodyAsJson, data.request, data.response);
+        }, (err) => {
+            process.nextTick(cb, err);
+        });
+    };
+}
 //# sourceMappingURL=utils.js.map

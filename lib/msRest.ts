@@ -20,7 +20,8 @@ import {
 } from './serializer';
 import {
   stripRequest, stripResponse, delay,
-  executePromisesSequentially, generateUuid, encodeUri, ServiceCallback
+  executePromisesSequentially, generateUuid, encodeUri, ServiceCallback,
+  promiseToCallback, promiseToServiceCallback
 } from './util/utils';
 
 // Credentials
@@ -34,5 +35,5 @@ export {
   WebResource, RequestPrepareOptions, HttpMethods, ParameterValue, HttpOperationResponse, ServiceClient, Constants, RequestPipeline,
   BasicAuthenticationCredentials, ServiceClientCredentials, BaseFilter, LogFilter, ServiceClientOptions, ExponentialRetryPolicyFilter,
   SystemErrorRetryPolicyFilter, SigningFilter, MsRestUserAgentFilter, stripRequest, stripResponse, delay, executePromisesSequentially,
-  generateUuid, encodeUri, RestError, RequestOptions, RequestFunction, ServiceCallback
+  generateUuid, encodeUri, RestError, RequestOptions, RequestFunction, ServiceCallback, promiseToCallback, promiseToServiceCallback
 };
