@@ -2,10 +2,10 @@ const webpack = require('webpack');
 //var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-  entry: './browser-sample.ts',
+  entry: './browser-login.ts',
   devtool: 'source-map',
   output: {
-    filename: 'bundle.js',
+    filename: 'bundle-login.js',
     path: __dirname,
     libraryTarget: 'var',
     library: 'className'
