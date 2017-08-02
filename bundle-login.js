@@ -70,16 +70,12 @@ var className =
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ms_rest_jsauth__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AuthConstants__ = __webpack_require__(1);
 
-const config = {
-    clientId: "4e577d28-b99d-4b38-829a-1adc38b0fab5",
-    tenant: "72f988bf-86f1-41af-91ab-2d7cd011db47",
-    popUp: false,
-    redirectUri: "http://localhost:8080/getToken"
-};
-const authManager = new __WEBPACK_IMPORTED_MODULE_0_ms_rest_jsauth__["a" /* AuthenticationManager */](config);
-authManager.login();
+__WEBPACK_IMPORTED_MODULE_0__AuthConstants__["a" /* authManager */].handleWindowCallback();
+if (!__WEBPACK_IMPORTED_MODULE_0__AuthConstants__["a" /* authManager */].getCachedUser()) {
+    __WEBPACK_IMPORTED_MODULE_0__AuthConstants__["a" /* authManager */].login();
+}
 
 
 /***/ }),
@@ -87,21 +83,41 @@ authManager.login();
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ms_rest_jsauth__ = __webpack_require__(2);
+
+const config = {
+    clientId: "4e577d28-b99d-4b38-829a-1adc38b0fab5",
+    tenant: "72f988bf-86f1-41af-91ab-2d7cd011db47",
+    popUp: false,
+    cacheLocation: "localStorage",
+    redirectUri: "http://localhost:8080/login.html"
+};
+// loginResource: "https://management.azure.com/",
+//   resource: "https://microsoft.onmicrosoft.com/5a4e578d-4b87-4e4d-b302-cf4a9d1d01fe"
+const authManager = new __WEBPACK_IMPORTED_MODULE_0_ms_rest_jsauth__["a" /* AuthenticationManager */](config);
+/* harmony export (immutable) */ __webpack_exports__["a"] = authManager;
+
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
-const adal = __webpack_require__(2);
+const adal = __webpack_require__(3);
 class AuthenticationManager {
     constructor(config) {
-        this.config = config;
         this.authContext = new adal(config);
     }
     login() {
         this.authContext.login();
     }
-    getToken() {
+    getToken(resource = "https://management.azure.com/") {
         return new Promise((resolve, reject) => {
             // adal has inbuilt smarts to acquire token from the cache if not expired. Otherwise sends request to AAD to obtain a new token
-            this.authContext.acquireToken(this.config.clientId, (error, token) => {
+            this.authContext.acquireToken(resource, (error, token) => {
                 if (error || !token) {
                     return reject(error);
                 }
@@ -109,13 +125,19 @@ class AuthenticationManager {
             });
         });
     }
+    handleWindowCallback() {
+        this.authContext.handleWindowCallback();
+    }
+    getCachedUser() {
+        return this.authContext.getCachedUser();
+    }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = AuthenticationManager;
 
 //# sourceMappingURL=AuthenticationManager.js.map
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports) {
 
 //----------------------------------------------------------------------

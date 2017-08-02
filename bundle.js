@@ -85,7 +85,7 @@ var className =
 /* unused harmony export promiseToServiceCallback */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__webResource__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constants__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_uuid__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_uuid__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_uuid___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_uuid__);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
@@ -845,7 +845,7 @@ if (!rng) {
 
 module.exports = rng;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(20)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(21)))
 
 /***/ }),
 /* 6 */
@@ -946,7 +946,7 @@ class RestError extends Error {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__httpOperationResponse__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__restError__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_utils__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_form_data__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_form_data__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_form_data___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_form_data__);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
@@ -962,7 +962,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 
 
 
-const fPF = __webpack_require__(24)();
+const fPF = __webpack_require__(25)();
 class RequestPipeline {
     constructor(filters, requestOptions) {
         this.filters = filters || [];
@@ -1317,7 +1317,7 @@ class SigningFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilter__["a" /* Bas
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseFilter__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_constants__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_os__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_os__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_os___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_os__);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
@@ -1375,21 +1375,15 @@ class MsRestUserAgentFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilter__["a
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ms_rest_jsauth__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_msRest__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AuthConstants__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_msRest__ = __webpack_require__(18);
 
 
-const config = {
-    clientId: "4e577d28-b99d-4b38-829a-1adc38b0fab5",
-    tenant: "72f988bf-86f1-41af-91ab-2d7cd011db47",
-    popUp: false,
-    redirectUri: "http://localhost:8080/getToken"
-};
-const authManager = new __WEBPACK_IMPORTED_MODULE_0_ms_rest_jsauth__["a" /* AuthenticationManager */](config);
+__WEBPACK_IMPORTED_MODULE_0__AuthConstants__["a" /* authManager */].handleWindowCallback();
 const clientOptions = {
     filters: [new __WEBPACK_IMPORTED_MODULE_1__lib_msRest__["a" /* LogFilter */]()]
 };
-const subscriptionId = '00977cdb-163f-435f-9c32-39ec8ae61f4d';
+const subscriptionId = "00977cdb-163f-435f-9c32-39ec8ae61f4d";
 // An easy way to get the token
 // 1. Go to this test drive link https://azure.github.io/projects/apis and authenticate by clicking on Authorize. Check the user impersoantion checkbox in the popup.
 // 1.1 select a subscription of your choice
@@ -1398,8 +1392,10 @@ const subscriptionId = '00977cdb-163f-435f-9c32-39ec8ae61f4d';
 // 1.4 click on try it out button.
 // 1.5 in the curl tab you will see the actual curl request that has the bearer token in it
 // 1.6 copy paste that token here. That token is valid for 1 hour
-var token = '';
-authManager.getToken().then((t) => {
+var token = "";
+const user = __WEBPACK_IMPORTED_MODULE_0__AuthConstants__["a" /* authManager */].getCachedUser();
+console.log(user);
+__WEBPACK_IMPORTED_MODULE_0__AuthConstants__["a" /* authManager */].getToken().then((t) => {
     token = t;
     const creds = new __WEBPACK_IMPORTED_MODULE_1__lib_msRest__["c" /* TokenCredentials */](token);
     const client = new __WEBPACK_IMPORTED_MODULE_1__lib_msRest__["b" /* ServiceClient */](creds, clientOptions);
@@ -1407,7 +1403,7 @@ authManager.getToken().then((t) => {
 }).then((client) => {
     const req = {
         url: `https://management.azure.com/subscriptions/${subscriptionId}/providers/Microsoft.Storage/storageAccounts?api-version=2015-06-15`,
-        method: 'GET'
+        method: "GET"
     };
     return client.sendRequest(req);
 }).then(function (res) {
@@ -1433,21 +1429,41 @@ authManager.getToken().then((t) => {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ms_rest_jsauth__ = __webpack_require__(16);
+
+const config = {
+    clientId: "4e577d28-b99d-4b38-829a-1adc38b0fab5",
+    tenant: "72f988bf-86f1-41af-91ab-2d7cd011db47",
+    popUp: false,
+    cacheLocation: "localStorage",
+    redirectUri: "http://localhost:8080/login.html"
+};
+// loginResource: "https://management.azure.com/",
+//   resource: "https://microsoft.onmicrosoft.com/5a4e578d-4b87-4e4d-b302-cf4a9d1d01fe"
+const authManager = new __WEBPACK_IMPORTED_MODULE_0_ms_rest_jsauth__["a" /* AuthenticationManager */](config);
+/* harmony export (immutable) */ __webpack_exports__["a"] = authManager;
+
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
-const adal = __webpack_require__(16);
+const adal = __webpack_require__(17);
 class AuthenticationManager {
     constructor(config) {
-        this.config = config;
         this.authContext = new adal(config);
     }
     login() {
         this.authContext.login();
     }
-    getToken() {
+    getToken(resource = "https://management.azure.com/") {
         return new Promise((resolve, reject) => {
             // adal has inbuilt smarts to acquire token from the cache if not expired. Otherwise sends request to AAD to obtain a new token
-            this.authContext.acquireToken(this.config.clientId, (error, token) => {
+            this.authContext.acquireToken(resource, (error, token) => {
                 if (error || !token) {
                     return reject(error);
                 }
@@ -1455,13 +1471,19 @@ class AuthenticationManager {
             });
         });
     }
+    handleWindowCallback() {
+        this.authContext.handleWindowCallback();
+    }
+    getCachedUser() {
+        return this.authContext.getCachedUser();
+    }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = AuthenticationManager;
 
 //# sourceMappingURL=AuthenticationManager.js.map
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 //----------------------------------------------------------------------
@@ -3131,26 +3153,26 @@ var AuthenticationContext = (function () {
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__webResource__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__httpOperationResponse__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__restError__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__serviceClient__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__serviceClient__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__util_constants__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__requestPipeline__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__filters_logFilter__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__filters_logFilter__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__filters_baseFilter__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__filters_exponentialRetryPolicyFilter__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__filters_systemErrorRetryPolicyFilter__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__filters_signingFilter__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__filters_msRestUserAgentFilter__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__serializer__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__serializer__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__util_utils__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__credentials_tokenCredentials__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__credentials_basicAuthenticationCredentials__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__credentials_tokenCredentials__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__credentials_basicAuthenticationCredentials__ = __webpack_require__(34);
 /* unused harmony reexport MapperType */
 /* unused harmony reexport Serializer */
 /* unused harmony reexport serializeObject */
@@ -3199,11 +3221,11 @@ var AuthenticationContext = (function () {
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var v1 = __webpack_require__(19);
-var v4 = __webpack_require__(21);
+var v1 = __webpack_require__(20);
+var v4 = __webpack_require__(22);
 
 var uuid = v4;
 uuid.v1 = v1;
@@ -3213,7 +3235,7 @@ module.exports = uuid;
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var rng = __webpack_require__(5);
@@ -3319,7 +3341,7 @@ module.exports = v1;
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 var g;
@@ -3346,7 +3368,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var rng = __webpack_require__(5);
@@ -3381,7 +3403,7 @@ module.exports = v4;
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3497,7 +3519,7 @@ class ServiceClient {
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
 /* eslint-env browser */
@@ -3505,7 +3527,7 @@ module.exports = typeof self == 'object' ? self.FormData : window.FormData;
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;(function (self) {
@@ -3610,7 +3632,10 @@ var __WEBPACK_AMD_DEFINE_RESULT__;(function (self) {
             headers.forEach(function(value, name) {
               this.append(name, value)
             }, this)
-
+          } else if (Array.isArray(headers)) {
+            headers.forEach(function(header) {
+              this.append(header[0], header[1])
+            }, this)
           } else if (headers) {
             Object.getOwnPropertyNames(headers).forEach(function(name) {
               this.append(name, headers[name])
@@ -4008,7 +4033,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;(function (self) {
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 exports.endianness = function () { return 'LE' };
@@ -4059,7 +4084,7 @@ exports.EOL = '\n';
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4086,20 +4111,20 @@ class LogFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilter__["a" /* BaseFil
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export serializeObject */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_utils__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_moment__);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information. 
 
 
-const isBuffer = __webpack_require__(30);
-const isStream = __webpack_require__(31);
+const isBuffer = __webpack_require__(31);
+const isStream = __webpack_require__(32);
 class Serializer {
     constructor(mappers) {
         this.modelMappers = mappers;
@@ -4799,7 +4824,7 @@ const MapperType = __WEBPACK_IMPORTED_MODULE_0__util_utils__["g" /* strEnum */](
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {//! moment.js
@@ -9266,10 +9291,10 @@ return hooks;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(29)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(30)(module)))
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -9297,7 +9322,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports) {
 
 /*!
@@ -9324,7 +9349,7 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9352,7 +9377,7 @@ isStream.transform = function (stream) {
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9396,7 +9421,7 @@ class TokenCredentials {
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
