@@ -30,7 +30,7 @@ export class HttpOperationResponse {
   /**
    * The response body as parsed JSON
    */
-  bodyAsJson: { [key: string]: any } | Array<any> | string | number | boolean | null;
+  bodyAsJson: { [key: string]: any } | Array<any> | string | number | boolean | null | void;
 
   constructor(request: WebResource, response: Response, body: ReadableStream | null) {
     /**

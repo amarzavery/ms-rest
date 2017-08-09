@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const utils = require("./util/utils");
 const moment_1 = require("moment");
 const isBuffer = require('is-buffer');
-const isStream = require('is-stream');
+const isStream = require("is-stream");
 class Serializer {
     constructor(mappers) {
         this.modelMappers = mappers;

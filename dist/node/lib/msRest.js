@@ -39,9 +39,12 @@ exports.generateUuid = utils_1.generateUuid;
 exports.encodeUri = utils_1.encodeUri;
 exports.promiseToCallback = utils_1.promiseToCallback;
 exports.promiseToServiceCallback = utils_1.promiseToServiceCallback;
+exports.isValidUuid = utils_1.isValidUuid;
 // Credentials
 const tokenCredentials_1 = require("./credentials/tokenCredentials");
 exports.TokenCredentials = tokenCredentials_1.TokenCredentials;
 const basicAuthenticationCredentials_1 = require("./credentials/basicAuthenticationCredentials");
 exports.BasicAuthenticationCredentials = basicAuthenticationCredentials_1.BasicAuthenticationCredentials;
+const isStream = require("is-stream");
+exports.isStream = isStream;
 //# sourceMappingURL=msRest.js.map

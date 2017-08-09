@@ -27,6 +27,7 @@
     "@types/node": "^8.0.8",
     "@types/node-fetch": "^1.6.7",
     "@types/uuid": "^2.0.29",
+    "@types/is-stream":"^1.1.0",
     "fetch-cookie": "^0.6.0",
     "form-data": "^2.2.0",
     "is-stream": "^1.1.0",
@@ -60,6 +61,7 @@
     "tsc": "tsc -p tsconfig.node.json && tsc -p tsconfig.browser.json",
     "test": "npm install && npm -s run-script unit",
     "unit": "mocha -t 50000 dist/node/test",
-    "build": "npm -s run-script tsc && webpack && node_modules/uglify-es/bin/uglifyjs --source-map -c -m -o bundle.min.js bundle.js"
+    "uglify": "node node_modules/uglify-es/bin/uglifyjs --source-map -c -m -o bundle.min.js bundle.js",
+    "build": "npm -s run-script tsc && webpack && npm -s run-script uglify"
   }
 }

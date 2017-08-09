@@ -28,6 +28,6 @@ export declare class HttpOperationResponse {
      */
     bodyAsJson: {
         [key: string]: any;
-    } | Array<any> | string | number | boolean | null;
+    } | Array<any> | string | number | boolean | null | void;
     constructor(request: WebResource, response: Response, body: ReadableStream | null);
 }

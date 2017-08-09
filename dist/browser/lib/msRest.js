@@ -13,9 +13,10 @@ import { SystemErrorRetryPolicyFilter } from './filters/systemErrorRetryPolicyFi
 import { SigningFilter } from './filters/signingFilter';
 import { MsRestUserAgentFilter } from './filters/msRestUserAgentFilter';
 import { MapperType, Serializer, serializeObject } from './serializer';
-import { stripRequest, stripResponse, delay, executePromisesSequentially, generateUuid, encodeUri, promiseToCallback, promiseToServiceCallback } from './util/utils';
+import { stripRequest, stripResponse, delay, executePromisesSequentially, generateUuid, encodeUri, promiseToCallback, promiseToServiceCallback, isValidUuid } from './util/utils';
 // Credentials
 import { TokenCredentials } from './credentials/tokenCredentials';
 import { BasicAuthenticationCredentials } from './credentials/basicAuthenticationCredentials';
-export { MapperType, Serializer, serializeObject, TokenCredentials, WebResource, HttpOperationResponse, ServiceClient, Constants, RequestPipeline, BasicAuthenticationCredentials, BaseFilter, LogFilter, ExponentialRetryPolicyFilter, SystemErrorRetryPolicyFilter, SigningFilter, MsRestUserAgentFilter, stripRequest, stripResponse, delay, executePromisesSequentially, generateUuid, encodeUri, RestError, promiseToCallback, promiseToServiceCallback };
+import * as isStream from 'is-stream';
+export { MapperType, Serializer, serializeObject, TokenCredentials, WebResource, HttpOperationResponse, ServiceClient, Constants, RequestPipeline, BasicAuthenticationCredentials, BaseFilter, LogFilter, ExponentialRetryPolicyFilter, SystemErrorRetryPolicyFilter, SigningFilter, MsRestUserAgentFilter, stripRequest, stripResponse, delay, executePromisesSequentially, generateUuid, isValidUuid, encodeUri, RestError, promiseToCallback, promiseToServiceCallback, isStream };
 //# sourceMappingURL=msRest.js.map

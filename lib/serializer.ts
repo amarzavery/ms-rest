@@ -4,7 +4,7 @@
 import * as utils from './util/utils';
 import { duration, isDuration } from 'moment';
 const isBuffer = require('is-buffer');
-const isStream = require('is-stream');
+import * as isStream from 'is-stream';
 
 export class Serializer {
   modelMappers?: { [key: string]: any };

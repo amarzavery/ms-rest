@@ -21,13 +21,14 @@ import {
 import {
   stripRequest, stripResponse, delay,
   executePromisesSequentially, generateUuid, encodeUri, ServiceCallback,
-  promiseToCallback, promiseToServiceCallback
+  promiseToCallback, promiseToServiceCallback, isValidUuid
 } from './util/utils';
 
 // Credentials
 import { TokenCredentials } from './credentials/tokenCredentials';
 import { BasicAuthenticationCredentials } from './credentials/basicAuthenticationCredentials';
 import { ServiceClientCredentials } from './credentials/serviceClientCredentials';
+import * as isStream from 'is-stream';
 
 export {
   BaseMapperType, CompositeMapper, DictionaryMapper, EnumMapper, Mapper, MapperConstraints, MapperType,
@@ -35,5 +36,6 @@ export {
   WebResource, RequestPrepareOptions, HttpMethods, ParameterValue, HttpOperationResponse, ServiceClient, Constants, RequestPipeline,
   BasicAuthenticationCredentials, ServiceClientCredentials, BaseFilter, LogFilter, ServiceClientOptions, ExponentialRetryPolicyFilter,
   SystemErrorRetryPolicyFilter, SigningFilter, MsRestUserAgentFilter, stripRequest, stripResponse, delay, executePromisesSequentially,
-  generateUuid, encodeUri, RestError, RequestOptions, RequestFunction, ServiceCallback, promiseToCallback, promiseToServiceCallback
+  generateUuid, isValidUuid, encodeUri, RestError, RequestOptions, RequestFunction, ServiceCallback, promiseToCallback,
+  promiseToServiceCallback, isStream
 };

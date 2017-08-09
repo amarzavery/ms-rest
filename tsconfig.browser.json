@@ -27,7 +27,10 @@
   "compileOnSave": true,
   "exclude": [
     "node_modules",
-    "node"
+    "node",
+    "./browser-sample.ts",
+    "./browser-login.ts",
+    "./authConstants.ts"
   ],
   "include": [
     "./lib/**/*.ts",
