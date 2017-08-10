@@ -12,7 +12,7 @@
 /* jshint noempty:false */
 'use strict';
 import * as msRest from '../../../../lib/msRest';
-import * as models from './models';
+import { Mappers } from './models/mappers';
 /**
  * @class
  * Initializes a new instance of the TestClient class.
@@ -29,7 +29,7 @@ import * as models from './models';
  *
  * @param {bool} [options.noRetryPolicy] - If set to true, turn off default retry policy
  */
-export class TestClient extends msRest.ServiceClient {
+class TestClient extends msRest.ServiceClient {
     constructor(baseUri, options) {
         if (!options)
             options = {};
@@ -41,8 +41,8 @@ export class TestClient extends msRest.ServiceClient {
         if (!this.acceptLanguage) {
             this.acceptLanguage = 'en-US';
         }
-        this.models = models;
-        this.serializer = new msRest.Serializer(this.models);
+        this.serializer = new msRest.Serializer(Mappers);
     }
 }
+export { TestClient };
 //# sourceMappingURL=testClient.js.map

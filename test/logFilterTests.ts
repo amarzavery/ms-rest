@@ -22,7 +22,7 @@ describe("Log filter", () => {
   }
 }
 >> Response status code: 200
->> Body: undefined
+>> Body: null
 `;
     let output = "";
     const logger: Function = (message: string): void => { output += message + "\n"; };
@@ -31,9 +31,9 @@ describe("Log filter", () => {
     const res = new fPF.Response();
     const opRes = new HttpOperationResponse(req, res, res.body);
     lf.after(opRes).then(() => {
-      //console.dir(output, { depth: null });
-      //console.log('>>>>>>>');
-      //console.dir(expected);
+      console.dir(output, { depth: null });
+      console.log('>>>>>>>');
+      console.dir(expected);
       assert.deepEqual(output, expected);
       done();
     }).catch((err: Error) => {

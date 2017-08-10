@@ -15,10 +15,11 @@ import * as msRest from '../../../../lib/msRest';
  *
  * @param {bool} [options.noRetryPolicy] - If set to true, turn off default retry policy
  */
-export declare class TestClient extends msRest.ServiceClient {
+declare class TestClient extends msRest.ServiceClient {
     baseUri?: string;
     acceptLanguage?: string;
     models?: any;
     serializer: msRest.Serializer;
     constructor(baseUri: string, options?: msRest.ServiceClientOptions);
 }
+export { TestClient };

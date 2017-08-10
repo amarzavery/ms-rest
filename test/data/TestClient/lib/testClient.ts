@@ -15,7 +15,7 @@
 'use strict';
 
 import * as msRest from '../../../../lib/msRest';
-import * as models from './models';
+import { Mappers } from './models/mappers';
 
 /**
  * @class
@@ -34,7 +34,7 @@ import * as models from './models';
  * @param {bool} [options.noRetryPolicy] - If set to true, turn off default retry policy
  */
 
-export class TestClient extends msRest.ServiceClient {
+class TestClient extends msRest.ServiceClient {
   baseUri?: string;
   acceptLanguage?: string;
   models?: any;
@@ -50,7 +50,8 @@ export class TestClient extends msRest.ServiceClient {
     if (!this.acceptLanguage) {
       this.acceptLanguage = 'en-US';
     }
-    this.models = models;
-    this.serializer = new msRest.Serializer(this.models);
+    this.serializer = new msRest.Serializer(Mappers);
   }
 }
+
+export { TestClient };

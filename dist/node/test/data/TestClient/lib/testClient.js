@@ -13,7 +13,7 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
 const msRest = require("../../../../lib/msRest");
-const models = require("./models");
+const mappers_1 = require("./models/mappers");
 /**
  * @class
  * Initializes a new instance of the TestClient class.
@@ -42,8 +42,7 @@ class TestClient extends msRest.ServiceClient {
         if (!this.acceptLanguage) {
             this.acceptLanguage = 'en-US';
         }
-        this.models = models;
-        this.serializer = new msRest.Serializer(this.models);
+        this.serializer = new msRest.Serializer(mappers_1.Mappers);
     }
 }
 exports.TestClient = TestClient;

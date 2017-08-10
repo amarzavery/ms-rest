@@ -298,7 +298,7 @@ class Serializer {
                 }
                 //get the mapper if modelProperties of the CompositeType is not present and 
                 //then get the modelProperties from it.
-                modelMapper = new this.modelMappers[mapper.type.className]().mapper();
+                modelMapper = this.modelMappers[mapper.type.className];
                 if (!modelMapper) {
                     throw new Error(`mapper() cannot be null or undefined for model "${mapper.type.className}".`);
                 }
@@ -427,7 +427,7 @@ class Serializer {
                 }
                 //get the mapper if modelProperties of the CompositeType is not present and 
                 //then get the modelProperties from it.
-                modelMapper = new this.modelMappers[mapper.type.className]().mapper();
+                modelMapper = this.modelMappers[mapper.type.className];
                 if (!modelMapper) {
                     throw new Error(`mapper() cannot be null or undefined for model "${mapper.type.className}"`);
                 }
@@ -618,9 +618,9 @@ class Serializer {
                 throw new Error(`${discriminatorAsObject[polymorphicPropertyName]}": ` +
                     `"${object[discriminatorAsObject[polymorphicPropertyName]]}" in "${objectName}" is not a valid ` +
                     `discriminator as a corresponding model class for the disciminator "${indexDiscriminator}" ` +
-                    `was not found in this.models.discriminators object.`);
+                    `was not found in this.modelMappers.discriminators object.`);
             }
-            mapper = new this.modelMappers.discriminators[indexDiscriminator]().mapper();
+            mapper = this.modelMappers.discriminators[indexDiscriminator];
         }
         return mapper;
     }
@@ -649,7 +649,7 @@ class Serializer {
                     `discriminator as a corresponding model class for the disciminator "${indexDiscriminator}" ` +
                     `was not found in this.models.discriminators object.`);
             }
-            mapper = new this.modelMappers.discriminators[indexDiscriminator]().mapper();
+            mapper = this.modelMappers.discriminators[indexDiscriminator];
         }
         return mapper;
     }

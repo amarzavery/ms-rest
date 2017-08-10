@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import * as msRest from '../lib/msRest';
 const should = require('should');
 import { TestClient } from './data/TestClient/lib/testClient';
+import { Mappers } from './data/Testclient/lib/models/mappers';
 var Serializer = new msRest.Serializer({});
 var valid_uuid = 'ceaafd1e-f936-429f-bbfc-82ee75dddc33';
 describe('msrest', function () {
@@ -344,8 +345,7 @@ describe('msrest', function () {
         });
         it('should correctly serialize a composite type', function (done) {
             var client = new TestClient('http://localhost:9090');
-            var product = new client.models['Product']();
-            let mapper = product.mapper();
+            let mapper = Mappers.Product;
             var productObj = {
                 id: 101,
                 name: 'TestProduct',
@@ -422,8 +422,7 @@ describe('msrest', function () {
         });
         it('should correctly serialize object version of polymorphic discriminator', function (done) {
             var client = new TestClient('http://localhost:9090');
-            var SawsharkModel = new client.models['Sawshark']();
-            let mapper = SawsharkModel.mapper();
+            let mapper = Mappers.SawShark;
             var sawshark = {
                 'fishtype': 'sawshark',
                 'age': 22,
@@ -465,8 +464,7 @@ describe('msrest', function () {
         });
         it('should correctly serialize string version of polymorphic discriminator', function (done) {
             var client = new TestClient('http://localhost:9090');
-            var PetGalleryModel = new client.models['PetGallery']();
-            let mapper = PetGalleryModel.mapper();
+            let mapper = Mappers.PetGallery;
             var petgallery = {
                 'id': 1,
                 'name': 'Fav pet gallery',
@@ -511,8 +509,7 @@ describe('msrest', function () {
         });
         it('should correctly deserialize a composite type', function (done) {
             var client = new TestClient('http://localhost:9090');
-            var product = new client.models['Product']();
-            let mapper = product.mapper();
+            let mapper = Mappers.Product;
             var responseBody = {
                 id: 101,
                 name: 'TestProduct',
@@ -591,8 +588,7 @@ describe('msrest', function () {
         });
         it('should correctly deserialize a pageable type without nextLink', function (done) {
             var client = new TestClient('http://localhost:9090');
-            var productListResult = new client.models['ProductListResult']();
-            let mapper = productListResult.mapper();
+            let mapper = Mappers.ProductListResult;
             var responseBody = {
                 value: [
                     {
@@ -630,8 +626,7 @@ describe('msrest', function () {
         });
         it('should correctly deserialize a pageable type with nextLink', function (done) {
             var client = new TestClient('http://localhost:9090');
-            var productListResultNextLink = new client.models['ProductListResultNextLink']();
-            let mapper = productListResultNextLink.mapper();
+            let mapper = Mappers.ProductListResultNextLink;
             var responseBody = {
                 value: [
                     {
@@ -671,8 +666,7 @@ describe('msrest', function () {
         });
         it('should correctly deserialize object version of polymorphic discriminator', function (done) {
             var client = new TestClient('http://localhost:9090');
-            var fish = new client.models['Fish']();
-            let mapper = fish.mapper();
+            let mapper = Mappers.Fish;
             var responseBody = {
                 'fish.type': 'sawshark',
                 'age': 22,
@@ -712,8 +706,7 @@ describe('msrest', function () {
         });
         it('should correctly deserialize string version of polymorphic discriminator', function (done) {
             var client = new TestClient('http://localhost:9090');
-            var PetGalleryModel = new client.models['PetGallery']();
-            let mapper = PetGalleryModel.mapper();
+            let mapper = Mappers.PetGallery;
             var petgallery = {
                 'id': 1,
                 'name': 'Fav pet gallery',
