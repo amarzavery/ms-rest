@@ -378,7 +378,7 @@ const Constants = {
          * @const
          * @type {string}
          */
-        USER_AGENT: 'user-agent'
+        USER_AGENT: 'User-Agent'
     }
 };
 /* harmony export (immutable) */ __webpack_exports__["a"] = Constants;

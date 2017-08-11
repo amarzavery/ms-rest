@@ -70,7 +70,7 @@ export const Constants = {
          * @const
          * @type {string}
          */
-        USER_AGENT: 'user-agent'
+        USER_AGENT: 'User-Agent'
     }
 };
 //# sourceMappingURL=constants.js.map
