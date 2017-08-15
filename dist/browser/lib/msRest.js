@@ -10,13 +10,14 @@ import { LogFilter } from './filters/logFilter';
 import { BaseFilter } from './filters/baseFilter';
 import { ExponentialRetryPolicyFilter } from './filters/exponentialRetryPolicyFilter';
 import { SystemErrorRetryPolicyFilter } from './filters/systemErrorRetryPolicyFilter';
+import { RedirectFilter } from './filters/redirectFilter';
 import { SigningFilter } from './filters/signingFilter';
 import { MsRestUserAgentFilter } from './filters/msRestUserAgentFilter';
 import { MapperType, Serializer, serializeObject } from './serializer';
-import { stripRequest, stripResponse, delay, executePromisesSequentially, generateUuid, encodeUri, promiseToCallback, promiseToServiceCallback, isValidUuid } from './util/utils';
+import { stripRequest, stripResponse, delay, executePromisesSequentially, generateUuid, encodeUri, promiseToCallback, promiseToServiceCallback, isValidUuid, dispatchRequest } from './util/utils';
 // Credentials
 import { TokenCredentials } from './credentials/tokenCredentials';
 import { BasicAuthenticationCredentials } from './credentials/basicAuthenticationCredentials';
 import * as isStream from 'is-stream';
-export { MapperType, Serializer, serializeObject, TokenCredentials, WebResource, HttpOperationResponse, ServiceClient, Constants, RequestPipeline, BasicAuthenticationCredentials, BaseFilter, LogFilter, ExponentialRetryPolicyFilter, SystemErrorRetryPolicyFilter, SigningFilter, MsRestUserAgentFilter, stripRequest, stripResponse, delay, executePromisesSequentially, generateUuid, isValidUuid, encodeUri, RestError, promiseToCallback, promiseToServiceCallback, isStream };
+export { MapperType, Serializer, serializeObject, TokenCredentials, WebResource, HttpOperationResponse, ServiceClient, Constants, RequestPipeline, BasicAuthenticationCredentials, BaseFilter, LogFilter, ExponentialRetryPolicyFilter, SystemErrorRetryPolicyFilter, SigningFilter, MsRestUserAgentFilter, stripRequest, stripResponse, delay, executePromisesSequentially, generateUuid, isValidUuid, encodeUri, RestError, promiseToCallback, promiseToServiceCallback, isStream, dispatchRequest, RedirectFilter };
 //# sourceMappingURL=msRest.js.map

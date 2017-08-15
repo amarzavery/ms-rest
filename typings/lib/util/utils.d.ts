@@ -111,3 +111,9 @@ export declare function promiseToCallback(promise: Promise<any>): Function;
  * @returns {Function} fn - A function that takes the service callback (cb: ServiceCallback<T>): void
  */
 export declare function promiseToServiceCallback<T>(promise: Promise<HttpOperationResponse>): Function;
+/**
+ * Sends the request and returns the received response.
+ * @param {WebResource} options - The request to be sent.
+ * @returns {Promise<HttpOperationResponse} operationResponse - The response object.
+ */
+export declare function dispatchRequest(options: WebResource): Promise<HttpOperationResponse>;

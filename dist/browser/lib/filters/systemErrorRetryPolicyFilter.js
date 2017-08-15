@@ -1,5 +1,13 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 import { BaseFilter } from './baseFilter';
 import * as utils from '../util/utils';
 /**
@@ -19,10 +27,10 @@ export class SystemErrorRetryPolicyFilter extends BaseFilter {
         this.DEFAULT_CLIENT_RETRY_COUNT = 3;
         this.DEFAULT_CLIENT_MAX_RETRY_INTERVAL = 1000 * 90;
         this.DEFAULT_CLIENT_MIN_RETRY_INTERVAL = 1000 * 3;
-        this.retryCount = retryCount || this.DEFAULT_CLIENT_RETRY_COUNT;
-        this.retryInterval = retryInterval || this.DEFAULT_CLIENT_RETRY_INTERVAL;
-        this.minRetryInterval = minRetryInterval || this.DEFAULT_CLIENT_MIN_RETRY_INTERVAL;
-        this.maxRetryInterval = maxRetryInterval || this.DEFAULT_CLIENT_MAX_RETRY_INTERVAL;
+        this.retryCount = typeof retryCount === 'number' ? retryCount : this.DEFAULT_CLIENT_RETRY_COUNT;
+        this.retryInterval = typeof retryInterval === 'number' ? retryInterval : this.DEFAULT_CLIENT_RETRY_INTERVAL;
+        this.minRetryInterval = typeof minRetryInterval === 'number' ? minRetryInterval : this.DEFAULT_CLIENT_MIN_RETRY_INTERVAL;
+        this.maxRetryInterval = typeof maxRetryInterval === 'number' ? maxRetryInterval : this.DEFAULT_CLIENT_MAX_RETRY_INTERVAL;
     }
     /**
      * Determines if the operation should be retried and how long to wait until the next retry.
@@ -71,24 +79,31 @@ export class SystemErrorRetryPolicyFilter extends BaseFilter {
         return retryData;
     }
     retry(operationResponse, retryData, err) {
-        const self = this;
-        retryData = self.updateRetryData(retryData, err);
-        if (err && err.code && self.shouldRetry(retryData) &&
-            (err.code === 'ETIMEDOUT' || err.code === 'ESOCKETTIMEDOUT' || err.code === 'ECONNREFUSED' ||
-                err.code === 'ECONNRESET' || err.code === 'ENOENT')) {
-            // If previous operation ended with an error and the policy allows a retry, do that
-            return utils.delay(retryData.retryInterval).then(() => {
-                return self.retry(operationResponse, retryData, err);
-            });
-        }
-        else {
-            if (!utils.objectIsNull(err)) {
-                // If the operation failed in the end, return all errors instead of just the last one
-                err = retryData.error;
-                return Promise.reject(err);
+        return __awaiter(this, void 0, void 0, function* () {
+            const self = this;
+            retryData = self.updateRetryData(retryData, err);
+            if (err && err.code && self.shouldRetry(retryData) &&
+                (err.code === 'ETIMEDOUT' || err.code === 'ESOCKETTIMEDOUT' || err.code === 'ECONNREFUSED' ||
+                    err.code === 'ECONNRESET' || err.code === 'ENOENT')) {
+                // If previous operation ended with an error and the policy allows a retry, do that
+                try {
+                    yield utils.delay(retryData.retryInterval);
+                    let res = yield utils.dispatchRequest(operationResponse.request);
+                    return self.retry(res, retryData, err);
+                }
+                catch (err) {
+                    return self.retry(operationResponse, retryData, err);
+                }
             }
-            return Promise.resolve(operationResponse);
-        }
+            else {
+                if (!utils.objectIsNull(err)) {
+                    // If the operation failed in the end, return all errors instead of just the last one
+                    err = retryData.error;
+                    return Promise.reject(err);
+                }
+                return Promise.resolve(operationResponse);
+            }
+        });
     }
     after(operationResponse) {
         return this.retry(operationResponse); //See: https://github.com/Microsoft/TypeScript/issues/7426

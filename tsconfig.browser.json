@@ -28,9 +28,7 @@
   "exclude": [
     "node_modules",
     "node",
-    "./browser-sample.ts",
-    "./browser-login.ts",
-    "./authConstants.ts"
+    "./browser-sample.ts"
   ],
   "include": [
     "./lib/**/*.ts",

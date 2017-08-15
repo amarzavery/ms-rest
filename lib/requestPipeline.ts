@@ -3,11 +3,8 @@
 
 import { WebResource } from './webResource';
 import { HttpOperationResponse } from './httpOperationResponse';
-import { RestError } from './restError';
 import { BaseFilter } from './filters/baseFilter';
 import * as utils from './util/utils';
-import * as FormData from 'form-data';
-const fPF = require('fetch-ponyfill')();
 
 export interface RequestFunction {
   (webResource: WebResource): Promise<HttpOperationResponse>;
@@ -54,66 +51,8 @@ export class RequestPipeline {
     return requestFun;
   }
 
-  async requestSink(options: WebResource): Promise<HttpOperationResponse> {
+  requestSink(options: WebResource): Promise<HttpOperationResponse> {
     if (this.requestOptions.method) delete this.requestOptions.method;
-    utils.mergeObjects(this.requestOptions, options);
-    if (options.formData) {
-      const formData: any = options.formData;
-      const requestForm = new FormData();
-      const appendFormValue = (key: string, value: any) => {
-        if (value && value.hasOwnProperty('value') && value.hasOwnProperty('options')) {
-          requestForm.append(key, value.value, value.options);
-        } else {
-          requestForm.append(key, value);
-        }
-      };
-      for (const formKey in formData) {
-        if (formData.hasOwnProperty(formKey)) {
-          const formValue = formData[formKey];
-          if (formValue instanceof Array) {
-            for (let j = 0; j < formValue.length; j++) {
-              appendFormValue(formKey, formValue[j]);
-            }
-          } else {
-            appendFormValue(formKey, formValue);
-          }
-        }
-      }
-
-      options.body = requestForm;
-      options.formData = undefined;
-      if (options.headers && options.headers['Content-Type'] &&
-        options.headers['Content-Type'].indexOf('multipart/form-data') > -1 && typeof requestForm.getBoundary === 'function') {
-        options.headers['Content-Type'] = `multipart/form-data; boundary=${requestForm.getBoundary()}`;
-      }
-    }
-    let res: Response;
-    try {
-      res = await fPF.fetch(options.url, options);
-    } catch (err) {
-      throw err;
-    }
-    const operationResponse = new HttpOperationResponse(options, res, res.body);
-    if (!options.rawResponse) {
-      try {
-        operationResponse.bodyAsText = await res.text();
-      } catch (err) {
-        let msg = `Error "${err}" occured while converting the raw response body into string.`;
-        let errCode = err.code || 'RAWTEXT_CONVERSION_ERROR';
-        let e = new RestError(msg, errCode, res.status, options, res, res.body);
-        return Promise.reject(e);
-      }
-      try {
-        if (operationResponse.bodyAsText) {
-          operationResponse.bodyAsJson = JSON.parse(operationResponse.bodyAsText);
-        }
-      } catch (err) {
-        let msg: string = `Error "${err}" occured while executing JSON.parse on the response body - ${operationResponse.bodyAsText}.`;
-        let errCode = err.code || 'JSON_PARSE_ERROR';
-        let e = new RestError(msg, errCode, res.status, options, res, operationResponse.bodyAsText);
-        return Promise.reject(e);
-      }
-    }
-    return Promise.resolve(operationResponse);
+    return utils.dispatchRequest(options);
   }
 }

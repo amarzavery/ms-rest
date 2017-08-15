@@ -6,6 +6,7 @@ import { ServiceClientCredentials } from './credentials/serviceClientCredentials
 import { BaseFilter } from './filters/baseFilter';
 import { ExponentialRetryPolicyFilter } from './filters/exponentialRetryPolicyFilter';
 import { SystemErrorRetryPolicyFilter } from './filters/systemErrorRetryPolicyFilter';
+import { RedirectFilter } from './filters/redirectFilter';
 import { SigningFilter } from './filters/signingFilter';
 import { MsRestUserAgentFilter } from './filters/msRestUserAgentFilter';
 import { WebResource, RequestPrepareOptions } from './webResource';
@@ -69,7 +70,7 @@ export class ServiceClient {
     }
 
     options.filters.push(new MsRestUserAgentFilter(this.userAgentInfo.value));
-
+    options.filters.push(new RedirectFilter());
 
     if (!options.noRetryPolicy) {
       options.filters.push(new ExponentialRetryPolicyFilter());

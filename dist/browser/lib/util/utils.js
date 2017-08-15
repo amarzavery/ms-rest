@@ -1,8 +1,20 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+import * as uuid from 'uuid';
+import * as FormData from 'form-data';
 import { WebResource } from '../webResource';
 import { Constants } from './constants';
-import * as uuid from 'uuid';
+import { RestError } from '../restError';
+import { HttpOperationResponse } from '../httpOperationResponse';
+const fPF = require('fetch-ponyfill')();
 /**
  * Checks if a parsed URL is HTTPS
  *
@@ -208,5 +220,79 @@ export function promiseToServiceCallback(promise) {
             process.nextTick(cb, err);
         });
     };
+}
+/**
+ * Sends the request and returns the received response.
+ * @param {WebResource} options - The request to be sent.
+ * @returns {Promise<HttpOperationResponse} operationResponse - The response object.
+ */
+export function dispatchRequest(options) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (!options) {
+            return Promise.reject(new Error('options (WebResource) cannot be null or undefined and must be of type object.'));
+        }
+        if (options.formData) {
+            const formData = options.formData;
+            const requestForm = new FormData();
+            const appendFormValue = (key, value) => {
+                if (value && value.hasOwnProperty('value') && value.hasOwnProperty('options')) {
+                    requestForm.append(key, value.value, value.options);
+                }
+                else {
+                    requestForm.append(key, value);
+                }
+            };
+            for (const formKey in formData) {
+                if (formData.hasOwnProperty(formKey)) {
+                    const formValue = formData[formKey];
+                    if (formValue instanceof Array) {
+                        for (let j = 0; j < formValue.length; j++) {
+                            appendFormValue(formKey, formValue[j]);
+                        }
+                    }
+                    else {
+                        appendFormValue(formKey, formValue);
+                    }
+                }
+            }
+            options.body = requestForm;
+            options.formData = undefined;
+            if (options.headers && options.headers['Content-Type'] &&
+                options.headers['Content-Type'].indexOf('multipart/form-data') > -1 && typeof requestForm.getBoundary === 'function') {
+                options.headers['Content-Type'] = `multipart/form-data; boundary=${requestForm.getBoundary()}`;
+            }
+        }
+        let res;
+        try {
+            res = yield fPF.fetch(options.url, options);
+        }
+        catch (err) {
+            return Promise.reject(err);
+        }
+        const operationResponse = new HttpOperationResponse(options, res, res.body);
+        if (!options.rawResponse) {
+            try {
+                operationResponse.bodyAsText = yield res.text();
+            }
+            catch (err) {
+                let msg = `Error "${err}" occured while converting the raw response body into string.`;
+                let errCode = err.code || 'RAWTEXT_CONVERSION_ERROR';
+                let e = new RestError(msg, errCode, res.status, options, res, res.body);
+                return Promise.reject(e);
+            }
+            try {
+                if (operationResponse.bodyAsText) {
+                    operationResponse.bodyAsJson = JSON.parse(operationResponse.bodyAsText);
+                }
+            }
+            catch (err) {
+                let msg = `Error "${err}" occured while executing JSON.parse on the response body - ${operationResponse.bodyAsText}.`;
+                let errCode = err.code || 'JSON_PARSE_ERROR';
+                let e = new RestError(msg, errCode, res.status, options, res, operationResponse.bodyAsText);
+                return Promise.reject(e);
+            }
+        }
+        return Promise.resolve(operationResponse);
+    });
 }
 //# sourceMappingURL=utils.js.map

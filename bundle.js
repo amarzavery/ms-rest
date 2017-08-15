@@ -61,7 +61,7 @@ var className =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 15);
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,27 +71,44 @@ var className =
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/* unused harmony export urlIsHTTPS */
 /* harmony export (immutable) */ __webpack_exports__["g"] = objectIsNull;
-/* harmony export (immutable) */ __webpack_exports__["b"] = encodeUri;
+/* harmony export (immutable) */ __webpack_exports__["c"] = encodeUri;
 /* harmony export (immutable) */ __webpack_exports__["l"] = stripResponse;
 /* harmony export (immutable) */ __webpack_exports__["k"] = stripRequest;
-/* harmony export (immutable) */ __webpack_exports__["e"] = isValidUuid;
+/* harmony export (immutable) */ __webpack_exports__["f"] = isValidUuid;
 /* unused harmony export objectValues */
-/* harmony export (immutable) */ __webpack_exports__["d"] = generateUuid;
-/* harmony export (immutable) */ __webpack_exports__["c"] = executePromisesSequentially;
-/* harmony export (immutable) */ __webpack_exports__["f"] = mergeObjects;
+/* harmony export (immutable) */ __webpack_exports__["e"] = generateUuid;
+/* harmony export (immutable) */ __webpack_exports__["d"] = executePromisesSequentially;
+/* unused harmony export mergeObjects */
 /* harmony export (immutable) */ __webpack_exports__["a"] = delay;
 /* harmony export (immutable) */ __webpack_exports__["j"] = strEnum;
 /* harmony export (immutable) */ __webpack_exports__["h"] = promiseToCallback;
 /* harmony export (immutable) */ __webpack_exports__["i"] = promiseToServiceCallback;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__webResource__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constants__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_uuid__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_uuid___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_uuid__);
+/* harmony export (immutable) */ __webpack_exports__["b"] = dispatchRequest;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_uuid__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_uuid___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_uuid__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_form_data__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_form_data___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_form_data__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__webResource__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__constants__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__restError__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__httpOperationResponse__ = __webpack_require__(9);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 
 
 
+
+
+
+const fPF = __webpack_require__(22)();
 /**
  * Checks if a parsed URL is HTTPS
  *
@@ -99,7 +116,7 @@ var className =
  * @return {boolean} True if the URL is HTTPS; false otherwise.
  */
 function urlIsHTTPS(urlToCheck) {
-    return urlToCheck.protocol.toLowerCase() === __WEBPACK_IMPORTED_MODULE_1__constants__["a" /* Constants */].HTTPS;
+    return urlToCheck.protocol.toLowerCase() === __WEBPACK_IMPORTED_MODULE_3__constants__["a" /* Constants */].HTTPS;
 }
 ;
 /**
@@ -154,7 +171,7 @@ function stripResponse(response) {
  * @return {object} strippedRequest - The stripped version of Http Request.
  */
 function stripRequest(request) {
-    let strippedRequest = new __WEBPACK_IMPORTED_MODULE_0__webResource__["a" /* WebResource */]();
+    let strippedRequest = new __WEBPACK_IMPORTED_MODULE_2__webResource__["a" /* WebResource */]();
     try {
         strippedRequest = JSON.parse(JSON.stringify(request));
         if (strippedRequest.headers && strippedRequest.headers.Authorization) {
@@ -211,7 +228,7 @@ function objectValues(obj) {
  * @return {string} RFC4122 v4 UUID.
  */
 function generateUuid() {
-    return __WEBPACK_IMPORTED_MODULE_2_uuid__["v4"]();
+    return __WEBPACK_IMPORTED_MODULE_0_uuid__["v4"]();
 }
 /*
  * Executes an array of promises sequentially. Inspiration of this method is here:
@@ -298,11 +315,105 @@ function promiseToServiceCallback(promise) {
         });
     };
 }
+/**
+ * Sends the request and returns the received response.
+ * @param {WebResource} options - The request to be sent.
+ * @returns {Promise<HttpOperationResponse} operationResponse - The response object.
+ */
+function dispatchRequest(options) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (!options) {
+            return Promise.reject(new Error('options (WebResource) cannot be null or undefined and must be of type object.'));
+        }
+        if (options.formData) {
+            const formData = options.formData;
+            const requestForm = new __WEBPACK_IMPORTED_MODULE_1_form_data__();
+            const appendFormValue = (key, value) => {
+                if (value && value.hasOwnProperty('value') && value.hasOwnProperty('options')) {
+                    requestForm.append(key, value.value, value.options);
+                }
+                else {
+                    requestForm.append(key, value);
+                }
+            };
+            for (const formKey in formData) {
+                if (formData.hasOwnProperty(formKey)) {
+                    const formValue = formData[formKey];
+                    if (formValue instanceof Array) {
+                        for (let j = 0; j < formValue.length; j++) {
+                            appendFormValue(formKey, formValue[j]);
+                        }
+                    }
+                    else {
+                        appendFormValue(formKey, formValue);
+                    }
+                }
+            }
+            options.body = requestForm;
+            options.formData = undefined;
+            if (options.headers && options.headers['Content-Type'] &&
+                options.headers['Content-Type'].indexOf('multipart/form-data') > -1 && typeof requestForm.getBoundary === 'function') {
+                options.headers['Content-Type'] = `multipart/form-data; boundary=${requestForm.getBoundary()}`;
+            }
+        }
+        let res;
+        try {
+            res = yield fPF.fetch(options.url, options);
+        }
+        catch (err) {
+            return Promise.reject(err);
+        }
+        const operationResponse = new __WEBPACK_IMPORTED_MODULE_5__httpOperationResponse__["a" /* HttpOperationResponse */](options, res, res.body);
+        if (!options.rawResponse) {
+            try {
+                operationResponse.bodyAsText = yield res.text();
+            }
+            catch (err) {
+                let msg = `Error "${err}" occured while converting the raw response body into string.`;
+                let errCode = err.code || 'RAWTEXT_CONVERSION_ERROR';
+                let e = new __WEBPACK_IMPORTED_MODULE_4__restError__["a" /* RestError */](msg, errCode, res.status, options, res, res.body);
+                return Promise.reject(e);
+            }
+            try {
+                if (operationResponse.bodyAsText) {
+                    operationResponse.bodyAsJson = JSON.parse(operationResponse.bodyAsText);
+                }
+            }
+            catch (err) {
+                let msg = `Error "${err}" occured while executing JSON.parse on the response body - ${operationResponse.bodyAsText}.`;
+                let errCode = err.code || 'JSON_PARSE_ERROR';
+                let e = new __WEBPACK_IMPORTED_MODULE_4__restError__["a" /* RestError */](msg, errCode, res.status, options, res, operationResponse.bodyAsText);
+                return Promise.reject(e);
+            }
+        }
+        return Promise.resolve(operationResponse);
+    });
+}
 
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
 
 /***/ }),
 /* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+class BaseFilter {
+    constructor() { }
+    before(request) {
+        return Promise.resolve(request);
+    }
+    after(response) {
+        return Promise.resolve(response);
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = BaseFilter;
+
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -382,26 +493,6 @@ const Constants = {
     }
 };
 /* harmony export (immutable) */ __webpack_exports__["a"] = Constants;
-
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information.
-class BaseFilter {
-    constructor() { }
-    before(request) {
-        return Promise.resolve(request);
-    }
-    after(response) {
-        return Promise.resolve(response);
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = BaseFilter;
 
 
 
@@ -577,7 +668,7 @@ class WebResource {
         }
         // ensure the request-id is set correctly
         if (!this.headers['x-ms-client-request-id'] && !options.disableClientRequestId) {
-            this.headers['x-ms-client-request-id'] = Object(__WEBPACK_IMPORTED_MODULE_0__util_utils__["d" /* generateUuid */])();
+            this.headers['x-ms-client-request-id'] = Object(__WEBPACK_IMPORTED_MODULE_0__util_utils__["e" /* generateUuid */])();
         }
         // default
         if (!this.headers['Content-Type']) {
@@ -845,10 +936,37 @@ if (!rng) {
 
 module.exports = rng;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ }),
 /* 6 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports) {
 
 /**
@@ -877,7 +995,28 @@ module.exports = bytesToUuid;
 
 
 /***/ }),
-/* 7 */
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information. 
+class RestError extends Error {
+    constructor(message, code, statusCode, request, response, body) {
+        super(message);
+        this.code = code;
+        this.statusCode = statusCode;
+        this.request = request;
+        this.response = response;
+        this.body = body;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = RestError;
+
+
+
+/***/ }),
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -918,51 +1057,14 @@ class HttpOperationResponse {
 
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information. 
-class RestError extends Error {
-    constructor(message, code, statusCode, request, response, body) {
-        super(message);
-        this.code = code;
-        this.statusCode = statusCode;
-        this.request = request;
-        this.response = response;
-        this.body = body;
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = RestError;
-
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__httpOperationResponse__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__restError__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_utils__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_form_data__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_form_data___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_form_data__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_utils__ = __webpack_require__(0);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
-
-
-
-const fPF = __webpack_require__(22)();
 class RequestPipeline {
     constructor(filters, requestOptions) {
         this.filters = filters || [];
@@ -997,78 +1099,14 @@ class RequestPipeline {
         let requestFun = (request) => {
             if (!request.headers)
                 request.headers = {};
-            return __WEBPACK_IMPORTED_MODULE_2__util_utils__["c" /* executePromisesSequentially */](pipeline, request);
+            return __WEBPACK_IMPORTED_MODULE_0__util_utils__["d" /* executePromisesSequentially */](pipeline, request);
         };
         return requestFun;
     }
     requestSink(options) {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (this.requestOptions.method)
-                delete this.requestOptions.method;
-            __WEBPACK_IMPORTED_MODULE_2__util_utils__["f" /* mergeObjects */](this.requestOptions, options);
-            if (options.formData) {
-                const formData = options.formData;
-                const requestForm = new __WEBPACK_IMPORTED_MODULE_3_form_data__();
-                const appendFormValue = (key, value) => {
-                    if (value && value.hasOwnProperty('value') && value.hasOwnProperty('options')) {
-                        requestForm.append(key, value.value, value.options);
-                    }
-                    else {
-                        requestForm.append(key, value);
-                    }
-                };
-                for (const formKey in formData) {
-                    if (formData.hasOwnProperty(formKey)) {
-                        const formValue = formData[formKey];
-                        if (formValue instanceof Array) {
-                            for (let j = 0; j < formValue.length; j++) {
-                                appendFormValue(formKey, formValue[j]);
-                            }
-                        }
-                        else {
-                            appendFormValue(formKey, formValue);
-                        }
-                    }
-                }
-                options.body = requestForm;
-                options.formData = undefined;
-                if (options.headers && options.headers['Content-Type'] &&
-                    options.headers['Content-Type'].indexOf('multipart/form-data') > -1 && typeof requestForm.getBoundary === 'function') {
-                    options.headers['Content-Type'] = `multipart/form-data; boundary=${requestForm.getBoundary()}`;
-                }
-            }
-            let res;
-            try {
-                res = yield fPF.fetch(options.url, options);
-            }
-            catch (err) {
-                throw err;
-            }
-            const operationResponse = new __WEBPACK_IMPORTED_MODULE_0__httpOperationResponse__["a" /* HttpOperationResponse */](options, res, res.body);
-            if (!options.rawResponse) {
-                try {
-                    operationResponse.bodyAsText = yield res.text();
-                }
-                catch (err) {
-                    let msg = `Error "${err}" occured while converting the raw response body into string.`;
-                    let errCode = err.code || 'RAWTEXT_CONVERSION_ERROR';
-                    let e = new __WEBPACK_IMPORTED_MODULE_1__restError__["a" /* RestError */](msg, errCode, res.status, options, res, res.body);
-                    return Promise.reject(e);
-                }
-                try {
-                    if (operationResponse.bodyAsText) {
-                        operationResponse.bodyAsJson = JSON.parse(operationResponse.bodyAsText);
-                    }
-                }
-                catch (err) {
-                    let msg = `Error "${err}" occured while executing JSON.parse on the response body - ${operationResponse.bodyAsText}.`;
-                    let errCode = err.code || 'JSON_PARSE_ERROR';
-                    let e = new __WEBPACK_IMPORTED_MODULE_1__restError__["a" /* RestError */](msg, errCode, res.status, options, res, operationResponse.bodyAsText);
-                    return Promise.reject(e);
-                }
-            }
-            return Promise.resolve(operationResponse);
-        });
+        if (this.requestOptions.method)
+            delete this.requestOptions.method;
+        return __WEBPACK_IMPORTED_MODULE_0__util_utils__["b" /* dispatchRequest */](options);
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = RequestPipeline;
@@ -1076,14 +1114,22 @@ class RequestPipeline {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseFilter__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseFilter__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_utils__ = __webpack_require__(0);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 
 
 /**
@@ -1103,10 +1149,10 @@ class ExponentialRetryPolicyFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilt
         this.DEFAULT_CLIENT_RETRY_COUNT = 3;
         this.DEFAULT_CLIENT_MAX_RETRY_INTERVAL = 1000 * 90;
         this.DEFAULT_CLIENT_MIN_RETRY_INTERVAL = 1000 * 3;
-        this.retryCount = retryCount || this.DEFAULT_CLIENT_RETRY_COUNT;
-        this.retryInterval = retryInterval || this.DEFAULT_CLIENT_RETRY_INTERVAL;
-        this.minRetryInterval = minRetryInterval || this.DEFAULT_CLIENT_MIN_RETRY_INTERVAL;
-        this.maxRetryInterval = maxRetryInterval || this.DEFAULT_CLIENT_MAX_RETRY_INTERVAL;
+        this.retryCount = typeof retryCount === 'number' ? retryCount : this.DEFAULT_CLIENT_RETRY_COUNT;
+        this.retryInterval = typeof retryInterval === 'number' ? retryInterval : this.DEFAULT_CLIENT_RETRY_INTERVAL;
+        this.minRetryInterval = typeof minRetryInterval === 'number' ? minRetryInterval : this.DEFAULT_CLIENT_MIN_RETRY_INTERVAL;
+        this.maxRetryInterval = typeof maxRetryInterval === 'number' ? maxRetryInterval : this.DEFAULT_CLIENT_MAX_RETRY_INTERVAL;
     }
     /**
      * Determines if the operation should be retried and how long to wait until the next retry.
@@ -1158,23 +1204,29 @@ class ExponentialRetryPolicyFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilt
         return retryData;
     }
     retry(operationResponse, retryData, err) {
-        const self = this;
-        const response = operationResponse.response;
-        retryData = self.updateRetryData(retryData, err);
-        if (!__WEBPACK_IMPORTED_MODULE_1__util_utils__["g" /* objectIsNull */](response) && self.shouldRetry(response.status, retryData)) {
-            // If previous operation ended with an error and the policy allows a retry, do that
-            return __WEBPACK_IMPORTED_MODULE_1__util_utils__["a" /* delay */](retryData.retryInterval).then(() => {
-                return self.retry(operationResponse, retryData, err);
-            });
-        }
-        else {
-            if (!__WEBPACK_IMPORTED_MODULE_1__util_utils__["g" /* objectIsNull */](err)) {
-                // If the operation failed in the end, return all errors instead of just the last one
-                err = retryData.error;
-                return Promise.reject(err);
+        return __awaiter(this, void 0, void 0, function* () {
+            const self = this;
+            const response = operationResponse.response;
+            retryData = self.updateRetryData(retryData, err);
+            if (!__WEBPACK_IMPORTED_MODULE_1__util_utils__["g" /* objectIsNull */](response) && self.shouldRetry(response.status, retryData)) {
+                try {
+                    yield __WEBPACK_IMPORTED_MODULE_1__util_utils__["a" /* delay */](retryData.retryInterval);
+                    let res = yield __WEBPACK_IMPORTED_MODULE_1__util_utils__["b" /* dispatchRequest */](operationResponse.request);
+                    return self.retry(res, retryData, err);
+                }
+                catch (err) {
+                    return self.retry(operationResponse, retryData, err);
+                }
             }
-            return Promise.resolve(operationResponse);
-        }
+            else {
+                if (!__WEBPACK_IMPORTED_MODULE_1__util_utils__["g" /* objectIsNull */](err)) {
+                    // If the operation failed in the end, return all errors instead of just the last one
+                    err = retryData.error;
+                    return Promise.reject(err);
+                }
+                return Promise.resolve(operationResponse);
+            }
+        });
     }
     after(operationResponse) {
         return this.retry(operationResponse);
@@ -1185,14 +1237,22 @@ class ExponentialRetryPolicyFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilt
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseFilter__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseFilter__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_utils__ = __webpack_require__(0);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 
 
 /**
@@ -1212,10 +1272,10 @@ class SystemErrorRetryPolicyFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilt
         this.DEFAULT_CLIENT_RETRY_COUNT = 3;
         this.DEFAULT_CLIENT_MAX_RETRY_INTERVAL = 1000 * 90;
         this.DEFAULT_CLIENT_MIN_RETRY_INTERVAL = 1000 * 3;
-        this.retryCount = retryCount || this.DEFAULT_CLIENT_RETRY_COUNT;
-        this.retryInterval = retryInterval || this.DEFAULT_CLIENT_RETRY_INTERVAL;
-        this.minRetryInterval = minRetryInterval || this.DEFAULT_CLIENT_MIN_RETRY_INTERVAL;
-        this.maxRetryInterval = maxRetryInterval || this.DEFAULT_CLIENT_MAX_RETRY_INTERVAL;
+        this.retryCount = typeof retryCount === 'number' ? retryCount : this.DEFAULT_CLIENT_RETRY_COUNT;
+        this.retryInterval = typeof retryInterval === 'number' ? retryInterval : this.DEFAULT_CLIENT_RETRY_INTERVAL;
+        this.minRetryInterval = typeof minRetryInterval === 'number' ? minRetryInterval : this.DEFAULT_CLIENT_MIN_RETRY_INTERVAL;
+        this.maxRetryInterval = typeof maxRetryInterval === 'number' ? maxRetryInterval : this.DEFAULT_CLIENT_MAX_RETRY_INTERVAL;
     }
     /**
      * Determines if the operation should be retried and how long to wait until the next retry.
@@ -1264,24 +1324,31 @@ class SystemErrorRetryPolicyFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilt
         return retryData;
     }
     retry(operationResponse, retryData, err) {
-        const self = this;
-        retryData = self.updateRetryData(retryData, err);
-        if (err && err.code && self.shouldRetry(retryData) &&
-            (err.code === 'ETIMEDOUT' || err.code === 'ESOCKETTIMEDOUT' || err.code === 'ECONNREFUSED' ||
-                err.code === 'ECONNRESET' || err.code === 'ENOENT')) {
-            // If previous operation ended with an error and the policy allows a retry, do that
-            return __WEBPACK_IMPORTED_MODULE_1__util_utils__["a" /* delay */](retryData.retryInterval).then(() => {
-                return self.retry(operationResponse, retryData, err);
-            });
-        }
-        else {
-            if (!__WEBPACK_IMPORTED_MODULE_1__util_utils__["g" /* objectIsNull */](err)) {
-                // If the operation failed in the end, return all errors instead of just the last one
-                err = retryData.error;
-                return Promise.reject(err);
+        return __awaiter(this, void 0, void 0, function* () {
+            const self = this;
+            retryData = self.updateRetryData(retryData, err);
+            if (err && err.code && self.shouldRetry(retryData) &&
+                (err.code === 'ETIMEDOUT' || err.code === 'ESOCKETTIMEDOUT' || err.code === 'ECONNREFUSED' ||
+                    err.code === 'ECONNRESET' || err.code === 'ENOENT')) {
+                // If previous operation ended with an error and the policy allows a retry, do that
+                try {
+                    yield __WEBPACK_IMPORTED_MODULE_1__util_utils__["a" /* delay */](retryData.retryInterval);
+                    let res = yield __WEBPACK_IMPORTED_MODULE_1__util_utils__["b" /* dispatchRequest */](operationResponse.request);
+                    return self.retry(res, retryData, err);
+                }
+                catch (err) {
+                    return self.retry(operationResponse, retryData, err);
+                }
             }
-            return Promise.resolve(operationResponse);
-        }
+            else {
+                if (!__WEBPACK_IMPORTED_MODULE_1__util_utils__["g" /* objectIsNull */](err)) {
+                    // If the operation failed in the end, return all errors instead of just the last one
+                    err = retryData.error;
+                    return Promise.reject(err);
+                }
+                return Promise.resolve(operationResponse);
+            }
+        });
     }
     after(operationResponse) {
         return this.retry(operationResponse); //See: https://github.com/Microsoft/TypeScript/issues/7426
@@ -1292,11 +1359,77 @@ class SystemErrorRetryPolicyFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilt
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseFilter__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseFilter__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_utils__ = __webpack_require__(0);
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
+
+const parse = __webpack_require__(24);
+class RedirectFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilter__["a" /* BaseFilter */] {
+    constructor(maximumRetries = 20) {
+        super();
+        this.maximumRetries = maximumRetries;
+    }
+    handleRedirect(operationResponse, currentRetries) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let request = operationResponse.request;
+            let response = operationResponse.response;
+            if (response && response.headers && response.headers.get('location') &&
+                (response.status === 300 || response.status === 307 || (response.status === 303 && request.method === 'POST')) &&
+                (!this.maximumRetries || currentRetries < this.maximumRetries)) {
+                if (parse(response.headers.get('location')).hostname) {
+                    request.url = response.headers.get('location');
+                }
+                else {
+                    let urlObject = parse(request.url);
+                    urlObject.set('pathname', response.headers.get('location'));
+                    request.url = urlObject.href;
+                }
+                // POST request with Status code 303 should be converted into a 
+                // redirected GET request if the redirect url is present in the location header
+                if (response.status === 303) {
+                    request.method = 'GET';
+                }
+                let res;
+                try {
+                    res = yield __WEBPACK_IMPORTED_MODULE_1__util_utils__["b" /* dispatchRequest */](request);
+                    currentRetries++;
+                }
+                catch (err) {
+                    return Promise.reject(err);
+                }
+                return this.handleRedirect(res, currentRetries);
+            }
+            return Promise.resolve(operationResponse);
+        });
+    }
+    after(operationResponse) {
+        return this.handleRedirect(operationResponse, 0);
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = RedirectFilter;
+
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseFilter__ = __webpack_require__(1);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
@@ -1315,13 +1448,13 @@ class SigningFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilter__["a" /* Bas
 
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseFilter__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_constants__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_os__ = __webpack_require__(23);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseFilter__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_constants__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_os__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_os___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_os__);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
@@ -1374,7 +1507,7 @@ class MsRestUserAgentFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilter__["a
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1402,58 +1535,62 @@ isStream.transform = function (stream) {
 
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__webResource__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__httpOperationResponse__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__httpOperationResponse__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__restError__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__serviceClient__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__util_constants__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__requestPipeline__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__filters_logFilter__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__filters_baseFilter__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__filters_exponentialRetryPolicyFilter__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__filters_systemErrorRetryPolicyFilter__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__filters_signingFilter__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__filters_msRestUserAgentFilter__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__serializer__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__util_utils__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__credentials_tokenCredentials__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__credentials_basicAuthenticationCredentials__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_is_stream__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_is_stream___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16_is_stream__);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "MapperType", function() { return __WEBPACK_IMPORTED_MODULE_12__serializer__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Serializer", function() { return __WEBPACK_IMPORTED_MODULE_12__serializer__["b"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "serializeObject", function() { return __WEBPACK_IMPORTED_MODULE_12__serializer__["c"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "TokenCredentials", function() { return __WEBPACK_IMPORTED_MODULE_14__credentials_tokenCredentials__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__serviceClient__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__util_constants__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__requestPipeline__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__filters_logFilter__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__filters_baseFilter__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__filters_exponentialRetryPolicyFilter__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__filters_systemErrorRetryPolicyFilter__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__filters_redirectFilter__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__filters_signingFilter__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__filters_msRestUserAgentFilter__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__serializer__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__util_utils__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__credentials_tokenCredentials__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__credentials_basicAuthenticationCredentials__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_is_stream__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_is_stream___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17_is_stream__);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "MapperType", function() { return __WEBPACK_IMPORTED_MODULE_13__serializer__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Serializer", function() { return __WEBPACK_IMPORTED_MODULE_13__serializer__["b"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "serializeObject", function() { return __WEBPACK_IMPORTED_MODULE_13__serializer__["c"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "TokenCredentials", function() { return __WEBPACK_IMPORTED_MODULE_15__credentials_tokenCredentials__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "WebResource", function() { return __WEBPACK_IMPORTED_MODULE_0__webResource__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "HttpOperationResponse", function() { return __WEBPACK_IMPORTED_MODULE_1__httpOperationResponse__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "ServiceClient", function() { return __WEBPACK_IMPORTED_MODULE_3__serviceClient__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Constants", function() { return __WEBPACK_IMPORTED_MODULE_4__util_constants__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "RequestPipeline", function() { return __WEBPACK_IMPORTED_MODULE_5__requestPipeline__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "BasicAuthenticationCredentials", function() { return __WEBPACK_IMPORTED_MODULE_15__credentials_basicAuthenticationCredentials__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "BasicAuthenticationCredentials", function() { return __WEBPACK_IMPORTED_MODULE_16__credentials_basicAuthenticationCredentials__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "BaseFilter", function() { return __WEBPACK_IMPORTED_MODULE_7__filters_baseFilter__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "LogFilter", function() { return __WEBPACK_IMPORTED_MODULE_6__filters_logFilter__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "ExponentialRetryPolicyFilter", function() { return __WEBPACK_IMPORTED_MODULE_8__filters_exponentialRetryPolicyFilter__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "SystemErrorRetryPolicyFilter", function() { return __WEBPACK_IMPORTED_MODULE_9__filters_systemErrorRetryPolicyFilter__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "SigningFilter", function() { return __WEBPACK_IMPORTED_MODULE_10__filters_signingFilter__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "MsRestUserAgentFilter", function() { return __WEBPACK_IMPORTED_MODULE_11__filters_msRestUserAgentFilter__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "stripRequest", function() { return __WEBPACK_IMPORTED_MODULE_13__util_utils__["k"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "stripResponse", function() { return __WEBPACK_IMPORTED_MODULE_13__util_utils__["l"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "delay", function() { return __WEBPACK_IMPORTED_MODULE_13__util_utils__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "executePromisesSequentially", function() { return __WEBPACK_IMPORTED_MODULE_13__util_utils__["c"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "generateUuid", function() { return __WEBPACK_IMPORTED_MODULE_13__util_utils__["d"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "isValidUuid", function() { return __WEBPACK_IMPORTED_MODULE_13__util_utils__["e"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "encodeUri", function() { return __WEBPACK_IMPORTED_MODULE_13__util_utils__["b"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "SigningFilter", function() { return __WEBPACK_IMPORTED_MODULE_11__filters_signingFilter__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "MsRestUserAgentFilter", function() { return __WEBPACK_IMPORTED_MODULE_12__filters_msRestUserAgentFilter__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "stripRequest", function() { return __WEBPACK_IMPORTED_MODULE_14__util_utils__["k"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "stripResponse", function() { return __WEBPACK_IMPORTED_MODULE_14__util_utils__["l"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "delay", function() { return __WEBPACK_IMPORTED_MODULE_14__util_utils__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "executePromisesSequentially", function() { return __WEBPACK_IMPORTED_MODULE_14__util_utils__["d"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "generateUuid", function() { return __WEBPACK_IMPORTED_MODULE_14__util_utils__["e"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "isValidUuid", function() { return __WEBPACK_IMPORTED_MODULE_14__util_utils__["f"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "encodeUri", function() { return __WEBPACK_IMPORTED_MODULE_14__util_utils__["c"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "RestError", function() { return __WEBPACK_IMPORTED_MODULE_2__restError__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "promiseToCallback", function() { return __WEBPACK_IMPORTED_MODULE_13__util_utils__["h"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "promiseToServiceCallback", function() { return __WEBPACK_IMPORTED_MODULE_13__util_utils__["i"]; });
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "isStream", function() { return __WEBPACK_IMPORTED_MODULE_16_is_stream__; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "promiseToCallback", function() { return __WEBPACK_IMPORTED_MODULE_14__util_utils__["h"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "promiseToServiceCallback", function() { return __WEBPACK_IMPORTED_MODULE_14__util_utils__["i"]; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "isStream", function() { return __WEBPACK_IMPORTED_MODULE_17_is_stream__; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "dispatchRequest", function() { return __WEBPACK_IMPORTED_MODULE_14__util_utils__["b"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "RedirectFilter", function() { return __WEBPACK_IMPORTED_MODULE_10__filters_redirectFilter__["a"]; });
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
+
 
 
 
@@ -1476,11 +1613,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var v1 = __webpack_require__(17);
-var v4 = __webpack_require__(19);
+var v1 = __webpack_require__(19);
+var v4 = __webpack_require__(20);
 
 var uuid = v4;
 uuid.v1 = v1;
@@ -1490,11 +1627,11 @@ module.exports = uuid;
 
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var rng = __webpack_require__(5);
-var bytesToUuid = __webpack_require__(6);
+var bytesToUuid = __webpack_require__(7);
 
 // **`v1()` - Generate time-based UUID**
 //
@@ -1596,38 +1733,11 @@ module.exports = v1;
 
 
 /***/ }),
-/* 18 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var rng = __webpack_require__(5);
-var bytesToUuid = __webpack_require__(6);
+var bytesToUuid = __webpack_require__(7);
 
 function v4(options, buf, offset) {
   var i = buf && offset || 0;
@@ -1655,122 +1765,6 @@ function v4(options, buf, offset) {
 }
 
 module.exports = v4;
-
-
-/***/ }),
-/* 20 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__requestPipeline__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__filters_exponentialRetryPolicyFilter__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters_systemErrorRetryPolicyFilter__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__filters_signingFilter__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__filters_msRestUserAgentFilter__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__webResource__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__util_constants__ = __webpack_require__(1);
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information.
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-
-
-
-
-
-/**
- * @class
- * Initializes a new instance of the ServiceClient.
- * @constructor
- * @param {ServiceClientCredentials} [credentials]    - BasicAuthenticationCredentials or
- * TokenCredentials object used for authentication.
- *
- * @param {ServiceClientOptions} [options] The service client options that govern the behavior of the client.
- */
-class ServiceClient {
-    constructor(credentials, options) {
-        if (!options) {
-            options = {};
-        }
-        if (!options.requestOptions) {
-            options.requestOptions = {};
-        }
-        if (!options.filters) {
-            options.filters = [];
-        }
-        this.userAgentInfo = { value: [] };
-        if (credentials && !credentials.signRequest) {
-            throw new Error('credentials argument needs to implement signRequest method');
-        }
-        try {
-            const moduleName = 'ms-rest';
-            const moduleVersion = __WEBPACK_IMPORTED_MODULE_6__util_constants__["a" /* Constants */].msRestVersion;
-            this.addUserAgentInfo(`${moduleName}/${moduleVersion}`);
-        }
-        catch (err) {
-            // do nothing
-        }
-        if (credentials) {
-            options.filters.push(new __WEBPACK_IMPORTED_MODULE_3__filters_signingFilter__["a" /* SigningFilter */](credentials));
-        }
-        options.filters.push(new __WEBPACK_IMPORTED_MODULE_4__filters_msRestUserAgentFilter__["a" /* MsRestUserAgentFilter */](this.userAgentInfo.value));
-        if (!options.noRetryPolicy) {
-            options.filters.push(new __WEBPACK_IMPORTED_MODULE_1__filters_exponentialRetryPolicyFilter__["a" /* ExponentialRetryPolicyFilter */]());
-            options.filters.push(new __WEBPACK_IMPORTED_MODULE_2__filters_systemErrorRetryPolicyFilter__["a" /* SystemErrorRetryPolicyFilter */]());
-        }
-        this.pipeline = new __WEBPACK_IMPORTED_MODULE_0__requestPipeline__["a" /* RequestPipeline */](options.filters, options.requestOptions).create();
-    }
-    /**
-     * Adds custom information to user agent header
-     * @param {any} additionalUserAgentInfo - information to be added to user agent header, as string.
-     */
-    addUserAgentInfo(additionalUserAgentInfo) {
-        if (this.userAgentInfo.value.indexOf(additionalUserAgentInfo) === -1) {
-            this.userAgentInfo.value.push(additionalUserAgentInfo);
-        }
-        return;
-    }
-    sendRequest(options) {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (options === null || options === undefined || typeof options !== 'object') {
-                throw new Error('options cannot be null or undefined and it must be of type object.');
-            }
-            let httpRequest;
-            try {
-                if (options instanceof __WEBPACK_IMPORTED_MODULE_5__webResource__["a" /* WebResource */]) {
-                    options.validateRequestProperties();
-                    httpRequest = options;
-                }
-                else {
-                    httpRequest = new __WEBPACK_IMPORTED_MODULE_5__webResource__["a" /* WebResource */]();
-                    httpRequest = httpRequest.prepare(options);
-                }
-            }
-            catch (error) {
-                return Promise.reject(error);
-            }
-            // send request
-            let operationResponse;
-            try {
-                operationResponse = yield this.pipeline(httpRequest);
-            }
-            catch (err) {
-                return Promise.reject(err);
-            }
-            return Promise.resolve(operationResponse);
-        });
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = ServiceClient;
-
 
 
 /***/ }),
@@ -2289,6 +2283,664 @@ var __WEBPACK_AMD_DEFINE_RESULT__;(function (self) {
 
 /***/ }),
 /* 23 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__requestPipeline__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__filters_exponentialRetryPolicyFilter__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__filters_systemErrorRetryPolicyFilter__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__filters_redirectFilter__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__filters_signingFilter__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__filters_msRestUserAgentFilter__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__webResource__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__util_constants__ = __webpack_require__(2);
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+
+
+
+
+/**
+ * @class
+ * Initializes a new instance of the ServiceClient.
+ * @constructor
+ * @param {ServiceClientCredentials} [credentials]    - BasicAuthenticationCredentials or
+ * TokenCredentials object used for authentication.
+ *
+ * @param {ServiceClientOptions} [options] The service client options that govern the behavior of the client.
+ */
+class ServiceClient {
+    constructor(credentials, options) {
+        if (!options) {
+            options = {};
+        }
+        if (!options.requestOptions) {
+            options.requestOptions = {};
+        }
+        if (!options.filters) {
+            options.filters = [];
+        }
+        this.userAgentInfo = { value: [] };
+        if (credentials && !credentials.signRequest) {
+            throw new Error('credentials argument needs to implement signRequest method');
+        }
+        try {
+            const moduleName = 'ms-rest';
+            const moduleVersion = __WEBPACK_IMPORTED_MODULE_7__util_constants__["a" /* Constants */].msRestVersion;
+            this.addUserAgentInfo(`${moduleName}/${moduleVersion}`);
+        }
+        catch (err) {
+            // do nothing
+        }
+        if (credentials) {
+            options.filters.push(new __WEBPACK_IMPORTED_MODULE_4__filters_signingFilter__["a" /* SigningFilter */](credentials));
+        }
+        options.filters.push(new __WEBPACK_IMPORTED_MODULE_5__filters_msRestUserAgentFilter__["a" /* MsRestUserAgentFilter */](this.userAgentInfo.value));
+        options.filters.push(new __WEBPACK_IMPORTED_MODULE_3__filters_redirectFilter__["a" /* RedirectFilter */]());
+        if (!options.noRetryPolicy) {
+            options.filters.push(new __WEBPACK_IMPORTED_MODULE_1__filters_exponentialRetryPolicyFilter__["a" /* ExponentialRetryPolicyFilter */]());
+            options.filters.push(new __WEBPACK_IMPORTED_MODULE_2__filters_systemErrorRetryPolicyFilter__["a" /* SystemErrorRetryPolicyFilter */]());
+        }
+        this.pipeline = new __WEBPACK_IMPORTED_MODULE_0__requestPipeline__["a" /* RequestPipeline */](options.filters, options.requestOptions).create();
+    }
+    /**
+     * Adds custom information to user agent header
+     * @param {any} additionalUserAgentInfo - information to be added to user agent header, as string.
+     */
+    addUserAgentInfo(additionalUserAgentInfo) {
+        if (this.userAgentInfo.value.indexOf(additionalUserAgentInfo) === -1) {
+            this.userAgentInfo.value.push(additionalUserAgentInfo);
+        }
+        return;
+    }
+    sendRequest(options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (options === null || options === undefined || typeof options !== 'object') {
+                throw new Error('options cannot be null or undefined and it must be of type object.');
+            }
+            let httpRequest;
+            try {
+                if (options instanceof __WEBPACK_IMPORTED_MODULE_6__webResource__["a" /* WebResource */]) {
+                    options.validateRequestProperties();
+                    httpRequest = options;
+                }
+                else {
+                    httpRequest = new __WEBPACK_IMPORTED_MODULE_6__webResource__["a" /* WebResource */]();
+                    httpRequest = httpRequest.prepare(options);
+                }
+            }
+            catch (error) {
+                return Promise.reject(error);
+            }
+            // send request
+            let operationResponse;
+            try {
+                operationResponse = yield this.pipeline(httpRequest);
+            }
+            catch (err) {
+                return Promise.reject(err);
+            }
+            return Promise.resolve(operationResponse);
+        });
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = ServiceClient;
+
+
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {
+
+var required = __webpack_require__(25)
+  , qs = __webpack_require__(26)
+  , protocolre = /^([a-z][a-z0-9.+-]*:)?(\/\/)?([\S\s]*)/i
+  , slashes = /^[A-Za-z][A-Za-z0-9+-.]*:\/\//;
+
+/**
+ * These are the parse rules for the URL parser, it informs the parser
+ * about:
+ *
+ * 0. The char it Needs to parse, if it's a string it should be done using
+ *    indexOf, RegExp using exec and NaN means set as current value.
+ * 1. The property we should set when parsing this value.
+ * 2. Indication if it's backwards or forward parsing, when set as number it's
+ *    the value of extra chars that should be split off.
+ * 3. Inherit from location if non existing in the parser.
+ * 4. `toLowerCase` the resulting value.
+ */
+var rules = [
+  ['#', 'hash'],                        // Extract from the back.
+  ['?', 'query'],                       // Extract from the back.
+  ['/', 'pathname'],                    // Extract from the back.
+  ['@', 'auth', 1],                     // Extract from the front.
+  [NaN, 'host', undefined, 1, 1],       // Set left over value.
+  [/:(\d+)$/, 'port', undefined, 1],    // RegExp the back.
+  [NaN, 'hostname', undefined, 1, 1]    // Set left over.
+];
+
+/**
+ * These properties should not be copied or inherited from. This is only needed
+ * for all non blob URL's as a blob URL does not include a hash, only the
+ * origin.
+ *
+ * @type {Object}
+ * @private
+ */
+var ignore = { hash: 1, query: 1 };
+
+/**
+ * The location object differs when your code is loaded through a normal page,
+ * Worker or through a worker using a blob. And with the blobble begins the
+ * trouble as the location object will contain the URL of the blob, not the
+ * location of the page where our code is loaded in. The actual origin is
+ * encoded in the `pathname` so we can thankfully generate a good "default"
+ * location from it so we can generate proper relative URL's again.
+ *
+ * @param {Object|String} loc Optional default location object.
+ * @returns {Object} lolcation object.
+ * @api public
+ */
+function lolcation(loc) {
+  loc = loc || global.location || {};
+
+  var finaldestination = {}
+    , type = typeof loc
+    , key;
+
+  if ('blob:' === loc.protocol) {
+    finaldestination = new URL(unescape(loc.pathname), {});
+  } else if ('string' === type) {
+    finaldestination = new URL(loc, {});
+    for (key in ignore) delete finaldestination[key];
+  } else if ('object' === type) {
+    for (key in loc) {
+      if (key in ignore) continue;
+      finaldestination[key] = loc[key];
+    }
+
+    if (finaldestination.slashes === undefined) {
+      finaldestination.slashes = slashes.test(loc.href);
+    }
+  }
+
+  return finaldestination;
+}
+
+/**
+ * @typedef ProtocolExtract
+ * @type Object
+ * @property {String} protocol Protocol matched in the URL, in lowercase.
+ * @property {Boolean} slashes `true` if protocol is followed by "//", else `false`.
+ * @property {String} rest Rest of the URL that is not part of the protocol.
+ */
+
+/**
+ * Extract protocol information from a URL with/without double slash ("//").
+ *
+ * @param {String} address URL we want to extract from.
+ * @return {ProtocolExtract} Extracted information.
+ * @api private
+ */
+function extractProtocol(address) {
+  var match = protocolre.exec(address);
+
+  return {
+    protocol: match[1] ? match[1].toLowerCase() : '',
+    slashes: !!match[2],
+    rest: match[3]
+  };
+}
+
+/**
+ * Resolve a relative URL pathname against a base URL pathname.
+ *
+ * @param {String} relative Pathname of the relative URL.
+ * @param {String} base Pathname of the base URL.
+ * @return {String} Resolved pathname.
+ * @api private
+ */
+function resolve(relative, base) {
+  var path = (base || '/').split('/').slice(0, -1).concat(relative.split('/'))
+    , i = path.length
+    , last = path[i - 1]
+    , unshift = false
+    , up = 0;
+
+  while (i--) {
+    if (path[i] === '.') {
+      path.splice(i, 1);
+    } else if (path[i] === '..') {
+      path.splice(i, 1);
+      up++;
+    } else if (up) {
+      if (i === 0) unshift = true;
+      path.splice(i, 1);
+      up--;
+    }
+  }
+
+  if (unshift) path.unshift('');
+  if (last === '.' || last === '..') path.push('');
+
+  return path.join('/');
+}
+
+/**
+ * The actual URL instance. Instead of returning an object we've opted-in to
+ * create an actual constructor as it's much more memory efficient and
+ * faster and it pleases my OCD.
+ *
+ * @constructor
+ * @param {String} address URL we want to parse.
+ * @param {Object|String} location Location defaults for relative paths.
+ * @param {Boolean|Function} parser Parser for the query string.
+ * @api public
+ */
+function URL(address, location, parser) {
+  if (!(this instanceof URL)) {
+    return new URL(address, location, parser);
+  }
+
+  var relative, extracted, parse, instruction, index, key
+    , instructions = rules.slice()
+    , type = typeof location
+    , url = this
+    , i = 0;
+
+  //
+  // The following if statements allows this module two have compatibility with
+  // 2 different API:
+  //
+  // 1. Node.js's `url.parse` api which accepts a URL, boolean as arguments
+  //    where the boolean indicates that the query string should also be parsed.
+  //
+  // 2. The `URL` interface of the browser which accepts a URL, object as
+  //    arguments. The supplied object will be used as default values / fall-back
+  //    for relative paths.
+  //
+  if ('object' !== type && 'string' !== type) {
+    parser = location;
+    location = null;
+  }
+
+  if (parser && 'function' !== typeof parser) parser = qs.parse;
+
+  location = lolcation(location);
+
+  //
+  // Extract protocol information before running the instructions.
+  //
+  extracted = extractProtocol(address || '');
+  relative = !extracted.protocol && !extracted.slashes;
+  url.slashes = extracted.slashes || relative && location.slashes;
+  url.protocol = extracted.protocol || location.protocol || '';
+  address = extracted.rest;
+
+  //
+  // When the authority component is absent the URL starts with a path
+  // component.
+  //
+  if (!extracted.slashes) instructions[2] = [/(.*)/, 'pathname'];
+
+  for (; i < instructions.length; i++) {
+    instruction = instructions[i];
+    parse = instruction[0];
+    key = instruction[1];
+
+    if (parse !== parse) {
+      url[key] = address;
+    } else if ('string' === typeof parse) {
+      if (~(index = address.indexOf(parse))) {
+        if ('number' === typeof instruction[2]) {
+          url[key] = address.slice(0, index);
+          address = address.slice(index + instruction[2]);
+        } else {
+          url[key] = address.slice(index);
+          address = address.slice(0, index);
+        }
+      }
+    } else if ((index = parse.exec(address))) {
+      url[key] = index[1];
+      address = address.slice(0, index.index);
+    }
+
+    url[key] = url[key] || (
+      relative && instruction[3] ? location[key] || '' : ''
+    );
+
+    //
+    // Hostname, host and protocol should be lowercased so they can be used to
+    // create a proper `origin`.
+    //
+    if (instruction[4]) url[key] = url[key].toLowerCase();
+  }
+
+  //
+  // Also parse the supplied query string in to an object. If we're supplied
+  // with a custom parser as function use that instead of the default build-in
+  // parser.
+  //
+  if (parser) url.query = parser(url.query);
+
+  //
+  // If the URL is relative, resolve the pathname against the base URL.
+  //
+  if (
+      relative
+    && location.slashes
+    && url.pathname.charAt(0) !== '/'
+    && (url.pathname !== '' || location.pathname !== '')
+  ) {
+    url.pathname = resolve(url.pathname, location.pathname);
+  }
+
+  //
+  // We should not add port numbers if they are already the default port number
+  // for a given protocol. As the host also contains the port number we're going
+  // override it with the hostname which contains no port number.
+  //
+  if (!required(url.port, url.protocol)) {
+    url.host = url.hostname;
+    url.port = '';
+  }
+
+  //
+  // Parse down the `auth` for the username and password.
+  //
+  url.username = url.password = '';
+  if (url.auth) {
+    instruction = url.auth.split(':');
+    url.username = instruction[0] || '';
+    url.password = instruction[1] || '';
+  }
+
+  url.origin = url.protocol && url.host && url.protocol !== 'file:'
+    ? url.protocol +'//'+ url.host
+    : 'null';
+
+  //
+  // The href is just the compiled result.
+  //
+  url.href = url.toString();
+}
+
+/**
+ * This is convenience method for changing properties in the URL instance to
+ * insure that they all propagate correctly.
+ *
+ * @param {String} part          Property we need to adjust.
+ * @param {Mixed} value          The newly assigned value.
+ * @param {Boolean|Function} fn  When setting the query, it will be the function
+ *                               used to parse the query.
+ *                               When setting the protocol, double slash will be
+ *                               removed from the final url if it is true.
+ * @returns {URL}
+ * @api public
+ */
+function set(part, value, fn) {
+  var url = this;
+
+  switch (part) {
+    case 'query':
+      if ('string' === typeof value && value.length) {
+        value = (fn || qs.parse)(value);
+      }
+
+      url[part] = value;
+      break;
+
+    case 'port':
+      url[part] = value;
+
+      if (!required(value, url.protocol)) {
+        url.host = url.hostname;
+        url[part] = '';
+      } else if (value) {
+        url.host = url.hostname +':'+ value;
+      }
+
+      break;
+
+    case 'hostname':
+      url[part] = value;
+
+      if (url.port) value += ':'+ url.port;
+      url.host = value;
+      break;
+
+    case 'host':
+      url[part] = value;
+
+      if (/:\d+$/.test(value)) {
+        value = value.split(':');
+        url.port = value.pop();
+        url.hostname = value.join(':');
+      } else {
+        url.hostname = value;
+        url.port = '';
+      }
+
+      break;
+
+    case 'protocol':
+      url.protocol = value.toLowerCase();
+      url.slashes = !fn;
+      break;
+
+    case 'pathname':
+      url.pathname = value.length && value.charAt(0) !== '/' ? '/' + value : value;
+
+      break;
+
+    default:
+      url[part] = value;
+  }
+
+  for (var i = 0; i < rules.length; i++) {
+    var ins = rules[i];
+
+    if (ins[4]) url[ins[1]] = url[ins[1]].toLowerCase();
+  }
+
+  url.origin = url.protocol && url.host && url.protocol !== 'file:'
+    ? url.protocol +'//'+ url.host
+    : 'null';
+
+  url.href = url.toString();
+
+  return url;
+}
+
+/**
+ * Transform the properties back in to a valid and full URL string.
+ *
+ * @param {Function} stringify Optional query stringify function.
+ * @returns {String}
+ * @api public
+ */
+function toString(stringify) {
+  if (!stringify || 'function' !== typeof stringify) stringify = qs.stringify;
+
+  var query
+    , url = this
+    , protocol = url.protocol;
+
+  if (protocol && protocol.charAt(protocol.length - 1) !== ':') protocol += ':';
+
+  var result = protocol + (url.slashes ? '//' : '');
+
+  if (url.username) {
+    result += url.username;
+    if (url.password) result += ':'+ url.password;
+    result += '@';
+  }
+
+  result += url.host + url.pathname;
+
+  query = 'object' === typeof url.query ? stringify(url.query) : url.query;
+  if (query) result += '?' !== query.charAt(0) ? '?'+ query : query;
+
+  if (url.hash) result += url.hash;
+
+  return result;
+}
+
+URL.prototype = { set: set, toString: toString };
+
+//
+// Expose the URL parser and some additional properties that might be useful for
+// others or testing.
+//
+URL.extractProtocol = extractProtocol;
+URL.location = lolcation;
+URL.qs = qs;
+
+module.exports = URL;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Check if we're required to add a port number.
+ *
+ * @see https://url.spec.whatwg.org/#default-port
+ * @param {Number|String} port Port number we need to check
+ * @param {String} protocol Protocol we need to check against.
+ * @returns {Boolean} Is it a default port for the given protocol
+ * @api private
+ */
+module.exports = function required(port, protocol) {
+  protocol = protocol.split(':')[0];
+  port = +port;
+
+  if (!port) return false;
+
+  switch (protocol) {
+    case 'http':
+    case 'ws':
+    return port !== 80;
+
+    case 'https':
+    case 'wss':
+    return port !== 443;
+
+    case 'ftp':
+    return port !== 21;
+
+    case 'gopher':
+    return port !== 70;
+
+    case 'file':
+    return false;
+  }
+
+  return port !== 0;
+};
+
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var has = Object.prototype.hasOwnProperty;
+
+/**
+ * Decode a URI encoded string.
+ *
+ * @param {String} input The URI encoded string.
+ * @returns {String} The decoded string.
+ * @api private
+ */
+function decode(input) {
+  return decodeURIComponent(input.replace(/\+/g, ' '));
+}
+
+/**
+ * Simple query string parser.
+ *
+ * @param {String} query The query string that needs to be parsed.
+ * @returns {Object}
+ * @api public
+ */
+function querystring(query) {
+  var parser = /([^=?&]+)=?([^&]*)/g
+    , result = {}
+    , part;
+
+  //
+  // Little nifty parsing hack, leverage the fact that RegExp.exec increments
+  // the lastIndex property so we can continue executing this loop until we've
+  // parsed all results.
+  //
+  for (;
+    part = parser.exec(query);
+    result[decode(part[1])] = decode(part[2])
+  );
+
+  return result;
+}
+
+/**
+ * Transform a query string to an object.
+ *
+ * @param {Object} obj Object that should be transformed.
+ * @param {String} prefix Optional prefix.
+ * @returns {String}
+ * @api public
+ */
+function querystringify(obj, prefix) {
+  prefix = prefix || '';
+
+  var pairs = [];
+
+  //
+  // Optionally prefix with a '?' if needed
+  //
+  if ('string' !== typeof prefix) prefix = '?';
+
+  for (var key in obj) {
+    if (has.call(obj, key)) {
+      pairs.push(encodeURIComponent(key) +'='+ encodeURIComponent(obj[key]));
+    }
+  }
+
+  return pairs.length ? prefix + pairs.join('&') : '';
+}
+
+//
+// Expose the module.
+//
+exports.stringify = querystringify;
+exports.parse = querystring;
+
+
+/***/ }),
+/* 27 */
 /***/ (function(module, exports) {
 
 exports.endianness = function () { return 'LE' };
@@ -2339,11 +2991,11 @@ exports.EOL = '\n';
 
 
 /***/ }),
-/* 24 */
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseFilter__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseFilter__ = __webpack_require__(1);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
@@ -2366,21 +3018,21 @@ class LogFilter extends __WEBPACK_IMPORTED_MODULE_0__baseFilter__["a" /* BaseFil
 
 
 /***/ }),
-/* 25 */
+/* 29 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["c"] = serializeObject;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_utils__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_moment__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_is_stream__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_is_stream__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_is_stream___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_is_stream__);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information. 
 
 
-const isBuffer = __webpack_require__(28);
+const isBuffer = __webpack_require__(32);
 
 class Serializer {
     constructor(mappers) {
@@ -2526,7 +3178,7 @@ class Serializer {
                 }
             }
             else if (typeName.match(/^Uuid$/ig) !== null) {
-                if (!(typeof value.valueOf() === 'string' && __WEBPACK_IMPORTED_MODULE_0__util_utils__["e" /* isValidUuid */](value))) {
+                if (!(typeof value.valueOf() === 'string' && __WEBPACK_IMPORTED_MODULE_0__util_utils__["f" /* isValidUuid */](value))) {
                     throw new Error(`${objectName} with value "${value}" must be of type string and a valid uuid.`);
                 }
             }
@@ -3081,7 +3733,7 @@ const MapperType = __WEBPACK_IMPORTED_MODULE_0__util_utils__["j" /* strEnum */](
 
 
 /***/ }),
-/* 26 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {//! moment.js
@@ -7548,10 +8200,10 @@ return hooks;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)(module)))
 
 /***/ }),
-/* 27 */
+/* 31 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -7579,7 +8231,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 28 */
+/* 32 */
 /***/ (function(module, exports) {
 
 /*!
@@ -7606,11 +8258,11 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 29 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_constants__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_constants__ = __webpack_require__(2);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
@@ -7650,11 +8302,11 @@ class TokenCredentials {
 
 
 /***/ }),
-/* 30 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_constants__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_constants__ = __webpack_require__(2);
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 

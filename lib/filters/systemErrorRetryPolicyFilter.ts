@@ -40,10 +40,10 @@ export class SystemErrorRetryPolicyFilter extends BaseFilter {
 
   constructor(retryCount?: number, retryInterval?: number, minRetryInterval?: number, maxRetryInterval?: number) {
     super();
-    this.retryCount = retryCount || this.DEFAULT_CLIENT_RETRY_COUNT;
-    this.retryInterval = retryInterval || this.DEFAULT_CLIENT_RETRY_INTERVAL;
-    this.minRetryInterval = minRetryInterval || this.DEFAULT_CLIENT_MIN_RETRY_INTERVAL;
-    this.maxRetryInterval = maxRetryInterval || this.DEFAULT_CLIENT_MAX_RETRY_INTERVAL;
+    this.retryCount = typeof retryCount === 'number' ? retryCount : this.DEFAULT_CLIENT_RETRY_COUNT;
+    this.retryInterval = typeof retryInterval === 'number' ? retryInterval : this.DEFAULT_CLIENT_RETRY_INTERVAL;
+    this.minRetryInterval = typeof minRetryInterval === 'number' ? minRetryInterval : this.DEFAULT_CLIENT_MIN_RETRY_INTERVAL;
+    this.maxRetryInterval = typeof maxRetryInterval === 'number' ? maxRetryInterval : this.DEFAULT_CLIENT_MAX_RETRY_INTERVAL;
   }
 
   /**
@@ -99,16 +99,20 @@ export class SystemErrorRetryPolicyFilter extends BaseFilter {
     return retryData;
   }
 
-  retry(operationResponse: HttpOperationResponse, retryData?: RetryData, err?: RetryError): Promise<HttpOperationResponse> {
+  async retry(operationResponse: HttpOperationResponse, retryData?: RetryData, err?: RetryError): Promise<HttpOperationResponse> {
     const self = this;
     retryData = self.updateRetryData(retryData, err);
     if (err && err.code && self.shouldRetry(retryData) &&
       (err.code === 'ETIMEDOUT' || err.code === 'ESOCKETTIMEDOUT' || err.code === 'ECONNREFUSED' ||
         err.code === 'ECONNRESET' || err.code === 'ENOENT')) {
       // If previous operation ended with an error and the policy allows a retry, do that
-      return utils.delay(retryData.retryInterval).then(() => {
+      try {
+        await utils.delay(retryData.retryInterval);
+        let res: HttpOperationResponse = await utils.dispatchRequest(operationResponse.request);
+        return self.retry(res, retryData, err);
+      } catch (err) {
         return self.retry(operationResponse, retryData, err);
-      });
+      }
     } else {
       if (!utils.objectIsNull(err)) {
         // If the operation failed in the end, return all errors instead of just the last one

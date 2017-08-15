@@ -26,9 +26,9 @@ describe("Log filter", () => {
         const res = new fPF.Response();
         const opRes = new HttpOperationResponse(req, res, res.body);
         lf.after(opRes).then(() => {
-            console.dir(output, { depth: null });
-            console.log('>>>>>>>');
-            console.dir(expected);
+            //console.dir(output, { depth: null });
+            //console.log('>>>>>>>');
+            //console.dir(expected);
             assert.deepEqual(output, expected);
             done();
         }).catch((err) => {

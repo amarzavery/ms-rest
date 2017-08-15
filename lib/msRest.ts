@@ -11,6 +11,7 @@ import { LogFilter } from './filters/logFilter';
 import { BaseFilter } from './filters/baseFilter';
 import { ExponentialRetryPolicyFilter } from './filters/exponentialRetryPolicyFilter';
 import { SystemErrorRetryPolicyFilter } from './filters/systemErrorRetryPolicyFilter';
+import { RedirectFilter } from './filters/redirectFilter';
 import { SigningFilter } from './filters/signingFilter';
 import { MsRestUserAgentFilter } from './filters/msRestUserAgentFilter';
 import {
@@ -21,7 +22,7 @@ import {
 import {
   stripRequest, stripResponse, delay,
   executePromisesSequentially, generateUuid, encodeUri, ServiceCallback,
-  promiseToCallback, promiseToServiceCallback, isValidUuid
+  promiseToCallback, promiseToServiceCallback, isValidUuid, dispatchRequest
 } from './util/utils';
 
 // Credentials
@@ -37,5 +38,5 @@ export {
   BasicAuthenticationCredentials, ServiceClientCredentials, BaseFilter, LogFilter, ServiceClientOptions, ExponentialRetryPolicyFilter,
   SystemErrorRetryPolicyFilter, SigningFilter, MsRestUserAgentFilter, stripRequest, stripResponse, delay, executePromisesSequentially,
   generateUuid, isValidUuid, encodeUri, RestError, RequestOptions, RequestFunction, ServiceCallback, promiseToCallback,
-  promiseToServiceCallback, isStream
+  promiseToServiceCallback, isStream, dispatchRequest, RedirectFilter
 };

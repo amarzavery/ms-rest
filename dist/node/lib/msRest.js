@@ -22,6 +22,8 @@ const exponentialRetryPolicyFilter_1 = require("./filters/exponentialRetryPolicy
 exports.ExponentialRetryPolicyFilter = exponentialRetryPolicyFilter_1.ExponentialRetryPolicyFilter;
 const systemErrorRetryPolicyFilter_1 = require("./filters/systemErrorRetryPolicyFilter");
 exports.SystemErrorRetryPolicyFilter = systemErrorRetryPolicyFilter_1.SystemErrorRetryPolicyFilter;
+const redirectFilter_1 = require("./filters/redirectFilter");
+exports.RedirectFilter = redirectFilter_1.RedirectFilter;
 const signingFilter_1 = require("./filters/signingFilter");
 exports.SigningFilter = signingFilter_1.SigningFilter;
 const msRestUserAgentFilter_1 = require("./filters/msRestUserAgentFilter");
@@ -40,6 +42,7 @@ exports.encodeUri = utils_1.encodeUri;
 exports.promiseToCallback = utils_1.promiseToCallback;
 exports.promiseToServiceCallback = utils_1.promiseToServiceCallback;
 exports.isValidUuid = utils_1.isValidUuid;
+exports.dispatchRequest = utils_1.dispatchRequest;
 // Credentials
 const tokenCredentials_1 = require("./credentials/tokenCredentials");
 exports.TokenCredentials = tokenCredentials_1.TokenCredentials;

@@ -4,8 +4,10 @@
 import * as assert from "assert";
 import { WebResource } from "../lib/webResource";
 import { MsRestUserAgentFilter } from "../lib/filters/msRestUserAgentFilter";
-const userAgentHeader = "user-agent";
+import { Constants } from '../lib/util/constants';
+
 const should = require('should');
+const userAgentHeader = Constants.HeaderConstants.USER_AGENT;
 
 describe("ms-rest user agent filter", () => {
 
@@ -19,7 +21,7 @@ describe("ms-rest user agent filter", () => {
       resource.headers[userAgentHeader].should.containEql("Node");
       resource.headers[userAgentHeader].should.containEql("Azure-SDK-For-Node");
       done();
-    });
+    }).catch((err) => { done(err); });
   });
 
   it("should not modify user agent header if already present", (done) => {
@@ -30,7 +32,8 @@ describe("ms-rest user agent filter", () => {
     const userAgentFilter = new MsRestUserAgentFilter(userAgentArray);
     const customUA = "my custom user agent";
     const resource = new WebResource();
-    resource.headers = { "user-agent": customUA };
+    resource.headers = {};
+    resource.headers[userAgentHeader] = customUA;
     userAgentFilter.before(resource).then((resource) => {
       should.ok(resource);
       const actualUA = resource.headers[userAgentHeader];
@@ -39,7 +42,7 @@ describe("ms-rest user agent filter", () => {
       actualUA.should.not.containEql(azureRuntime);
       actualUA.should.containEql(customUA);
       done();
-    });
+    }).catch((err) => { done(err); });
   });
 
   it("should insert azure-sdk-for-node at right position", (done) => {
@@ -60,6 +63,6 @@ describe("ms-rest user agent filter", () => {
       assert.notEqual(indexOfAzureSDK, -1, `did not find ${azureSDK} in user agent`);
       assert.equal(indexOfAzureSDK, 1 + indexOfAzureRuntime, `${azureSDK} is not in the right place in user agent string`);
       done();
-    });
+    }).catch((err) => { done(err); });
   });
 });

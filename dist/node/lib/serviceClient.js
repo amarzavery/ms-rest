@@ -13,6 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const requestPipeline_1 = require("./requestPipeline");
 const exponentialRetryPolicyFilter_1 = require("./filters/exponentialRetryPolicyFilter");
 const systemErrorRetryPolicyFilter_1 = require("./filters/systemErrorRetryPolicyFilter");
+const redirectFilter_1 = require("./filters/redirectFilter");
 const signingFilter_1 = require("./filters/signingFilter");
 const msRestUserAgentFilter_1 = require("./filters/msRestUserAgentFilter");
 const webResource_1 = require("./webResource");
@@ -53,6 +54,7 @@ class ServiceClient {
             options.filters.push(new signingFilter_1.SigningFilter(credentials));
         }
         options.filters.push(new msRestUserAgentFilter_1.MsRestUserAgentFilter(this.userAgentInfo.value));
+        options.filters.push(new redirectFilter_1.RedirectFilter());
         if (!options.noRetryPolicy) {
             options.filters.push(new exponentialRetryPolicyFilter_1.ExponentialRetryPolicyFilter());
             options.filters.push(new systemErrorRetryPolicyFilter_1.SystemErrorRetryPolicyFilter());

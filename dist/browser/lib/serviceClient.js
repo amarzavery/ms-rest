@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { RequestPipeline } from './requestPipeline';
 import { ExponentialRetryPolicyFilter } from './filters/exponentialRetryPolicyFilter';
 import { SystemErrorRetryPolicyFilter } from './filters/systemErrorRetryPolicyFilter';
+import { RedirectFilter } from './filters/redirectFilter';
 import { SigningFilter } from './filters/signingFilter';
 import { MsRestUserAgentFilter } from './filters/msRestUserAgentFilter';
 import { WebResource } from './webResource';
@@ -51,6 +52,7 @@ export class ServiceClient {
             options.filters.push(new SigningFilter(credentials));
         }
         options.filters.push(new MsRestUserAgentFilter(this.userAgentInfo.value));
+        options.filters.push(new RedirectFilter());
         if (!options.noRetryPolicy) {
             options.filters.push(new ExponentialRetryPolicyFilter());
             options.filters.push(new SystemErrorRetryPolicyFilter());
