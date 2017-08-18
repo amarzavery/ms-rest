@@ -16,7 +16,7 @@ const webResource_1 = require("../webResource");
 const constants_1 = require("./constants");
 const restError_1 = require("../restError");
 const httpOperationResponse_1 = require("../httpOperationResponse");
-const fPF = require('fetch-ponyfill')();
+const fPF = require('fetch-ponyfill')({ useCookie: true });
 /**
  * Checks if a parsed URL is HTTPS
  *

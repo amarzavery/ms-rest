@@ -24,11 +24,11 @@
   },
   "compileOnSave": true,
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "./node-sample.ts"
   ],
   "include": [
     "./lib/**/*.ts",
-    "./test/**/*.ts",
-    "./node-sample.ts"
+    "./test/**/*.ts"
   ]
 }

@@ -35,8 +35,7 @@
     "moment": "^2.18.1",
     "is-buffer": "^1.1.5",
     "uuid": "^3.1.0",
-    "fetch-ponyfill": "^4.0.0",
-    "ms-rest-jsauth": "balajikris/ms-rest-jsauth#master"
+    "fetch-ponyfill": "amarzavery/fetch-ponyfill#master"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.40",

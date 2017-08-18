@@ -7,8 +7,7 @@ import { WebResource } from '../webResource';
 import { Constants } from './constants';
 import { RestError } from '../restError';
 import { HttpOperationResponse } from '../httpOperationResponse';
-
-const fPF = require('fetch-ponyfill')();
+const fPF = require('fetch-ponyfill')({ useCookie: true });
 
 /**
  * Checks if a parsed URL is HTTPS

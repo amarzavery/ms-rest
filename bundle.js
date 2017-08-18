@@ -108,7 +108,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 
 
 
-const fPF = __webpack_require__(22)();
+const fPF = __webpack_require__(22)({ useCookie: true });
 /**
  * Checks if a parsed URL is HTTPS
  *
