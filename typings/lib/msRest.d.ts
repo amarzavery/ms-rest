@@ -1,4 +1,4 @@
-import { WebResource, RequestPrepareOptions, HttpMethods, ParameterValue, RequestOptions } from './webResource';
+import { WebResource, RequestPrepareOptions, HttpMethods, ParameterValue, RequestOptionsBase } from './webResource';
 import { HttpOperationResponse } from './httpOperationResponse';
 import { RestError } from './restError';
 import { ServiceClient, ServiceClientOptions } from './serviceClient';
@@ -17,4 +17,4 @@ import { TokenCredentials } from './credentials/tokenCredentials';
 import { BasicAuthenticationCredentials } from './credentials/basicAuthenticationCredentials';
 import { ServiceClientCredentials } from './credentials/serviceClientCredentials';
 import * as isStream from 'is-stream';
-export { BaseMapperType, CompositeMapper, DictionaryMapper, EnumMapper, Mapper, MapperConstraints, MapperType, PolymorphicDiscriminator, SequenceMapper, UrlParameterValue, Serializer, serializeObject, TokenCredentials, WebResource, RequestPrepareOptions, HttpMethods, ParameterValue, HttpOperationResponse, ServiceClient, Constants, RequestPipeline, BasicAuthenticationCredentials, ServiceClientCredentials, BaseFilter, LogFilter, ServiceClientOptions, ExponentialRetryPolicyFilter, SystemErrorRetryPolicyFilter, SigningFilter, MsRestUserAgentFilter, stripRequest, stripResponse, delay, executePromisesSequentially, generateUuid, isValidUuid, encodeUri, RestError, RequestOptions, RequestFunction, ServiceCallback, promiseToCallback, promiseToServiceCallback, isStream, dispatchRequest, RedirectFilter };
+export { BaseMapperType, CompositeMapper, DictionaryMapper, EnumMapper, Mapper, MapperConstraints, MapperType, PolymorphicDiscriminator, SequenceMapper, UrlParameterValue, Serializer, serializeObject, TokenCredentials, WebResource, RequestPrepareOptions, HttpMethods, ParameterValue, HttpOperationResponse, ServiceClient, Constants, RequestPipeline, BasicAuthenticationCredentials, ServiceClientCredentials, BaseFilter, LogFilter, ServiceClientOptions, ExponentialRetryPolicyFilter, SystemErrorRetryPolicyFilter, SigningFilter, MsRestUserAgentFilter, stripRequest, stripResponse, delay, executePromisesSequentially, generateUuid, isValidUuid, encodeUri, RestError, RequestOptionsBase, RequestFunction, ServiceCallback, promiseToCallback, promiseToServiceCallback, isStream, dispatchRequest, RedirectFilter };

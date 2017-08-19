@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { WebResource, RequestPrepareOptions, HttpMethods, ParameterValue, RequestOptions } from './webResource';
+import { WebResource, RequestPrepareOptions, HttpMethods, ParameterValue, RequestOptionsBase } from './webResource';
 import { HttpOperationResponse } from './httpOperationResponse';
 import { RestError } from './restError';
 import { ServiceClient, ServiceClientOptions } from './serviceClient';
@@ -37,6 +37,6 @@ export {
   WebResource, RequestPrepareOptions, HttpMethods, ParameterValue, HttpOperationResponse, ServiceClient, Constants, RequestPipeline,
   BasicAuthenticationCredentials, ServiceClientCredentials, BaseFilter, LogFilter, ServiceClientOptions, ExponentialRetryPolicyFilter,
   SystemErrorRetryPolicyFilter, SigningFilter, MsRestUserAgentFilter, stripRequest, stripResponse, delay, executePromisesSequentially,
-  generateUuid, isValidUuid, encodeUri, RestError, RequestOptions, RequestFunction, ServiceCallback, promiseToCallback,
+  generateUuid, isValidUuid, encodeUri, RestError, RequestOptionsBase, RequestFunction, ServiceCallback, promiseToCallback,
   promiseToServiceCallback, isStream, dispatchRequest, RedirectFilter
 };

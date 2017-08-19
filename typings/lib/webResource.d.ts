@@ -112,7 +112,11 @@ export interface ParameterValue {
 /**
  * Describes the base structure of the options object that will be used in every operation.
  */
-export interface RequestOptions {
+export interface RequestOptionsBase {
+    /**
+     * @property {object} [customHeaders] - User defined custom request headers that
+     * will be applied before the request is sent.
+     */
     customHeaders?: {
         [key: string]: string;
     };
