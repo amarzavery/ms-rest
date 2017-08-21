@@ -1,11 +1,11 @@
 {
-  "name": "ms-rest",
+  "name": "ms-rest-ts",
   "author": {
     "name": "Microsoft Corporation",
     "email": "azsdkteam@microsoft.com",
     "url": "https://github.com/Azure/azure-sdk-for-node"
   },
-  "version": "3.0.0",
+  "version": "0.1.0",
   "description": "Client Runtime for Node.js client libraries generated using AutoRest",
   "tags": [
     "node",
