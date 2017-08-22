@@ -27,8 +27,7 @@
   "compileOnSave": true,
   "exclude": [
     "node_modules",
-    "node",
-    "./browser-sample.ts"
+    "node"
   ],
   "include": [
     "./lib/**/*.ts",
