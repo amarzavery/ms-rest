@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 //var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const path = require('path');
 
 module.exports = {
   entry: './lib/msRest.ts',
@@ -20,18 +21,20 @@ module.exports = {
         loader: 'ts-loader',
         exclude: /(node_modules|test)/,
         options: {
-          configFileName: './tsconfig.browser.json'
+          configFileName: './tsconfig.json'
         }
       }
     ]
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"]
+    extensions: [".tsx", ".ts", ".js"],
+    alias: {
+      "moment": path.resolve('./node_modules/moment/min/moment.min.js')
+    }
   },
   node: {
     fs: false,
     net: false,
-    //process: false,
     path: false,
     dns: false,
     tls: false,

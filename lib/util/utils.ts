@@ -7,7 +7,7 @@ import { WebResource } from '../webResource';
 import { Constants } from './constants';
 import { RestError } from '../restError';
 import { HttpOperationResponse } from '../httpOperationResponse';
-const fPF = require('fetch-ponyfill')({ useCookie: true });
+import { fetch } from './nodeFetch';
 
 /**
  * Checks if a parsed URL is HTTPS
@@ -275,7 +275,7 @@ export async function dispatchRequest(options: WebResource): Promise<HttpOperati
   }
   let res: Response;
   try {
-    res = await fPF.fetch(options.url, options);
+    res = await fetch(options.url, options);
   } catch (err) {
     return Promise.reject(err);
   }

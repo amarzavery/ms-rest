@@ -5,6 +5,8 @@ import { BaseFilter } from './baseFilter';
 import { WebResource } from '../webResource';
 import { Constants } from '../util/constants';
 import * as os from 'os';
+
+const isNode = require('detect-node');
 const HeaderConstants = Constants.HeaderConstants;
 
 export class MsRestUserAgentFilter extends BaseFilter {
@@ -17,27 +19,29 @@ export class MsRestUserAgentFilter extends BaseFilter {
   }
 
   tagRequest(request: WebResource): Promise<WebResource> {
-    const osInfo = `(${os.arch()}-${os.type()}-${os.release()})`;
-    if (this.userAgentInfo.indexOf(osInfo) === -1) {
-      this.userAgentInfo.unshift(osInfo);
-    }
+    if (isNode) {
+      const osInfo = `(${os.arch()}-${os.type()}-${os.release()})`;
+      if (this.userAgentInfo.indexOf(osInfo) === -1) {
+        this.userAgentInfo.unshift(osInfo);
+      }
 
-    const runtimeInfo = `Node/${process.version}`;
-    if (this.userAgentInfo.indexOf(runtimeInfo) === -1) {
-      this.userAgentInfo.unshift(runtimeInfo);
-    }
+      const runtimeInfo = `Node/${process.version}`;
+      if (this.userAgentInfo.indexOf(runtimeInfo) === -1) {
+        this.userAgentInfo.unshift(runtimeInfo);
+      }
 
-    const nodeSDKSignature = `Azure-SDK-For-Node`;
-    if (this.userAgentInfo.indexOf(nodeSDKSignature) === -1) {
-      const azureRuntime = `ms-rest-azure`;
+      const nodeSDKSignature = `Azure-SDK-For-Node`;
+      if (this.userAgentInfo.indexOf(nodeSDKSignature) === -1) {
+        const azureRuntime = `ms-rest-azure`;
 
-      let insertIndex = this.userAgentInfo.indexOf(azureRuntime);
-      // insert after azureRuntime, otherwise, insert last.
-      insertIndex = insertIndex < 0 ? this.userAgentInfo.length : insertIndex + 1;
-      this.userAgentInfo.splice(insertIndex, 0, nodeSDKSignature);
+        let insertIndex = this.userAgentInfo.indexOf(azureRuntime);
+        // insert after azureRuntime, otherwise, insert last.
+        insertIndex = insertIndex < 0 ? this.userAgentInfo.length : insertIndex + 1;
+        this.userAgentInfo.splice(insertIndex, 0, nodeSDKSignature);
+      }
+      if (!request.headers) request.headers = {};
+      request.headers[HeaderConstants.USER_AGENT] = this.userAgentInfo.join(' ');
     }
-    if (!request.headers) request.headers = {};
-    request.headers[HeaderConstants.USER_AGENT] = this.userAgentInfo.join(' ');
     return Promise.resolve(request);
   }
 
