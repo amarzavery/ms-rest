@@ -1,6 +1,6 @@
 "use strict";
 
-import * as msRest from "./lib/msRest";
+import * as msRest from "../lib/msRest";
 const clientOptions: msRest.ServiceClientOptions = {
   filters: [new msRest.LogFilter()]
 };
@@ -14,7 +14,7 @@ const subscriptionId = '00977cdb-163f-435f-9c32-39ec8ae61f4d';
 // 1.4 click on try it out button.
 // 1.5 in the curl tab you will see the actual curl request that has the bearer token in it
 // 1.6 copy paste that token here. That token is valid for 1 hour
-const token = 'your-token';
+const token = 'token';
 const creds = new msRest.TokenCredentials(token);
 const client = new msRest.ServiceClient(creds, clientOptions);
 const req: msRest.RequestPrepareOptions = {

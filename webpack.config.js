@@ -21,7 +21,7 @@ module.exports = {
         loader: 'ts-loader',
         exclude: /(node_modules|test)/,
         options: {
-          configFileName: './tsconfig.json'
+          configFile: './tsconfig.json'
         }
       }
     ]

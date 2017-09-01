@@ -2,6 +2,15 @@ import { WebResource } from '../webResource';
 import { RestError } from '../restError';
 import { HttpOperationResponse } from '../httpOperationResponse';
 /**
+ * Provides the fetch() method based on the environment.
+ * @returns {fetch} fetch - The fetch() method available in the environment to make requests
+ */
+export declare function getFetch(): Function;
+/**
+ * A constant that provides the fetch() method based on the environment.
+ */
+export declare const myFetch: Function;
+/**
  * Checks if a parsed URL is HTTPS
  *
  * @param {object} urlToCheck The url to check

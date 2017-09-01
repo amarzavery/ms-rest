@@ -21,26 +21,23 @@
   ],
   "main": "./dist/lib/msRest.js",
   "types": "./typings/lib/msRest.d.ts",
-  "browser": {
-    "./lib/util/nodeFetch.ts": "./lib/util/browserFetch.ts",
-    "./dist/lib/util/nodeFetch.js": "./dist/lib/util/browserFetch.js"
-  },
+  "browser": "./lib/msRest.ts",
   "license": "MIT",
   "dependencies": {
-    "@types/form-data": "^0.0.33",
-    "@types/node": "^8.0.8",
+    "@types/form-data": "^2.2.0",
+    "@types/node": "^8.0.26",
     "@types/node-fetch": "^1.6.7",
-    "@types/uuid": "^2.0.29",
+    "@types/uuid": "^3.4.1",
     "@types/is-stream":"^1.1.0",
     "fetch-cookie": "^0.6.0",
-    "form-data": "^2.2.0",
+    "form-data": "^2.3.1",
     "is-stream": "^1.1.0",
     "url-parse": "^1.1.9",
     "moment": "^2.18.1",
     "is-buffer": "^1.1.5",
     "uuid": "^3.1.0",
     "detect-node": "^2.0.3",
-    "node-fetch": "^1.7.2"
+    "fetch-ponyfill": "amarzavery/fetch-ponyfill#master"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.40",
@@ -48,11 +45,11 @@
     "jshint": "2.9.4",
     "mocha": "^3.2.0",
     "should": "5.2.0",
-    "ts-loader": "^2.2.2",
+    "ts-loader": "^2.3.4",
     "tslint": "^5.2.0",
-    "typescript": "^2.4.1",
-    "webpack": "^3.3.0",
-    "uglify-es": "^3.0.25"
+    "typescript": "^2.5.2",
+    "webpack": "^3.5.5",
+    "uglify-es": "^3.0.28"
   },
   "homepage": "https://github.com/Azure/azure-sdk-for-node/runtime/ms-rest",
   "repository": {

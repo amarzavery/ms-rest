@@ -16,7 +16,25 @@ const webResource_1 = require("../webResource");
 const constants_1 = require("./constants");
 const restError_1 = require("../restError");
 const httpOperationResponse_1 = require("../httpOperationResponse");
-const nodeFetch_1 = require("./nodeFetch");
+/**
+ * Provides the fetch() method based on the environment.
+ * @returns {fetch} fetch - The fetch() method available in the environment to make requests
+ */
+function getFetch() {
+    // using window.Fetch in Edge gives a TypeMismatchError 
+    // (https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/8546263/).
+    // Hence we will be using the fetch-ponyfill for Edge.
+    if (typeof window !== 'undefined' && window.fetch && window.navigator &&
+        window.navigator.userAgent && window.navigator.userAgent.indexOf('Edge/') === -1) {
+        return window.fetch.bind(window);
+    }
+    return require('fetch-ponyfill')({ useCookie: true }).fetch;
+}
+exports.getFetch = getFetch;
+/**
+ * A constant that provides the fetch() method based on the environment.
+ */
+exports.myFetch = getFetch();
 /**
  * Checks if a parsed URL is HTTPS
  *
@@ -280,7 +298,7 @@ function dispatchRequest(options) {
         }
         let res;
         try {
-            res = yield nodeFetch_1.fetch(options.url, options);
+            res = yield exports.myFetch(options.url, options);
         }
         catch (err) {
             return Promise.reject(err);

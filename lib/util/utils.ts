@@ -7,7 +7,26 @@ import { WebResource } from '../webResource';
 import { Constants } from './constants';
 import { RestError } from '../restError';
 import { HttpOperationResponse } from '../httpOperationResponse';
-import { fetch } from './nodeFetch';
+
+/**
+ * Provides the fetch() method based on the environment.
+ * @returns {fetch} fetch - The fetch() method available in the environment to make requests
+ */
+export function getFetch(): Function {
+  // using window.Fetch in Edge gives a TypeMismatchError 
+  // (https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/8546263/).
+  // Hence we will be using the fetch-ponyfill for Edge.
+  if (typeof window !== 'undefined' && window.fetch && window.navigator &&
+    window.navigator.userAgent && window.navigator.userAgent.indexOf('Edge/') === -1) {
+    return window.fetch.bind(window);
+  }
+  return require('fetch-ponyfill')({ useCookie: true }).fetch;
+}
+
+/**
+ * A constant that provides the fetch() method based on the environment.
+ */
+export const myFetch = getFetch();
 
 /**
  * Checks if a parsed URL is HTTPS
@@ -275,7 +294,7 @@ export async function dispatchRequest(options: WebResource): Promise<HttpOperati
   }
   let res: Response;
   try {
-    res = await fetch(options.url, options);
+    res = await myFetch(options.url, options);
   } catch (err) {
     return Promise.reject(err);
   }
