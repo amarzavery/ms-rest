@@ -22,7 +22,8 @@
   "main": "./dist/lib/msRest.js",
   "types": "./typings/lib/msRest.d.ts",
   "browser": {
-    "./lib/util/nodeFetch.ts": "./lib/util/browserFetch.ts"
+    "./lib/util/nodeFetch.ts": "./lib/util/browserFetch.ts",
+    "./dist/lib/util/nodeFetch.js": "./dist/lib/util/browserFetch.js"
   },
   "license": "MIT",
   "dependencies": {
