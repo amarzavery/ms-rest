@@ -1757,7 +1757,7 @@ module.exports = typeof self == 'object' ? self.FormData : window.FormData;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetch = window.fetch;
+exports.fetch = window.fetch.bind(window);
 
 
 /***/ }),

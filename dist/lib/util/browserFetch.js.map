@@ -1,1 +1,1 @@
-{"version":3,"file":"browserFetch.js","sourceRoot":"","sources":["../../../lib/util/browserFetch.ts"],"names":[],"mappings":";;AAAa,QAAA,KAAK,GAAG,MAAM,CAAC,KAAK,CAAC"}
+{"version":3,"file":"browserFetch.js","sourceRoot":"","sources":["../../../lib/util/browserFetch.ts"],"names":[],"mappings":";;AAAa,QAAA,KAAK,GAAG,MAAM,CAAC,KAAK,CAAC,IAAI,CAAC,MAAM,CAAC,CAAC"}
