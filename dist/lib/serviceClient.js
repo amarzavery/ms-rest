@@ -15,19 +15,22 @@ const exponentialRetryPolicyFilter_1 = require("./filters/exponentialRetryPolicy
 const systemErrorRetryPolicyFilter_1 = require("./filters/systemErrorRetryPolicyFilter");
 const redirectFilter_1 = require("./filters/redirectFilter");
 const signingFilter_1 = require("./filters/signingFilter");
+const rpRegistrationFilter_1 = require("./filters/rpRegistrationFilter");
 const msRestUserAgentFilter_1 = require("./filters/msRestUserAgentFilter");
 const webResource_1 = require("./webResource");
 const constants_1 = require("./util/constants");
 /**
  * @class
  * Initializes a new instance of the ServiceClient.
- * @constructor
- * @param {ServiceClientCredentials} [credentials]    - BasicAuthenticationCredentials or
- * TokenCredentials object used for authentication.
- *
- * @param {ServiceClientOptions} [options] The service client options that govern the behavior of the client.
  */
 class ServiceClient {
+    /**
+     * The ServiceClient constructor
+     * @constructor
+     * @param {ServiceClientCredentials }[credentials] - BasicAuthenticationCredentials or
+     * TokenCredentials object used for authentication.
+     * @param { ServiceClientOptions } [options] The service client options that govern the behavior of the client.
+     */
     constructor(credentials, options) {
         if (!options) {
             options = {};
@@ -55,6 +58,7 @@ class ServiceClient {
         }
         options.filters.push(new msRestUserAgentFilter_1.MsRestUserAgentFilter(this.userAgentInfo.value));
         options.filters.push(new redirectFilter_1.RedirectFilter());
+        options.filters.push(new rpRegistrationFilter_1.RPRegistrationFilter(options.rpRegistrationRetryTimeout));
         if (!options.noRetryPolicy) {
             options.filters.push(new exponentialRetryPolicyFilter_1.ExponentialRetryPolicyFilter());
             options.filters.push(new systemErrorRetryPolicyFilter_1.SystemErrorRetryPolicyFilter());
