@@ -6,10 +6,10 @@ module.exports = {
   entry: './lib/msRest.ts',
   devtool: 'source-map',
   output: {
-    filename: 'bundle.js',
+    filename: 'msRestBundle.js',
     path: __dirname,
     libraryTarget: 'var',
-    library: 'className'
+    library: 'msRest'
   },
   plugins: [
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)

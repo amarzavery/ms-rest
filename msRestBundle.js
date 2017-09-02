@@ -1,4 +1,4 @@
-var className =
+var msRest =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -4091,4 +4091,4 @@ exports.BasicAuthenticationCredentials = BasicAuthenticationCredentials;
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=bundle.js.map
+//# sourceMappingURL=msRestBundle.js.map

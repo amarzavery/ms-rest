@@ -21,7 +21,6 @@
   ],
   "main": "./dist/lib/msRest.js",
   "types": "./typings/lib/msRest.d.ts",
-  "browser": "./lib/msRest.ts",
   "license": "MIT",
   "dependencies": {
     "@types/form-data": "^2.2.0",
@@ -63,7 +62,7 @@
     "tsc": "tsc -p tsconfig.json",
     "test": "npm install && npm -s run-script unit",
     "unit": "mocha -t 50000 dist/test",
-    "uglify": "node node_modules/uglify-es/bin/uglifyjs --source-map -c -m -o bundle.min.js bundle.js",
+    "uglify": "node node_modules/uglify-es/bin/uglifyjs --source-map -c -m -o msRestBundle.min.js msRestBundle.js",
     "build": "npm -s run-script tsc && webpack && npm -s run-script uglify"
   }
 }
